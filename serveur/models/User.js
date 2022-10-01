@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import brcypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const UserSchema = new mongoose.Schema({
@@ -41,23 +41,26 @@ const UserSchema = new mongoose.Schema({
         required:[true, 'Merci de choisir une photo de profil '],
     },
     userType:{
+        type:String,
+        default: 'particulier',
+    },
+    role:{
         type:[mongoose.Types.ObjectId],
         ref: 'Role',
-        default: 'particulier',
+        default: 'user',
     },
     badge: {
         type:[mongoose.Types.ObjectId],
-        ref:'Badge',
-        default:[]
+        ref:'Badge'
     }
 })
 
 UserSchema.pre('save', async function(){
-    const salt = await brcypt.genSalt(10);
-    this.password = await brcypt.hash(this.password, salt)
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
 })
 
-UserSchema.methods.checkPassword = function() {
+UserSchema.methods.checkPassword = function(loginPassword) {
     return bcrypt.compare(loginPassword, this.password)
 }
 
