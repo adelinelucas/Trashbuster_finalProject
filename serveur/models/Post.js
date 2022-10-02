@@ -10,7 +10,7 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:[true, 'Merci de donner un nom à l\'opération de collecte de déchets'],
         minlength:3,
-        maxlength:20
+        maxlength:150
     },
     street :{
         type:String,
@@ -31,7 +31,7 @@ const PostSchema = new mongoose.Schema({
         required:[true, 'Merci de renseigner la quantité approximative de déchets à collecter']
     },
     trash_quantity_collected: {
-        type:Number,
+        type:[Number],
         required:[true, 'Merci de renseigner la quantité approximative de déchets déjà collectée et jetée']
     },
     trash_picture: {

@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from 'dotenv';
 import { connectBD } from "./config/connect.js";
 import cors from 'cors';
-import userRouter from './routes/userRouter.js'
+import userRouter from './routes/userRouter.js';
+import postRouter from'./routes/postRouter.js';
+import commentRouter from './routes/commentRouter.js';
 
 // ==========
 // App initialization
@@ -24,6 +26,8 @@ app.use(cors({
 // Routes
 // ==========
 app.use('/auth', userRouter)
+app.use('/cleaning-operation', postRouter)
+app.use('/comments', commentRouter)
 
 // ==========
 // Start app

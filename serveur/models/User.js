@@ -52,8 +52,12 @@ const UserSchema = new mongoose.Schema({
     badge: {
         type:[mongoose.Types.ObjectId],
         ref:'Badge'
+    },
+    trash_quantity_collected:{
+        type: [Number]
     }
-})
+},
+{timestamps: true})
 
 UserSchema.pre('save', async function(){
     const salt = await bcrypt.genSalt(10);
