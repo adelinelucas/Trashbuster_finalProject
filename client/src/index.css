@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+
+@font-face {
+    font-family: "Amatic SC";
+    src: url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap");
+  }
+
+.btnConnexion:hover{
+    @apply shadow-md bg-greenV2 text-white  
+}
+
+.btnInscription:hover{
+    @apply shadow-md bg-white text-greenV2 border-greenV2
+}
+
+.btnNavBar:hover{
+    @apply bg-white text-greenV2 border-darkGreen
+
+}
+.btnDelete:hover{
+    @apply shadow-md bg-white text-lightRed border-lightRed
+}
+
+.btnUpdate:hover{
+    @apply shadow-md bg-white text-aquaBlue border-aquaBlue
+}
+.btnHero:hover{
+    @apply shadow-md bg-white text-brightOrange border-darkGreen scale-110 font-bold
+}
+
+.btnNavBarShadow {
+    box-shadow: 6px 6px 0px 1px #000; 
+}
+
+.cardBoxShadow{
+    box-shadow: 17px 16px 0px 1px #000;
+}
+
+.cardBoxShadowPurpleGrey{
+    box-shadow: 17px 16px 0px 1px #082600;
+}
+
+.presentationBorder{
+    box-shadow: 0px 3px 21px 20px #805BA6;
+}
+
+.formShadow{
+    box-shadow: 10px 10px 0px -1px #082600;
+}
+
+.profilShadow{
+    box-shadow: 10px 10px 0px -1px #082600;
+}
