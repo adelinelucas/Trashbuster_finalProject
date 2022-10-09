@@ -25,7 +25,15 @@ module.exports = {
             'darkGreen': '#082600',
         },
         backgroundImage: {
-          'hero': "url('./hero.png')",
+          'hero': "url('./images/hero.png')",
+          'hero-HP': "url('./images/hero-HP.png')",
+          'hero-HP2': "url('./images/hero-HPv2.png')",
+        },
+        backgroundSize: {
+          'auto': 'auto',
+          'cover': 'cover',
+          'contain': 'contain',
+          'heroSize': '84% 100%',
         },
         fontFamily: {
           Lato: ['Lato', 'sans-serif'],
