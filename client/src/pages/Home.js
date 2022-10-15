@@ -13,8 +13,8 @@ const Home = () => {
                 <article className="my-6">
                     <img src="logoTB.png" alt="Trash Buster logo" className="w-[430px] h-auto"  />
                 </article>
-                <h1 class="text-purpleGrey my-6 text-xl font-bold">Trash Buster,</h1>
-                <h2 class="text-purpleGrey my-6 text-lg font-bold">Une communauté engagée pour trier et collecter les déchets</h2>
+                <h1 className="text-purpleGrey my-6 text-xl font-bold">Trash Buster,</h1>
+                <h2 className="text-purpleGrey my-6 text-lg font-bold">Une communauté engagée pour trier et collecter les déchets</h2>
                 <article className="my-6">
                     <button className="bg-greenV2 rounded-2xl shadow-lg py-6 px-6 text-white btnHero border-darkGreen border-r-8 border-b-8 text-xl">Je crée un point de collecte des déchets</button>
                 </article>

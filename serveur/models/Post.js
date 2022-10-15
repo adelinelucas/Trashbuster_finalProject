@@ -12,6 +12,10 @@ const PostSchema = new mongoose.Schema({
         minlength:3,
         maxlength:150
     },
+    description:{
+        type:String,
+        required:[true, 'Une description de l\'action est nécessaire']
+    },
     street :{
         type:String,
         required:[true, 'Merci de renseigner la rue du lieu du point de déchets à collecter'],
