@@ -23,6 +23,7 @@ module.exports = {
             'orangeV2': '#F2752C',
             'lightOrangeV2': '#F7A258',
             'darkGreen': '#082600',
+            'popUp': '#797d7fa9',
         },
         backgroundImage: {
           'hero': "url('./images/hero.png')",

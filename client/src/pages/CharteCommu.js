@@ -6,8 +6,6 @@ const CharteCommu = () => {
     const [engagements, setEngagements] = useState(charteEngagement);
     const [tabs, setTabs] = useState([]);
     const [value, setValue] = useState(0);
-    console.log(charteEngagement);
-    console.log(tabs)
 
     useEffect( ()=>{
         let datas = engagements;

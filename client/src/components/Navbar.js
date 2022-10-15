@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <nav className="flex justify-between w-full py-10 px-4 shadow-lg">
         <div id="backHP" >
-            <NavLink to={'/'}><img src="logoTB.png" alt="back to home page" class="w-[160px] cursor-pointer"/>
+            <NavLink to={'/'}><img src="./logoTB.png" alt="back to home page" class="w-[160px] cursor-pointer"/>
             </NavLink>
         </div>
         <div className="flex">

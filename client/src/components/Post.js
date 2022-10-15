@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 const Post = ({post}) => {
-    console.log(post)
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">

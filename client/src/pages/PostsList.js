@@ -6,14 +6,15 @@ const PostsList = () => {
 
     const[loading, setLoading] = useState(true);
     const[posts, setPosts] = useState([]);
+    const [actionsNumber, setActionsNumber] = useState(0);
 
-    const getPost = async()=>{
+    const getPosts = async()=>{
         setLoading(true);
 
         try{
             const response = await fetch('http://localhost:5000/cleaning-operation/posts');
             const posts = await response.json();
-            console.log(posts)
+            // console.log(posts)
             setLoading(false)
             setPosts(posts)
         }catch(error){
@@ -22,8 +23,21 @@ const PostsList = () => {
         }
     }
 
+    const getactionsNumber = async() =>{
+        try{
+            const response = await fetch('http://localhost:5000/cleaning-operation/numberPosts');
+            const number = await response.json();
+            console.log(number)
+            setActionsNumber(number.numberOfPost)
+        }catch(error){
+            setLoading(false)
+            console.log(error)
+        }
+    }
+
     useEffect( ()=>{
-        getPost();
+        getPosts();
+        getactionsNumber();
     },[]);
 
     if(loading){
@@ -35,12 +49,15 @@ const PostsList = () => {
     }
     return (
         <>
-        <section className="w-full flex justify-center">
-            <h1 className="text-greenV2 text-2xl font-bold py-4">Les actions de la communauté</h1>
-        </section>
-        <section className="w-full flex flex-col items-center min-h-screen">
-            <Posts posts={posts} />
-        </section>
+            <section className="w-full flex justify-center">
+                <h1 className="text-greenV2 text-2xl font-bold py-4">Les actions de la communauté</h1>
+            </section>
+            <section className="w-full flex justify-start">
+                <h4 className="text-greenV2 text-xl font-bold py-4 ml-8">Total des actions: {actionsNumber}</h4>
+            </section>
+            <section className="w-full flex flex-col items-center min-h-screen">
+                <Posts posts={posts} />
+            </section>
         </>
     );
 };

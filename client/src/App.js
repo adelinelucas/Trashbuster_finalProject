@@ -20,7 +20,7 @@ function App() {
         <Route exact path='/connexion' element={<Connexion/>} />
         <Route exact path='/liste_des_actions' element={<PostsList/>} />
         {/* ajouter un id pour aller sur l'action spécifique */}
-        <Route exact path='/detail_action/' element={<DetailPost/>} />
+        <Route exact path='/detail_action/:id' element={<DetailPost/>} />
         <Route exact path='/charte_de_la_communaute' element={<CharteCommu/>} />
         <Route exact path='/question&response' element={<QuestionReponse/>} />
         <Route exact path='/CVG' element={<CVG/>} />
