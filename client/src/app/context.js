@@ -1,8 +1,11 @@
 import React, {useContext, useReducer, useEffect} from "react"
-import actionsReducer from '../reducers/actionsReducer'
+import actionsReducer from '../reducers/actionsReducer';
+import authReducer from "../reducers/authReducer";
 import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS } from '../constants/actionsTypes'
+import { Navigate } from "react-router-dom";
 
-const baseUrl = `http://localhost:5000/cleaning-operation`
+const baseUrl = `http://localhost:5000/cleaning-operation`;
+const userUrl = `http://localhost:5000/auth`
 const AppContext = React.createContext();
 
 // on passe des valeurs initiales 
@@ -13,8 +16,11 @@ const initialState= {
     post:[],
     comments:[],
     actionsNumber : 0,
-    isEditing: false
-
+    isEditing: false,
+    userAuthenticated: false,
+    userRole : null, 
+    authData: null,
+    registerData: null
 }
 
 const AppProvider = ({children}) =>{
@@ -56,6 +62,33 @@ const AppProvider = ({children}) =>{
         const number = await response.json();
         dispatch({type:COUNT_ACTIONS, payload: number})
     }
+
+    const signup = async(data)=>{
+        const response = await fetch(`${userUrl}/login`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
+    const register =  async(data)=>{
+        const response = await fetch(`${userUrl}/register`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
+    const logout = async()=>{
+
+    }
+
     // on appelle le chargement de nos données
     useEffect(()=>{
         fetchPosts();
@@ -63,7 +96,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost }}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup }}>
             {children}
         </AppContext.Provider>
     )

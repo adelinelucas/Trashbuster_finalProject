@@ -9,7 +9,7 @@ const Comments = ({comments}) => {
         <div className="w-4/5 flex flex-col items-center my-3 bg-lightGrey">
             {
                 comments.map((comment, index)=>{
-                   return( <div id="one commentaire" className="w-full btnNavBarShadow flex flex-row items-center my-3 bg-lightGrey">
+                   return( <div key={index} id="one commentaire" className="w-full btnNavBarShadow flex flex-row items-center my-3 bg-lightGrey">
                     <div className="mx-4">
                         <img src="../hero.png" alt="photo illustrant les déchets à collecter" className="w-[250px]"/>
                     </div>

@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS,AUTH, LOGOUT, REGISTER} from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -27,6 +27,12 @@ const reducer= (state, action) =>{
             return {...state, loading:true }
         case COUNT_ACTIONS :
             return {...state, actionsNumber:action.payload }
+        case AUTH:
+            return{...state, userAuthenticated:true, userRole:0, authData:action.data };
+        case REGISTER : 
+            return state;
+        case LOGOUT:
+            return{...state, userAuthenticated:false, userRole:null, authData:null };
         default: 
             return state
     }

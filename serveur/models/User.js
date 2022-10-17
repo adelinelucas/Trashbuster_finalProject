@@ -47,11 +47,12 @@ const UserSchema = new mongoose.Schema({
     role:{
         type:[mongoose.Types.ObjectId],
         ref: 'Role',
-        default: 'user',
+        default: '6338756521c86af46390b516',
     },
     badge: {
         type:[mongoose.Types.ObjectId],
-        ref:'Badge'
+        ref:'Badge',
+        default:'633875c121c86af46390b518'
     },
     trash_quantity_collected:{
         type: [Number]
