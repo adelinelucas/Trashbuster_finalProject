@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import Posts from './Posts';
 
 const Post = ({post}) => {
+    console.log(post)
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">
@@ -21,7 +23,6 @@ const Post = ({post}) => {
                 <div className='my-4'>
                     <Link to={`/detail_action/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={()=>{console.log('click')}}>Voir le détail de l'action</Link>
                 </div>
-                
             </div>
         </article>
     );

@@ -29,13 +29,13 @@ const Home = () => {
                 </article>
             </section>
             <section className="bg-white w-full flex px-40 py-20 justify-center" id="keyInfoBloc">
-                <article className="w-1/4 md:w-2/12 bg-greenV2 mx-4 px-8 py-4 flex justify-center shadow-2xl hover:scale-110 cardBoxShadow">
+                <article className="w-1/4 md:w-2/12 bg-greenV2 mx-4 px-8 py-4 flex justify-center shadow-2xl cardBoxShadow">
                     <h3 className="text-white text-lg"><span class="font-bold">500</span><br/> membres dans la communauté</h3>
                 </article>
-                <article className="w-1/4 md:w-2/12 bg-brightYellow mx-4 px-8 py-4 flex justify-center shadow-2xl hover:scale-110 cardBoxShadow">
+                <article className="w-1/4 md:w-2/12 bg-brightYellow mx-4 px-8 py-4 flex justify-center shadow-2xl cardBoxShadow">
                     <h3 className="text-purpleGrey text-lg"><span class="font-bold">750</span><br/> kilos collectés, triés</h3>
                 </article>
-                <article className="w-1/4 md:w-2/12 bg-orangeV2 mx-4 px-8 py-4 flex justify-center shadow-2xl hover:scale-110 cardBoxShadow">
+                <article className="w-1/4 md:w-2/12 bg-orangeV2 mx-4 px-8 py-4 flex justify-center shadow-2xl cardBoxShadow">
                     <h3 className="text-white text-lg"><span class="font-bold">120</span><br/>communes impliquées</h3>
                 </article>
             </section>

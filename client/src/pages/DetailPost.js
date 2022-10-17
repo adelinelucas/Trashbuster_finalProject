@@ -3,42 +3,41 @@ import Comments from '../components/Comments';
 import Loading from '../components/Loading';
 import { useParams } from 'react-router-dom';
 import AddComment from '../components/AddComment';
+import { useGlobalContext } from '../app/context';
 
 const url = `http://localhost:5000/cleaning-operation/post/`
 const DetailPost = () => {
-
     const {id} = useParams();
-    const [post, setPost]= useState([]);
-    const [comments, setComments]= useState([]);
-    const [loading, setLoading]= useState(true);
-    const [editing, setEditing]= useState(false);
-    const [openModalComment, setOpenModalComment]= useState(false)
+    // const [post, setPost]= useState([]);
+    // const [comments, setComments]= useState([]);
+    // const [loading, setLoading]= useState(true);
+    // const [editing, setEditing]= useState(false);
+    const {loading,openModal, fetchPostComments,fetchPost, comments, commentModalOpen, post, isEditing} = useGlobalContext();
 
     const handleComment =() =>{
-        setOpenModalComment(true)
+        openModal();
     }
 
-    const getPost = async()=>{
-        setLoading(true);
-        try{
-            const response = await fetch('http://localhost:5000/cleaning-operation/post/6339ccb44e67b4673eae2057');
-            const post = await response.json();
-            console.log(post)
-            setLoading(false)
-            setPost(post.post)
-            setComments(post.postComments)
-        }catch(error){
-            setLoading(false)
-            console.log(error)
-        }
-    }
+    // const getPost = async()=>{
+    //     setLoading(true);
+    //     try{
+    //         const response = await fetch('http://localhost:5000/cleaning-operation/post/6339ccb44e67b4673eae2057');
+    //         const post = await response.json();
+    //         console.log(post)
+    //         setLoading(false)
+    //         setPost(post.post)
+    //         // setComments(post.postComments)
+    //     }catch(error){
+    //         setLoading(false)
+    //         console.log(error)
+    //     }
+    // }
 
     useEffect( ()=>{
-        getPost();
+        //getPost();
+        fetchPost(id)
+        fetchPostComments(id)
     },[]);
-    useEffect(()=>{
-        
-    }, [openModalComment])
 
     if(loading){
         return (
@@ -71,7 +70,7 @@ const DetailPost = () => {
                     <div className="flex justify-end">
                         <button class="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={handleComment}>Commenter l'action</button>
                     </div>
-                    {editing &&
+                    {isEditing &&
                         <div className="flex justify-end">
                             <button className="border rounded-full p-2 mr-2 my-4 bg-aquaBlue text-white cursor-pointer btnUpdate shadow-lg border-white border-r-4 border-b-4">Editer l'action</button>
                             <button className="border rounded-full p-2 mr-2 my-4 bg-lightRed text-white cursor-pointer btnDelete shadow-lg border-white border-r-4 border-b-4">Supprimer l'action</button>
@@ -80,7 +79,7 @@ const DetailPost = () => {
                 </div>
             </article>
             <Comments comments={comments} />
-            {openModalComment && <AddComment idPost={post._id} modalOpen={openModalComment}/>}
+            {commentModalOpen && <AddComment idPost={post._id}/>}
         </section>
     );
 };
