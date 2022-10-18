@@ -1,8 +1,8 @@
-import { AUTH, LOGOUT, REGISTER } from "../constants/actionsTypes";
+import { LOGIN, LOGOUT, REGISTER } from "../constants/actionsTypes";
 
 const authReducer = (state, action) =>{
     switch(action.type){
-        case AUTH:
+        case LOGIN:
             return{...state, userAuthenticated:true, userRole:0, authData:action.data };
         case REGISTER : 
             return 

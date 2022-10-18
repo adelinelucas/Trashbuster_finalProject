@@ -10,7 +10,7 @@ const Connexion = () => {
     let location = useLocation();
     // console.log(location)
     // console.log(location.pathname)
-    const {userAuthenticated, register, signup,errorModal} = useGlobalContext();
+    const {userAuthenticated, register, signup} = useGlobalContext();
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
     const [loginData, setLoginData] = useState(loginDatas);
@@ -84,8 +84,13 @@ const Connexion = () => {
     useEffect(() => {
     if (userAuthenticated){
         return navigate("/liste_des_actions");
-    }},[userAuthenticated, signup]);
+    }},[userAuthenticated]);
 
+
+    useEffect(() => {
+        if (userAuthenticated){
+            return navigate("/profil", {otherParam: 'fromConnexion'});
+        }},[signup]);
     // if(userAuthenticated){
     //     return redirect('/liste_des_actions');
     // }
@@ -178,7 +183,7 @@ const Connexion = () => {
                     <button className="border rounded-full m-4 p-2 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4" onClick={handelConnexion}>Se connecter</button>
                 </form>
                 </section>
-                {errorModal && <ErrorModal />}
+                {/* {errorModal && <ErrorModal />} */}
             </div>
             
         )
@@ -207,7 +212,7 @@ const Connexion = () => {
                 <img src="./logoTB.png" alt="back to home page" className="w-[360px]"/>
                 <div className="bg-hero w-full h-[590px] bg-cover"></div>
             </section>
-            {errorModal && <ErrorModal />}
+            {/* {errorModal && <ErrorModal />} */}
         </div>
     );
 };

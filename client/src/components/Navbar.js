@@ -24,10 +24,17 @@ const Navbar = () => {
             </ul>
             <ul className="flex ml-4">
                 {userAuthenticated && 
-                    <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">
-                        <NavLink to={'/profil'}>Mon profil
+                    <>
+                        <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">
+                            <NavLink to={'/profil'}>Mon profil
+                            </NavLink>
+                        </li>
+                        <li className="m-2 p-2 bg-black text-white cursor-pointer btnNavBar btnNavBarShadow">
+                        <NavLink to={'/logout'}>Me déconnecter
                         </NavLink>
-                    </li>
+                        </li>
+                    </>
+                    
                 }
                 
                 {!userAuthenticated && 

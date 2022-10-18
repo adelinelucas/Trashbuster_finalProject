@@ -1,7 +1,7 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, AUTH } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN } from '../constants/actionsTypes'
 import axios from 'axios';
 
 const baseUrl = `http://localhost:5000/cleaning-operation`;
@@ -36,13 +36,13 @@ const AppProvider = ({children}) =>{
         dispatch({type: CLOSE_MODAL})
     }
 
-    const openErrorModal = () =>{
-        console.log('ouioui')
-        dispatch({type: OPEN_ERROR_MODAL})
-    }
-    const closeErrorModal = () =>{
-        dispatch({type: CLOSE_ERROR_MODAL})
-    }
+    // const openErrorModal = () =>{
+    //     console.log('ouioui')
+    //     dispatch({type: OPEN_ERROR_MODAL})
+    // }
+    // const closeErrorModal = () =>{
+    //     dispatch({type: CLOSE_ERROR_MODAL})
+    // }
     
     const fetchPosts = async() =>{
         dispatch({type:LOADING});
@@ -84,11 +84,11 @@ const AppProvider = ({children}) =>{
                     initialState.errorMessage = response.data.message;
                 }
                 if(response.data.addToken){
-                    dispatch({type:AUTH, payload: response.data})
+                    return dispatch({type:LOGIN, payload: response.data})
                 }
             })
             .catch((error) => {
-                console.log('error' ,error);
+                console.log('error',error);
             })
     }
 
@@ -103,8 +103,6 @@ const AppProvider = ({children}) =>{
                     }
                     if(respServeur.data.message) {
                         initialState.errorMessage = 'Une erreur est survenue votre inscription n\'a pas pu être finalisée';
-                        openErrorModal()
-                        console.log('test2')
                         console.log(initialState)
                     }
                     console.log(initialState)
@@ -127,7 +125,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, closeErrorModal }}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup,  }}>
             {children}
         </AppContext.Provider>
     )
