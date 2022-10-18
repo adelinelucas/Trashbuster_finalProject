@@ -1,10 +1,14 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS,AUTH, LOGOUT, REGISTER} from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS,AUTH, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
             return {...state, commentModalOpen:true};
         case CLOSE_MODAL:
             return {...state, commentModalOpen:false};
+        case OPEN_ERROR_MODAL:
+            return console.log('open error modal'), {...state, errorModal:true};
+        case CLOSE_ERROR_MODAL:
+            return {...state, errorModal:false};
         case ADD_POST:
             return 
         case UPDATE_POST:

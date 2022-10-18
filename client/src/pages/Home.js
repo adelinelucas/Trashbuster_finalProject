@@ -4,10 +4,10 @@ import {FaRecycle, FaLocationArrow, FaBalanceScale} from 'react-icons/fa';
 const Home = () => {
     return (
         <>
-            <section className=" w-full flex justify-end h-20" id="connexionBloc">
+            {/* <section className=" w-full flex justify-end h-20" id="connexionBloc">
                 <button className="border rounded-full m-4 p-4 pb-10 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-r-4 border-b-4">Inscription</button>
                 <button className="border border-greenV2 rounded-full m-4 p-4 pb-10 text-greenV2 cursor-pointer btnConnexion shadow-lg border-r-4 border-b-4" >Connexion</button>
-            </section>
+            </section> */}
             <div className="shadow-md w-full h-1" id="separator"></div>
             <section className="shadow-md h-auto w-full flex flex-col items-center py-28 bg-hero-HP2 bg-no-repeat bg-center bg-cover"  id="heroBloc"> 
                 <article className="my-6">

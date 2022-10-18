@@ -9,8 +9,10 @@ import DetailPost from "./pages/DetailPost";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import QuestionReponse from "./pages/QuestionReponse";
+import Profil from "./pages/Profil";
 
 function App() {
+  
   return (
     <main className="App font-Syne">
       {/* ajouter une condition si page home => ne pas afficher */}
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home/>} />
         <Route exact path='/connexion' element={<Connexion/>} />
+        <Route exact path='/register' element={<Connexion/>} />
+        <Route exact path='/profil' element={<Profil/>} />
         <Route exact path='/liste_des_actions' element={<PostsList/>} />
         {/* ajouter un id pour aller sur l'action spécifique */}
         <Route exact path='/detail_action/:id' element={<DetailPost />} />

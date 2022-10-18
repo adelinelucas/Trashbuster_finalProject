@@ -25,7 +25,7 @@ const Navbar = () => {
             <ul className="flex ml-4">
                 {userAuthenticated && 
                     <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">
-                        <NavLink to={'/connexion'}>Mon profil
+                        <NavLink to={'/profil'}>Mon profil
                         </NavLink>
                     </li>
                 }
@@ -33,7 +33,7 @@ const Navbar = () => {
                 {!userAuthenticated && 
                     <>
                         <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">
-                            <NavLink to={'/connexion'}>M'inscrire
+                            <NavLink to={'/register'}>M'inscrire
                             </NavLink>
                         </li>
                         <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">

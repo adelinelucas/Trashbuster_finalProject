@@ -6,7 +6,7 @@ export const register = async(req, res) =>{
 
     try{
         const existingUser = await UserModel.findOne({email});
-        if(existingUser) return res.status(400).json({ message : "Un compte est déjà associé à l'adresse mail renseignée"}); 
+        if(existingUser) return res.status(200).json({ message : "Un compte est déjà associé à l'adresse mail renseignée"}); 
         const user = await UserModel.create({...req.body});
         res.status(200).json({user:user})
 
@@ -21,10 +21,10 @@ export const login = async(req, res) =>{
     try{
         if(email && password){
             const user = await UserModel.findOne({email})
-            if(!user) return res.status(404).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
+            if(!user) return res.status(200).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
 
             const isPasswordCorrect = await user.checkPassword(password)
-            if(!isPasswordCorrect) return res.status(404).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
+            if(!isPasswordCorrect) return res.status(200).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
 
             const addToken = user.addJWT();
             res.status(200).json({user, addToken})

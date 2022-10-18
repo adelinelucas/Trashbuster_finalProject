@@ -6,7 +6,7 @@ const AddComment = ({idPost}) => {
 
     const {closeModal, commentModalOpen} = useGlobalContext();
     const handelComment = () =>{
-        closeModal()
+        closeModal(commentModalOpen)
     }
 
     return (
@@ -16,28 +16,28 @@ const AddComment = ({idPost}) => {
                    <FaWindowClose  onClick={handelComment}/> 
                 </div>
                 <h4 className='text-greenV2 w-full mb-1 px-1 font-bold text-2xl text-center'>Ajouter un commentaire </h4>
-            <form className="w-full">
-                <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
-                    <label htmlFor="title" className="text-greenV2 w-full mb-1 px-1 font-bold">Titre du commentaire</label>
-                    <input type="text" autocomplete="off" name="title" id="title" className="border-2 border-greenV2 leading-normal w-full"/>
-                </div>
-                <div class="mx-6 mb-2 px-4 py-1 flex flex-col">
-                    <label htmlFor="comment" className="text-greenV2 w-full mb-1 px-1 font-bold">Contenu du commentaire</label>
-                    <textarea autocomplete="off" name="comment" id="comment" className="border-2 border-greenV2 leading-normal w-full"></textarea>
-                </div>
-                <div class="mx-6 mb-2 px-4 py-1 flex flex-col">
-                    <label htmlFor="picture" className="text-greenV2 w-full mb-1 px-1 font-bold">Ajouter une photo à votre commentaire</label>
-                    <input type="file" name="picture" id="picture" className="border-2 border-greenV2 leading-normal"/>
-                </div>
-                <div class="mx-6 mb-2 px-4 py-1 flex flex-col">
-                    <label htmlFor="quantityCollected" className="text-greenV2 w-full mb-1 px-1 font-bold">Quantité collectée</label>
-                    <input type="number" name="picture" id="picture" className="border-2 border-greenV2 leading-normal w-full"/>
-                </div>
-                <div class="w-full flex justify-end">
-                    <button type="submit" className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Commenter l'action</button>
-                </div> 
-            </form>
-        </div>
+                <form className="w-full">
+                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="title" className="text-greenV2 w-full mb-1 px-1 font-bold">Titre du commentaire</label>
+                        <input type="text" autoComplete="off" name="title" id="title" className="border-2 border-greenV2 leading-normal w-full"/>
+                    </div>
+                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="comment" className="text-greenV2 w-full mb-1 px-1 font-bold">Contenu du commentaire</label>
+                        <textarea autoComplete="off" name="comment" id="comment" className="border-2 border-greenV2 leading-normal w-full"></textarea>
+                    </div>
+                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="picture" className="text-greenV2 w-full mb-1 px-1 font-bold">Ajouter une photo à votre commentaire</label>
+                        <input type="file" name="picture" id="picture" className="border-2 border-greenV2 leading-normal"/>
+                    </div>
+                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="quantityCollected" className="text-greenV2 w-full mb-1 px-1 font-bold">Quantité collectée</label>
+                        <input type="number" name="picture" id="picture" className="border-2 border-greenV2 leading-normal w-full"/>
+                    </div>
+                    <div className="w-full flex justify-end">
+                        <button type="submit" className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Commenter l'action</button>
+                    </div> 
+                </form>
+            </div>
         </section>
     );
 };

@@ -15,7 +15,7 @@ const DetailPost = () => {
     const {loading,openModal, fetchPostComments,fetchPost, comments, commentModalOpen, post, isEditing} = useGlobalContext();
 
     const handleComment =() =>{
-        openModal();
+        openModal(commentModalOpen);
     }
 
     // const getPost = async()=>{

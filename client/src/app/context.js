@@ -1,8 +1,8 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS } from '../constants/actionsTypes'
-import { Navigate } from "react-router-dom";
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL } from '../constants/actionsTypes'
+import axios from 'axios';
 
 const baseUrl = `http://localhost:5000/cleaning-operation`;
 const userUrl = `http://localhost:5000/auth`
@@ -20,7 +20,9 @@ const initialState= {
     userAuthenticated: false,
     userRole : null, 
     authData: null,
-    registerData: null
+    registerData: null,
+    errorMessage: null,
+    errorModal : true,
 }
 
 const AppProvider = ({children}) =>{
@@ -34,6 +36,13 @@ const AppProvider = ({children}) =>{
         dispatch({type: CLOSE_MODAL})
     }
 
+    const openErrorModal = () =>{
+        console.log('ouioui')
+        dispatch({type: OPEN_ERROR_MODAL})
+    }
+    const closeErrorModal = () =>{
+        dispatch({type: CLOSE_ERROR_MODAL})
+    }
     const fetchPosts = async() =>{
         dispatch({type:LOADING});
         const response = await fetch(`${baseUrl}/posts`);
@@ -45,6 +54,7 @@ const AppProvider = ({children}) =>{
         dispatch({type:LOADING});
         const response = await fetch(`${baseUrl}/post/${id}`);
         const data = await response.json();
+
         const post = data.post;
         dispatch({type:DISPLAY_POST, payload: post})
     }
@@ -63,26 +73,46 @@ const AppProvider = ({children}) =>{
         dispatch({type:COUNT_ACTIONS, payload: number})
     }
 
-    const signup = async(data)=>{
-        const response = await fetch(`${userUrl}/login`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+    const signup = async(datas)=>{
+        console.log('sign up')
+       
+        const response = await axios
+            .post(`${userUrl}/login`,datas)
+            .then((data) =>{
+                if(data.data.message) {
+                    initialState.errorMessage = data.data.message;
+                    openErrorModal()
+                    console.log('test2')
+                    console.log(initialState)
+                }
+            })
+            .catch((error) => {
+                console.log('myerror' ,error);
+            })
     }
 
-    const register =  async(data)=>{
-        const response = await fetch(`${userUrl}/register`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+    const register =  async(datas)=>{
+
+            const response = await axios
+            .post(`${userUrl}/register`, datas)
+            .then((respServeur) =>{
+                if(respServeur){
+                    if(respServeur.data.message.code == 11000){
+                        initialState.errorMessage = "L'adresse mail existe déjà en base de donnée. Une adresse mail ne peut etre associée qu'à un seul compte.";  
+                    }
+                    if(respServeur.data.message) {
+                        initialState.errorMessage = 'Une erreur est survenue votre inscription n\'a pas pu être finalisée';
+                        openErrorModal()
+                        console.log('test2')
+                        console.log(initialState)
+                    }
+                    console.log(initialState)
+                }
+            })
+            .catch((error) => {
+                console.log('myerror' ,error);
+            })
+        
     }
 
     const logout = async()=>{
@@ -96,7 +126,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup }}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, closeErrorModal }}>
             {children}
         </AppContext.Provider>
     )

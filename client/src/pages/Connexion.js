@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { redirect, useNavigate  } from 'react-router-dom';
+import React, { useState, useEffect  } from 'react';
+import { redirect, useNavigate, useLocation  } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
+import ErrorModal from '../components/ErrorModal';
 const registerData = {name:'', lastname:'', pseudo:'', email:'', password:'', profilPicture:'picture.test', userType:''}
 const loginDatas = {email:'', password:''}
 
 
 const Connexion = () => {
-    const {userAuthenticated, register, signup} = useGlobalContext();
+    let location = useLocation();
+    // console.log(location)
+    // console.log(location.pathname)
+    const {userAuthenticated, register, signup,errorModal} = useGlobalContext();
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
     const [loginData, setLoginData] = useState(loginDatas);
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isUserRegistered, setIsUserRegistered] = useState(false);
+    const [displayConnexionBloc,setDisplayConnexionBloc ] = useState(location)
     let cgv = document.getElementById('cgv');
     let cgvInfo = document.getElementById('cgvInfo');
     let charteCommu = document.getElementById('charteCommu');
@@ -19,7 +24,7 @@ const Connexion = () => {
     let passwordConfirmInfo = document.getElementById('passwordConfirmInfo');
 
 
-    console.log(formData)
+    // console.log(formData)
     const handleChange =(e) =>{
         setFormData({...formData, [e.target.name]: e.target.value })
     }
@@ -40,6 +45,9 @@ const Connexion = () => {
         setFormData({...formData, userType: e.target.value })
     }
 
+    const handelConnexion = ()=>{
+        setIsUserRegistered(true);
+    }
     const handelRegisterForm =(e)=>{
         e.preventDefault();
 
@@ -53,9 +61,8 @@ const Connexion = () => {
         if(confirmPassword === formData.password ){
             passwordConfirmInfo.classList.remove('hidden')
         }
-        console.log(formData)
+        // console.log(formData)
         register(formData);
-        setIsUserRegistered(true)
     }
 
     const handleAuthChange =(e) =>{
@@ -63,15 +70,23 @@ const Connexion = () => {
     }
     const handelAuthForm =(e)=>{
         e.preventDefault();
-        signup(formData);
+        console.log('click')
+        console.log(loginData)
+        signup(loginData);
         // userAuthenticated(true)
     }
 
     useEffect(() => {
+        if (location.pathname == '/connexion') setIsUserRegistered(true)
+
+        if (location.pathname !== '/connexion')setIsUserRegistered(false)
+    }, [location]);
+        
+    useEffect(() => {
     if (userAuthenticated){
         return navigate("/liste_des_actions");
-    }
-    },[userAuthenticated, signup]);
+    }},[userAuthenticated, signup]);
+
     // if(userAuthenticated){
     //     return redirect('/liste_des_actions');
     // }
@@ -161,10 +176,12 @@ const Connexion = () => {
                     <p id="cgvInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>Les conditions générales d'utilisation sont obligatoires</p>
                     <button className="rounded-full m-4 p-2 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4" type="submit">S'inscrire</button>
                     <p className='text-xl ml-4 mt-4 pt-2 '>Je dispose déjà d'un compte: </p>
-                    <button className="border rounded-full m-4 p-2 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4">Se connecter</button>
+                    <button className="border rounded-full m-4 p-2 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4" onClick={handelConnexion}>Se connecter</button>
                 </form>
                 </section>
+                {errorModal && <ErrorModal />}
             </div>
+            
         )
     }
 
@@ -176,13 +193,13 @@ const Connexion = () => {
                     <div className="w-full h-1 border-b-2 border-greenApple" id="underline"></div>
                 </div>
                 <form className="flex flex-col w-full" onSubmit={handelAuthForm}>
-                    <div class="mx-6 mb-2 px-4 py-1 flex flex-col">
-                        <label for="email" className="bg-greenApple text-white w-[200px] mb-1 px-1">Email de votre compte</label>
-                        <input type="email" autocomplete="off" name="email" id="email" class="border-2 border-greenApple leading-normal w-[300px]" value={formData.email} onChange={handleAuthChange} required/>
+                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="email" className="bg-greenApple text-white w-[200px] mb-1 px-1">Email de votre compte</label>
+                        <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenApple leading-normal w-[300px]" value={loginData.email} onChange={handleAuthChange} required/>
                     </div>
-                    <div class="mx-6  mb-2 px-4 py-1 flex flex-col">
-                        <label for="password" className="bg-greenApple text-white w-[200px] mb-1 px-1">Mot de passe</label>
-                        <input type="password" autocomplete="off" name="password" id="password" className="border-2 border-greenApple leading-normal w-[300px]" value={formData.password} onChange={handleAuthChange} required/>
+                    <div className="mx-6  mb-2 px-4 py-1 flex flex-col">
+                        <label htmlFor="password" className="bg-greenApple text-white w-[200px] mb-1 px-1">Mot de passe</label>
+                        <input type="password" autoComplete="off" name="password" id="password" className="border-2 border-greenApple leading-normal w-[300px]" value={loginData.password} onChange={handleAuthChange} required/>
                     </div>
                     <button className="rounded-full m-4 p-2 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4" type="submit">Se connecter</button>  
                 </form>
@@ -191,6 +208,7 @@ const Connexion = () => {
                 <img src="./logoTB.png" alt="back to home page" className="w-[360px]"/>
                 <div className="bg-hero w-full h-[590px] bg-cover"></div>
             </section>
+            {errorModal && <ErrorModal />}
         </div>
     );
 };

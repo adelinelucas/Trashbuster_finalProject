@@ -53,7 +53,7 @@ export const getPostById = async(req, res) =>{
 export const createPost = async(req, res)=>{
     const userId = req.body.userId
     try{
-        if(!mongoose.Types.ObjectId.isValid(userId)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
+        if(!mongoose.Types.ObjectId.isValid(userId)) return res.status(200).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
         const post = await PostModel.create(req.body);
         res.status(200).json({post})
@@ -69,7 +69,7 @@ export const updatePost = async(req, res)=>{
     try{
         const _id = req.params.id;
 
-        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(200).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
         const {userId, name,street, postalCode,city,trash_quantity_total, trash_quantity_collected,trash_picture } = req.body;
          // vérifier que les champs sont vides ? 
@@ -88,7 +88,7 @@ export const updatePost = async(req, res)=>{
 export const deletePost = async(req, res)=>{
     try{
         const _id = req.params.id;
-        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(200).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
         await PostModel.findByIdAndDelete(_id);
 
