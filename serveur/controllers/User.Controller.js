@@ -8,6 +8,7 @@ export const register = async(req, res) =>{
         const existingUser = await UserModel.findOne({email});
         if(existingUser) return res.status(200).json({ message : "Un compte est déjà associé à l'adresse mail renseignée"}); 
         const user = await UserModel.create({...req.body});
+        console.log(user)
         res.status(200).json({user:user})
 
     }catch(err){
@@ -27,7 +28,9 @@ export const login = async(req, res) =>{
             if(!isPasswordCorrect) return res.status(200).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
 
             const addToken = user.addJWT();
-            res.status(200).json({user, addToken})
+            const userInfo = user.pseudo
+            const userId = user._id
+            res.status(200).json({userInfo, userId, addToken})
         }
 
     }catch(err){

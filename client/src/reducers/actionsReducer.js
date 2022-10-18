@@ -6,7 +6,7 @@ const reducer= (state, action) =>{
         case CLOSE_MODAL:
             return {...state, commentModalOpen:false};
         case OPEN_ERROR_MODAL:
-            return console.log('open error modal'), {...state, errorModal:true};
+            return {...state, errorModal:true};
         case CLOSE_ERROR_MODAL:
             return {...state, errorModal:false};
         case ADD_POST:
@@ -32,11 +32,12 @@ const reducer= (state, action) =>{
         case COUNT_ACTIONS :
             return {...state, actionsNumber:action.payload }
         case AUTH:
-            return{...state, userAuthenticated:true, userRole:0, authData:action.data };
+           sessionStorage.setItem('profil', JSON.stringify(action.payload)); 
+            return{...state, userAuthenticated:true, authData:action.payload }, console.log(state), console.log(action.payload);
         case REGISTER : 
             return state;
         case LOGOUT:
-            return{...state, userAuthenticated:false, userRole:null, authData:null };
+            return{...state, userAuthenticated:false, authData:null };
         default: 
             return state
     }

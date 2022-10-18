@@ -1,7 +1,7 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, AUTH } from '../constants/actionsTypes'
 import axios from 'axios';
 
 const baseUrl = `http://localhost:5000/cleaning-operation`;
@@ -43,6 +43,7 @@ const AppProvider = ({children}) =>{
     const closeErrorModal = () =>{
         dispatch({type: CLOSE_ERROR_MODAL})
     }
+    
     const fetchPosts = async() =>{
         dispatch({type:LOADING});
         const response = await fetch(`${baseUrl}/posts`);
@@ -74,20 +75,20 @@ const AppProvider = ({children}) =>{
     }
 
     const signup = async(datas)=>{
-        console.log('sign up')
        
         const response = await axios
             .post(`${userUrl}/login`,datas)
-            .then((data) =>{
-                if(data.data.message) {
-                    initialState.errorMessage = data.data.message;
-                    openErrorModal()
-                    console.log('test2')
-                    console.log(initialState)
+            .then((response) =>{
+                console.log(response)
+                if(response.data.message) {
+                    initialState.errorMessage = response.data.message;
+                }
+                if(response.data.addToken){
+                    dispatch({type:AUTH, payload: response.data})
                 }
             })
             .catch((error) => {
-                console.log('myerror' ,error);
+                console.log('error' ,error);
             })
     }
 

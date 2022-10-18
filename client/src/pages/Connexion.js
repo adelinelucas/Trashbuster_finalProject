@@ -68,9 +68,8 @@ const Connexion = () => {
     const handleAuthChange =(e) =>{
         setLoginData({...loginData, [e.target.name]: e.target.value })
     }
-    const handelAuthForm =(e)=>{
+    const handelConnexionForm =(e)=>{
         e.preventDefault();
-        console.log('click')
         console.log(loginData)
         signup(loginData);
         // userAuthenticated(true)
@@ -192,7 +191,7 @@ const Connexion = () => {
                     <h2 className="text-2xl text-greenApple font-bold text-center">Je me connecte ! </h2>
                     <div className="w-full h-1 border-b-2 border-greenApple" id="underline"></div>
                 </div>
-                <form className="flex flex-col w-full" onSubmit={handelAuthForm}>
+                <form className="flex flex-col w-full" onSubmit={handelConnexionForm}>
                     <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                         <label htmlFor="email" className="bg-greenApple text-white w-[200px] mb-1 px-1">Email de votre compte</label>
                         <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenApple leading-normal w-[300px]" value={loginData.email} onChange={handleAuthChange} required/>
