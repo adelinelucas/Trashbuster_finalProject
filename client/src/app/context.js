@@ -150,7 +150,26 @@ const AppProvider = ({children}) =>{
         const response = await axios
         .post(`${baseUrl}/post`, datas)
         .then((respServeur) => {
-            dispatch({type: ADD_POST, payload: respServeur})
+            return dispatch({type: ADD_POST, payload: datas})
+        })
+        .catch((error)=> console.log(error))
+
+    }
+
+    const deleteAction = async(id) =>{
+        const response = await axios
+        .delete(`${baseUrl}/post/${id}`)
+        .then((respServeur) => {
+            return dispatch({type: DELETE_POST, payload: id})
+        })
+        .catch((error)=> console.log(error))
+    }
+
+    const updateAction = async(id) =>{
+        const response = await axios
+        .post(`${baseUrl}/post/${id}`)
+        .then((respServeur) => {
+            return dispatch({type: ADD_POST, payload: id})
         })
         .catch((error)=> console.log(error))
 
@@ -163,7 +182,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction}}>
             {children}
         </AppContext.Provider>
     )

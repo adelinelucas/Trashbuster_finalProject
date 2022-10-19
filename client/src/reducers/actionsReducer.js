@@ -14,11 +14,15 @@ const reducer= (state, action) =>{
         case CLOSE_ERROR_MODAL:
             return {...state, errorModal:false};
         case ADD_POST:
-            return 
+            state.userPosts.push(action.payload);
+            return {...state};
         case UPDATE_POST:
             return
         case DELETE_POST:
-            return
+            
+            return {...state, 
+                userPost:state.userPosts.filter((post) => post._id !== action.payload)
+            };
         case ADD_COMMENT:
             return 
         case UPDATE_COMMENT:

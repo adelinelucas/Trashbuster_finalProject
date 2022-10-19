@@ -4,14 +4,11 @@ import Loading from '../components/Loading';
 import { useParams } from 'react-router-dom';
 import AddComment from '../components/AddComment';
 import { useGlobalContext } from '../app/context';
+import {MapContainer, TileLayer} from 'react-leaflet';
 
 const url = `http://localhost:5000/cleaning-operation/post/`
 const DetailPost = () => {
     const {id} = useParams();
-    // const [post, setPost]= useState([]);
-    // const [comments, setComments]= useState([]);
-    // const [loading, setLoading]= useState(true);
-    // const [editing, setEditing]= useState(false);
     const {loading,openModal, fetchPostComments,fetchPost, comments, commentModalOpen, post, isEditing} = useGlobalContext();
 
     const handleComment =() =>{
@@ -65,7 +62,9 @@ const DetailPost = () => {
                         <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightYellow text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</span>kilos de déchets à total sur l'action</p>
                     </div>
                     <div className="my-2 flex justify-center">
-                        <p>inclure carte ? ? si temps possible </p>
+                        <MapContainer
+                            
+                        ></MapContainer>
                     </div>
                     <div className="flex justify-end">
                         <button className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={handleComment}>Commenter l'action</button>

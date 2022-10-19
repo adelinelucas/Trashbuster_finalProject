@@ -8,7 +8,7 @@ const Posts = ({posts}) => {
     return (
         <>
            {allPost.map((post, index)=>{
-            return <Post post={post} key={index}/>
+            return <Post post={post} key={index} action={'consultation'}/>
            })} 
         </>
     );

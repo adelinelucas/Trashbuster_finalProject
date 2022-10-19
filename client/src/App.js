@@ -15,7 +15,7 @@ import Logout from "./pages/Logout";
 function App() {
   
   return (
-    <main className="App font-Syne">
+    <main className="App font-Syne overflow-x-hidden">
       {/* ajouter une condition si page home => ne pas afficher */}
       <Navbar/>
       <Routes>

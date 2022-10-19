@@ -1,9 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import Posts from './Posts';
+import { useGlobalContext } from '../app/context';
 
-const Post = ({post}) => {
+const Post = ({post, action}) => {
+    const { deleteAction, updateAction} = useGlobalContext();
 
+    const handelDeletePost = (e) =>{
+        e.preventDefault();
+        deleteAction(post._id)
+    }
+
+    const handelUpdatePost = (e) =>{
+        e.preventDefault();
+        updateAction(post._id)
+    }
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">
@@ -23,6 +34,13 @@ const Post = ({post}) => {
                 <div className='my-4'>
                     <Link to={`/detail_action/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={()=>{console.log('click')}}>Voir le détail de l'action</Link>
                 </div>
+                {action == 'edit' ? 
+                    <div className="flex justify-end">
+                        <button className="border rounded-full p-2 mr-2 my-4 bg-aquaBlue text-white cursor-pointer btnUpdate shadow-lg border-white border-r-4 border-b-4" onClick={handelUpdatePost}>Editer l'action</button>
+                        <button className="border rounded-full p-2 mr-2 my-4 bg-lightRed text-white cursor-pointer btnDelete shadow-lg border-white border-r-4 border-b-4" onClick={handelDeletePost}>Supprimer l'action</button>
+                    </div>
+                :''
+                } 
             </div>
         </article>
     );

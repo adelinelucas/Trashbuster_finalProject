@@ -22,7 +22,7 @@ const EditPost = ({action}) => {
         e.preventDefault();
         console.log(formData)
         registerAction(formData)
-
+        closeEditModal()
     }
     return (
         <div className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">
@@ -68,14 +68,7 @@ const EditPost = ({action}) => {
                             <div className="flex justify-end">
                                 <button className="border rounded-full p-2 mr-2 my-4 bg-orangeV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Publier l'action</button>
                             </div>
-                        </form>
-                        {action == 'edit' ? 
-                                <div className="flex justify-end">
-                                    <button className="border rounded-full p-2 mr-2 my-4 bg-aquaBlue text-white cursor-pointer btnUpdate shadow-lg border-white border-r-4 border-b-4">Editer l'action</button>
-                                    <button className="border rounded-full p-2 mr-2 my-4 bg-lightRed text-white cursor-pointer btnDelete shadow-lg border-white border-r-4 border-b-4">Supprimer l'action</button>
-                                </div>
-                            :''
-                            }                      
+                        </form>                     
                     </div>
                 </article>
             </section>

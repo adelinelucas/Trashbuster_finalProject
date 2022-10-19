@@ -39,16 +39,20 @@ const UserPosts = () => {
             </>    
         )
     }
+    
+
     return (
         <>
         <section className="w-full flex flex-col items-center my-20">
+            
             {userPosts.map((post, index)=>{
-                return <Post post={post} key={index}/>
+                return <Post post={post} key={index} action={'edit'}/>
             })} 
         </section>
         
         </>
     );
+    
 };
 
 export default UserPosts;
