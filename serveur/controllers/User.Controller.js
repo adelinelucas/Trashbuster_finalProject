@@ -26,9 +26,24 @@ export const login = async(req, res) =>{
 
             const isPasswordCorrect = await user.checkPassword(password)
             if(!isPasswordCorrect) return res.status(200).json({ message : "Les informations renseignées n'ont pas permis de vous identifier"});
-
+            
+            let quantityTrashCollected = 0;
+            let actionsNumber = 0;
+            if(user.trash_quantity_collected.length > 0){
+                quantityTrashCollected = (user.trash_quantity_collected).reduce((a,b)=>a+b);
+                actionsNumber = user.trash_quantity_collected.length
+            }
+           
             const addToken = user.addJWT();
-            const userInfo = user.pseudo
+            const userInfo = {
+                pseudo: user.pseudo,
+                name: user.name,
+                lastname: user.lastname,
+                email: user.email,
+                userType: user.userType,
+                quantityTrashCollected : quantityTrashCollected,
+                actionsNumber:actionsNumber 
+            }
             const userId = user._id
             res.status(200).json({userInfo, userId, addToken})
         }

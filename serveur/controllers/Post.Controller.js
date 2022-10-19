@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import PostModel from "../models/Post.js";
 import CommentModel from "../models/Comment.js";
+import UserModel from "../models/User.js";
 
 export const getAllPost = async(req, res)=>{
     try{
@@ -24,11 +25,11 @@ export const getNumberOfPosts = async(req, res)=>{
 
 export const getAllPostByUser = async(req, res)=>{
 
-    const userId = req.body.userId;
+    const userId = req.params.id;
 
     try{
-        const post = await PostModel.findOne({userId});  
-        res.status(200).json({post})
+        const posts = await PostModel.find({userId});  
+        res.status(200).json({posts})
 
     }catch(err){
         res.status(500).json({message:err})
@@ -51,10 +52,16 @@ export const getPostById = async(req, res) =>{
     }
 }
 export const createPost = async(req, res)=>{
-    const userId = req.body.userId
+    const {userId, trash_quantity_collected} = req.body
     try{
         if(!mongoose.Types.ObjectId.isValid(userId)) return res.status(200).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
+        let update_trash_quantity_collected = await UserModel.findByIdAndUpdate(
+            {_id: userId}, 
+            { $push: { trash_quantity_collected : [ trash_quantity_collected] } }
+            )
+        
+        // console.log(update_trash_quantity_collected);
         const post = await PostModel.create(req.body);
         res.status(200).json({post})
 

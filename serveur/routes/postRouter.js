@@ -7,7 +7,7 @@ import {getAllPost,getNumberOfPosts,getAllPostByUser, getPostById,createPost,upd
 router.route('/posts').get(getAllPost);
 router.route('/numberPosts').get(getNumberOfPosts);
 router.route('/post', auth).post(createPost);
-router.route('/userposts', auth).get(getAllPostByUser);
+router.route('/userposts/:id', auth).get(getAllPostByUser);
 router.route('/post/:id', auth).get(getPostById).patch(updatePost).delete(deletePost);
 
 export default router;

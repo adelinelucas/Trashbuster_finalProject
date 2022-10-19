@@ -1,10 +1,13 @@
 export const DISPLAY_POSTS = 'DISPLAY_POSTS';
 export const DISPLAY_POST = 'DISPLAY_POST';
+export const DISPLAY_USER_POSTS = 'DISPLAY_USER_POSTS';
 export const DISPLAY_COMMENTS = 'DISPLAY_COMMENTS';
 export const OPEN_MODAL ='OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const OPEN_ERROR_MODAL = 'OPEN_ERROR_MODAL';
 export const CLOSE_ERROR_MODAL = 'CLOSE_ERROR_MODAL'; 
+export const OPEN_EDIT_MODAL = 'OPEN_EDIT_MODAL';
+export const CLOSE_EDIT_MODAL = 'CLOSE_EDIT_MODAL'; 
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = "DELETE_POST";

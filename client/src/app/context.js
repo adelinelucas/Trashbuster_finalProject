@@ -1,7 +1,7 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,  } from '../constants/actionsTypes'
 import axios from 'axios';
 
 const baseUrl = `http://localhost:5000/cleaning-operation`;
@@ -14,15 +14,18 @@ const initialState= {
     commentModalOpen: false,
     posts:[],
     post:[],
+    userPosts: [],
     comments:[],
     actionsNumber : 0,
     isEditing: false,
     userAuthenticated: false,
     userRole : null, 
     authData: null,
+    userData: null,
     registerData: null,
     errorMessage: null,
     errorModal : true,
+    editModal: false
 }
 
 const AppProvider = ({children}) =>{
@@ -36,8 +39,13 @@ const AppProvider = ({children}) =>{
         dispatch({type: CLOSE_MODAL})
     }
 
+    const openEditModal = () =>{
+        dispatch({type: OPEN_EDIT_MODAL})
+    }
+    const closeEditModal = () =>{
+        dispatch({type: CLOSE_EDIT_MODAL})
+    }
     // const openErrorModal = () =>{
-    //     console.log('ouioui')
     //     dispatch({type: OPEN_ERROR_MODAL})
     // }
     // const closeErrorModal = () =>{
@@ -110,11 +118,41 @@ const AppProvider = ({children}) =>{
             })
             .catch((error) => {
                 console.log('myerror' ,error);
-            })
-        
+            })    
     }
 
     const logout = async()=>{
+
+    }
+
+    const fetchPostsByUser = async(userId) =>{
+        // dispatch({type:LOADING});
+        console.log(userId)
+        const response = await axios
+            .get(`${baseUrl}/userposts/${userId}`)
+            .then((respServeur)=>{
+                console.log('fetchPostsByUser')
+                console.log('respServeur => ',respServeur)
+                dispatch({type:DISPLAY_USER_POSTS, payload: respServeur.data.posts})
+            })
+            .catch((error)=> console.log(error))
+    }
+
+    const getUserInfo = async(idUser) =>{
+        const response = await axios
+            .get(`${baseUrl}/userposts`, idUser)
+            .then((respServeur)=>{
+                dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
+            })
+    }
+
+    const registerAction = async(datas) =>{
+        const response = await axios
+        .post(`${baseUrl}/post`, datas)
+        .then((respServeur) => {
+            dispatch({type: ADD_POST, payload: respServeur})
+        })
+        .catch((error)=> console.log(error))
 
     }
 
@@ -125,7 +163,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup,  }}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction}}>
             {children}
         </AppContext.Provider>
     )
