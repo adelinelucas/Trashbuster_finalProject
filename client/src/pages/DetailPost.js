@@ -62,6 +62,7 @@ const DetailPost = () => {
                         <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightYellow text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</span>kilos de déchets à total sur l'action</p>
                     </div>
                     <div className="my-2 flex justify-center">
+                        plage for map
                         <MapContainer
                             
                         ></MapContainer>

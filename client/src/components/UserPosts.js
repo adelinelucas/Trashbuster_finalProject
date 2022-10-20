@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { useGlobalContext } from '../app/context';
 import Loading from './Loading';
 import Post from './Post';
@@ -7,7 +7,7 @@ import EditPost from './EditPost';
 
 
 const UserPosts = () => {
-    const {loading,userPosts, openEditModal, editModal} = useGlobalContext();
+    const {loading,userPosts, openEditModal, editModal, fetchPostsByUser, authData, closeEditModal} = useGlobalContext();
     
     //  console.log(userPosts)
     //  console.log(userPosts[0])
@@ -23,6 +23,10 @@ const UserPosts = () => {
         e.preventDefault()
         openEditModal()
     }
+
+    useEffect( ()=>{
+        fetchPostsByUser(authData.userId)
+    }, [])
 
     if(!userPosts || userPosts.length == 0){
         return(

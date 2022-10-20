@@ -4,15 +4,27 @@ import { useGlobalContext } from '../app/context';
 
 
 const EditPost = ({action}) => {
-    const {closeEditModal, editModal, authData, registerAction} = useGlobalContext();
+    const {closeEditModal, editModal, authData, registerAction, selectedPost, clearSelectedPost, updateAction} = useGlobalContext();
 
     const registerData = {name:'', description:'', userId:authData.userId, street:'', postalCode:'', city:'',trash_quantity_total:'',trash_quantity_collected:'',trash_picture:'picture.test' }
 
+    console.log('selectedpost',selectedPost)
+    if(selectedPost){
+        registerData.name = selectedPost.name;
+        registerData.description = selectedPost.description;
+        registerData.street = selectedPost.street;
+        registerData.postalCode = selectedPost.postalCode;
+        registerData.city = selectedPost.city;
+        registerData.trash_quantity_total = selectedPost.trash_quantity_total;
+        registerData.trash_quantity_collected = selectedPost.trash_quantity_collected;
+        registerData.postId = selectedPost._id;
+    }
     // console.log(action)
     const [formData, setFormData] = useState(registerData);
 
     const handelComment = () =>{
-        closeEditModal()
+        closeEditModal();
+        clearSelectedPost()
     }
     
     const handleChange =(e) =>{
@@ -21,13 +33,18 @@ const EditPost = ({action}) => {
     const handelActionForm = (e) =>{
         e.preventDefault();
         console.log(formData)
-        registerAction(formData)
+        if(selectedPost){
+            updateAction(formData)
+        }else {
+            registerAction(formData)
+        }
         closeEditModal()
+        clearSelectedPost()
     }
     return (
         <div className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">
             <section className="w-full flex flex-col items-center justify-center">
-                <article className="w-4/5 btnNavBarShadow flex items-center my-3 justify-center relative ">
+                <article className="w-4/5 flex items-center my-3 justify-center relative ">
                     <div className='absolute top-[15px] right-[18%] text-3xl cursor-pointer'>
                     <FaWindowClose  onClick={handelComment}/> 
                     </div>

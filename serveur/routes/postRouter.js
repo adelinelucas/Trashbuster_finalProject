@@ -8,6 +8,6 @@ router.route('/posts').get(getAllPost);
 router.route('/numberPosts').get(getNumberOfPosts);
 router.route('/post', auth).post(createPost);
 router.route('/userposts/:id', auth).get(getAllPostByUser);
-router.route('/post/:id', auth).get(getPostById).patch(updatePost).delete(deletePost);
+router.route('/post/:id', auth).get(getPostById).put(updatePost).delete(deletePost);
 
 export default router;

@@ -27,14 +27,10 @@ const Profil = () => {
         }
     }, [location]);
 
-    useEffect( ()=>{
-        console.log(authData.userId)
-        fetchPostsByUser(authData.userId)
-    }, [])
-
-    useEffect( ()=>{
-        fetchPostsByUser(authData.userId)
-    }, [userPosts])
+    // useEffect( ()=>{
+    //     console.log(authData.userId)
+    //     fetchPostsByUser(authData.userId)
+    // }, [])
     return (
         <>
         

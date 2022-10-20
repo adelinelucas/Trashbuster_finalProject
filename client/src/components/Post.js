@@ -1,10 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {Link} from 'react-router-dom'
 import Posts from './Posts';
 import { useGlobalContext } from '../app/context';
 
 const Post = ({post, action}) => {
-    const { deleteAction, updateAction} = useGlobalContext();
+    const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser } = useGlobalContext();
 
     const handelDeletePost = (e) =>{
         e.preventDefault();
@@ -13,8 +13,13 @@ const Post = ({post, action}) => {
 
     const handelUpdatePost = (e) =>{
         e.preventDefault();
-        updateAction(post._id)
+        openEditModal()
+        setSelectedPost(post)
     }
+
+    useEffect( ()=>{
+        fetchPostsByUser(authData.userId)
+    }, [])
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">

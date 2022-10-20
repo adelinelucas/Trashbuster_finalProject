@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -16,12 +16,20 @@ const reducer= (state, action) =>{
         case ADD_POST:
             state.userPosts.push(action.payload);
             return {...state};
+        case SELECTED_POST:
+            return {...state, selectedPost:action.payload};
+        case CLEAR_SELECTED_POST:
+            return {...state, selectedPost: null}
         case UPDATE_POST:
-            return
+            console.log('userPost before update =>',state.userPosts)
+            state.userPosts =  state.userPosts.map( (post) => post._id === action.payload.postId ? action.payload : post)
+            console.log('userPost after update =>>',state.userPosts)
+            return {
+                ...state  
+            }
         case DELETE_POST:
-            
             return {...state, 
-                userPost:state.userPosts.filter((post) => post._id !== action.payload)
+                userPosts:state.userPosts.filter((post) => post._id !== action.payload)
             };
         case ADD_COMMENT:
             return 
@@ -32,7 +40,6 @@ const reducer= (state, action) =>{
         case DISPLAY_POSTS : 
             return {...state, posts:action.payload, loading:false}
         case DISPLAY_USER_POSTS : 
-        console.log(action.payload)
             return {...state, 
                 userPosts:action.payload, 
                 loading:false
