@@ -11,6 +11,10 @@ const CommentSchema = new mongoose.Schema({
         ref:'Post',
         required:true
     },
+    title:{
+        type:String,
+        required:[true, 'Merci de renseigner un titre pour votre commentaire']
+    },
     content:{
         type:String,
         required:[true, 'Un commentaire vide ne peut pas être posté']

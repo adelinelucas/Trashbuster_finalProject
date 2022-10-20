@@ -36,6 +36,10 @@ const DetailPost = () => {
         fetchPostComments(id)
     },[]);
 
+    // useEffect( ()=>{
+    //     fetchPostsByUser(authData.userId)
+    // }, [])
+
     if(loading){
         return (
             <section className="w-full flex justify-center min-h-screen">
@@ -47,10 +51,10 @@ const DetailPost = () => {
     return (
         <section className="w-full flex flex-col justify-center items-center">
             <article className="w-4/5 btnNavBarShadow flex items-center my-3 bg-brightYellow">
-                <div className="mx-4  bg-white h-100%">
+                <div className="mx-4  bg-white h-100% w-2/5">
                     <img src="./hero.png" alt="photo illustrant les déchets à collecter" className="w-[550px]"/>
                 </div>
-                <div className="bg-brightYellow px-4 min-w-[61%] ">
+                <div className="bg-brightYellow px-4 w-fit">
                     <h3 className="font-bold text-xl py-2 font-Syne text-greenV2 uppercase">{post.name}</h3>
                     {post.description ?<p className="py-2">{post.description}</p>
                     : ''}
@@ -58,7 +62,7 @@ const DetailPost = () => {
                         <p className="text-md">{post.street},<span className="font-bold text-lg ml-2">{post.postalCode}</span><span className="font-bold text-lg uppercase ml-2">{post.city}</span></p>
                     </div>
                     <div className="flex">
-                        <p className="py-4 pr-10"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</span>de déchets à collectés</p>
+                        <p className="py-4 pr-10"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</span>kilos de déchets à collectés</p>
                         <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightYellow text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</span>kilos de déchets à total sur l'action</p>
                     </div>
                     <div className="my-2 flex justify-center">
@@ -79,7 +83,7 @@ const DetailPost = () => {
                 </div>
             </article>
             <Comments comments={comments} />
-            {commentModalOpen && <AddComment idPost={post._id}/>}
+            {commentModalOpen=== true && <AddComment idPost={post._id}/>}
         </section>
     );
 };
