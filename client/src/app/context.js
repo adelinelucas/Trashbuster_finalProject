@@ -6,7 +6,8 @@ import axios from 'axios';
 axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
 const baseUrl = `http://localhost:5000/cleaning-operation`;
-const userUrl = `http://localhost:5000/auth`
+const userUrl = `http://localhost:5000/auth`;
+const url = `http://localhost:5000`;
 const AppContext = React.createContext();
 
 // on passe des valeurs initiales 
@@ -56,14 +57,14 @@ const AppProvider = ({children}) =>{
     
     const fetchPosts = async() =>{
         dispatch({type:LOADING});
-        const response = await fetch(`${baseUrl}/posts`);
+        const response = await fetch(`${url}/cleaning-operation/posts`);
         const posts = await response.json();
         dispatch({type:DISPLAY_POSTS, payload: posts})
     }
 
     const fetchPost = async(id) =>{
         dispatch({type:LOADING});
-        const response = await fetch(`${baseUrl}/post/${id}`);
+        const response = await fetch(`${url}/cleaning-operation/post/${id}`);
         const data = await response.json();
 
         const post = data.post;
@@ -71,15 +72,16 @@ const AppProvider = ({children}) =>{
     }
 
     const fetchPostComments = async(id) =>{
+        if(!id) return;
         dispatch({type:LOADING});
-        const response = await fetch(`${baseUrl}/post/${id}`);
+        const response = await fetch(`${url}/cleaning-operation/post/${id}`);
         const data = await response.json();
         const comments = data.postComments;
         dispatch({type:DISPLAY_COMMENTS, payload: comments})
     }
 
     const fetchActionsNumber = async() =>{
-        const response = await fetch(`${baseUrl}/numberPosts`);
+        const response = await fetch(`${url}/cleaning-operation/numberPosts`);
         const number = await response.json();
         dispatch({type:COUNT_ACTIONS, payload: number})
     }
@@ -87,7 +89,7 @@ const AppProvider = ({children}) =>{
     const signup = async(datas)=>{
        
         const response = await axios
-            .post(`${userUrl}/login`,datas)
+            .post(`${url}/auth/login`,datas)
             .then((response) =>{
                 console.log(response)
                 if(response.data.message) {
@@ -105,7 +107,7 @@ const AppProvider = ({children}) =>{
     const register =  async(datas)=>{
 
             const response = await axios
-            .post(`${userUrl}/register`, datas)
+            .post(`${url}/auth/register`, datas)
             .then((respServeur) =>{
                 if(respServeur){
                     if(respServeur.data.message.code == 11000){
@@ -130,7 +132,7 @@ const AppProvider = ({children}) =>{
     const fetchPostsByUser = async(userId) =>{
         // dispatch({type:LOADING});
         const response = await axios
-            .get(`${baseUrl}/userposts/${userId}`)
+            .get(`${url}/cleaning-operation/userposts/${userId}`)
             .then((respServeur)=>{
                 console.log('fetchPostsByUser')
                 console.log('respServeur => ',respServeur)
@@ -141,7 +143,7 @@ const AppProvider = ({children}) =>{
 
     const getUserInfo = async(idUser) =>{
         const response = await axios
-            .get(`${baseUrl}/userposts`, idUser)
+            .get(`${url}/cleaning-operation/userposts`, idUser)
             .then((respServeur)=>{
                 dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
             })
@@ -149,7 +151,7 @@ const AppProvider = ({children}) =>{
 
     const registerAction = async(datas) =>{
         const response = await axios
-        .post(`${baseUrl}/post`, datas)
+        .post(`${url}/cleaning-operation/post`, datas)
         .then((respServeur) => {
             return dispatch({type: ADD_POST, payload: datas})
         })
@@ -159,7 +161,7 @@ const AppProvider = ({children}) =>{
 
     const deleteAction = async(id) =>{
         const response = await axios
-        .delete(`${baseUrl}/post/${id}`)
+        .delete(`${url}/cleaning-operation/post/${id}`)
         .then((respServeur) => {
             return dispatch({type: DELETE_POST, payload: id})
         })
@@ -179,7 +181,7 @@ const AppProvider = ({children}) =>{
         console.log('inside updateAction', datas)
         const response = await axios({
             method:'put',
-            url: `${baseUrl}/post/${datas.postId}`,
+            url: `${url}/cleaning-operation/post/${datas.postId}`,
             data : {...datas},
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -193,14 +195,29 @@ const AppProvider = ({children}) =>{
 
     }
 
+    const addAComment = async(datas) =>{
+        console.log('exceute add comment')
+        const response = await axios
+        .post(`${url}/comments`, datas)
+        .then((respServeur) => {
+            
+            return dispatch({type: ADD_COMMENT, payload: datas})
+        })
+        .catch((error)=> console.log(error))
+    }
+
     // on appelle le chargement de nos données
     useEffect(()=>{
         fetchPosts();
         fetchActionsNumber()
     },[])
 
+    useEffect(()=>{
+        fetchPostComments();
+    },[initialState.comments])
+
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment}}>
             {children}
         </AppContext.Provider>
     )

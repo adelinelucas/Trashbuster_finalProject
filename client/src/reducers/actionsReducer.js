@@ -32,7 +32,13 @@ const reducer= (state, action) =>{
                 userPosts:state.userPosts.filter((post) => post._id !== action.payload)
             };
         case ADD_COMMENT:
-            return 
+            console.log(action.payload)
+            console.log(state.comments)
+            state.comments.push(action.payload)
+            console.log(state.comments)
+            return {
+                ...state
+            } 
         case UPDATE_COMMENT:
             return
         case DELETE_COMMENT :
