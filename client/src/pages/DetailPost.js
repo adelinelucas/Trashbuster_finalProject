@@ -9,8 +9,9 @@ import {MapContainer, TileLayer} from 'react-leaflet';
 const url = `http://localhost:5000/cleaning-operation/post/`
 const DetailPost = () => {
     const {id} = useParams();
-    const {loading,openModal, fetchPostComments,fetchPost, comments, commentModalOpen, post, isEditing} = useGlobalContext();
+    const {loading,openModal, fetchPostComments,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated} = useGlobalContext();
 
+    console.log(userAuthenticated)
     const handleComment =() =>{
         openModal(commentModalOpen);
     }
@@ -71,9 +72,9 @@ const DetailPost = () => {
                             
                         ></MapContainer>
                     </div>
-                    <div className="flex justify-end">
+                    {userAuthenticated && <div className="flex justify-end">
                         <button className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={handleComment}>Commenter l'action</button>
-                    </div>
+                    </div>}
                     {isEditing &&
                         <div className="flex justify-end">
                             <button className="border rounded-full p-2 mr-2 my-4 bg-aquaBlue text-white cursor-pointer btnUpdate shadow-lg border-white border-r-4 border-b-4">Editer l'action</button>

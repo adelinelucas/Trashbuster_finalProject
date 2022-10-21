@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post';
 
 const Posts = ({posts}) => {
-    // console.log(posts)
+    console.log(posts)
     // console.log(posts.posts)
     const allPost = posts;
     return (

@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import { useGlobalContext } from '../app/context';
 
 const PostsList = () => {
-    const {posts, loading,actionsNumber} = useGlobalContext();
+    const {posts, loading,actionsNumber, fetchActionsNumber, fetchPosts} = useGlobalContext();
 
     console.log('mpost',posts)
     console.log('mpost',posts.posts)
@@ -39,8 +39,9 @@ const PostsList = () => {
     // }
 
     // useEffect( ()=>{
-    //     // getPosts();
-    //     getactionsNumber();
+    //     loading = false;
+    //     fetchPosts();
+    //     fetchActionsNumber();
     // },[]);
 
     if(loading){

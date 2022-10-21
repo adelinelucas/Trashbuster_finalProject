@@ -8,9 +8,9 @@ const AddComment = ({idPost}) => {
     const commentData = {userId:'', postId:post._id, userId:post.userId,title:'', content:'', trash_picture:'picture.test', trash_quantity_collected:'' }
     /*
     console.log(post)
-    if(post){
-        registerData.postId = post._id, 
-        registerData.userId = post.userId
+    if(post.length == 0 ){
+        commentData.postId = post._id, 
+        commentData.userId = post.userId
     }
     */
 

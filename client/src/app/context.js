@@ -130,7 +130,7 @@ const AppProvider = ({children}) =>{
     }
 
     const fetchPostsByUser = async(userId) =>{
-        // dispatch({type:LOADING});
+        dispatch({type:LOADING});
         const response = await axios
             .get(`${url}/cleaning-operation/userposts/${userId}`)
             .then((respServeur)=>{
@@ -217,7 +217,7 @@ const AppProvider = ({children}) =>{
     },[initialState.comments])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts}}>
             {children}
         </AppContext.Provider>
     )

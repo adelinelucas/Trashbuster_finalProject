@@ -4,7 +4,7 @@ import Posts from './Posts';
 import { useGlobalContext } from '../app/context';
 
 const Post = ({post, action}) => {
-    const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser } = useGlobalContext();
+    const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
 
     const handelDeletePost = (e) =>{
         e.preventDefault();
@@ -18,7 +18,9 @@ const Post = ({post, action}) => {
     }
 
     useEffect( ()=>{
-        fetchPostsByUser(authData.userId)
+        if(userAuthenticated){
+            fetchPostsByUser(authData.userId)
+        }
     }, [])
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
