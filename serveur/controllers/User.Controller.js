@@ -55,9 +55,11 @@ export const login = async(req, res) =>{
 }
 
 export const logout = async(req, res) =>{
+    console.log('logout server controller ')
     try{
         res.cookie('jwt', '', { maxAge: 1 });
-        res.redirect('/');
+        // res.redirect('/');
+        res.status(200).json({message: "L'utilisateur a bien été déconnecté."})
     }catch(err){
         res.status(500).json({message: 'Une erreur est survenue, nous n\'avons pas pu vous déconnecter'})
     }

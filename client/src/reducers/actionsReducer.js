@@ -70,7 +70,7 @@ const reducer= (state, action) =>{
         case REGISTER : 
             return state;
         case LOGOUT:
-            return{...state, userAuthenticated:false, authData:null };
+            return{...state, userAuthenticated:false, authData:null, userPosts:[], userData:null,registerData: null };
         default: 
             return state
     }
