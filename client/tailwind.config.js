@@ -38,7 +38,8 @@ module.exports = {
           'btnLogout': '102%',
         },
         animation: {
-          'wobbleAnim': 'myAnim 2s ease 0s 1 normal forwards',
+          'wobbleAnim': 'myAnim 1s ease 0s 1 normal forwards',
+          'jelloAnim': 'myJello 1s ease 0s 1 normal forwards'
         },
         fontFamily: {
           Lato: ['Lato', 'sans-serif'],

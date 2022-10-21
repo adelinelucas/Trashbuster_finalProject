@@ -3,9 +3,24 @@ import { useGlobalContext } from '../app/context';
 
 const Logout = () => {
     const {logout} = useGlobalContext();
+    let clickCss = ''
+    let btn = document.getElementById('btnLogout');
+
+    if(btn){
+        console.log('in btn')
+        btn.addEventListener('mouseenter', ()=>{
+            btn.style.animation= 'myAnim 1s ease 0s 1 normal forwards';
+        })
+        btn.addEventListener('mouseleave', ()=>{
+            btn.style = 'no style';
+        })
+    }
+   
 
     const handleLogout = () =>{
         console.log('logout')
+        btn.style.animation= 'myJello 1s ease 0s 1 normal forwards'; 
+        console.log(btn)
         logout()
     }
 
@@ -18,7 +33,7 @@ const Logout = () => {
                     <p><span className="font-bold flex justify-center text-xl text-white">Chaque geste compte !</span></p>
                 </article>
                 <article className="my-6 w-full flex justify-center py-8">
-                    <button className="bg-hero-HP2 bg-no-repeat bg-btnLogout rounded-2xl shadow-lg py-6 px-6 text-orangeV2 border-darkGreen border-r-8 border-b-8 text-3xl font-extrabold  w-2/4 h-44 m-auto hover:animate-wobbleAnim" onClick={handleLogout}>Me déconnecter</button>
+                    <button id="btnLogout" className={`bg-hero-HP2 bg-no-repeat bg-btnLogout rounded-2xl shadow-lg py-6 px-6 text-orangeV2 border-darkGreen border-r-8 border-b-8 text-3xl font-extrabold  w-2/4 h-44 m-auto `} onClick={handleLogout}>Me déconnecter</button>
                 </article>
             </section>
         </div>
