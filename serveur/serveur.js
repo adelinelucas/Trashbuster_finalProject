@@ -13,7 +13,9 @@ dotenv.config({path:'./config/.env'})
 const {MONGO_URI, APP_PORT,APP_LOCALHOST, ORIGIN } = process.env;
 
 const app = express();
-app.use(express.json());
+app.use(express.json({limit: "30mb", extended : true}));
+// pour pouvoir récupérer les éléments du body non en json
+app.use(express.urlencoded({limit: "30mb", extended : false}));
 
 // ==========
 // Cors

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FaWindowClose} from 'react-icons/fa'
 import { useGlobalContext } from '../app/context';
+import FileBase from 'react-file-base64';
 
 
 const EditPost = ({action}) => {
@@ -32,11 +33,13 @@ const EditPost = ({action}) => {
     }
     const handelActionForm = (e) =>{
         e.preventDefault();
-        console.log(formData)
+        console.log(e.currentTarget)
+        const form = new FormData(e.currentTarget);
+        console.log(form)
         if(selectedPost){
-            updateAction(formData)
+            updateAction(form)
         }else {
-            registerAction(formData)
+            registerAction(form)
         }
         closeEditModal()
         clearSelectedPost()
@@ -49,7 +52,7 @@ const EditPost = ({action}) => {
                     <FaWindowClose  onClick={handelComment}/> 
                     </div>
                     <div className="bg-white border-8 border-brightYellow px-4 py-8 w-8/12">
-                        <form className="w-full" onSubmit={handelActionForm}>
+                        <form className="w-full" onSubmit={handelActionForm} encType="multipart/form-data">
                             <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                                 <label htmlFor="name" className="text-orangeV2 w-full mb-1 px-1 font-bold">Titre de l'action</label>
                                 <input type="text" autoComplete="off" name="name" id="name" className="border-2 border-orangeV2 leading-normal w-full" required value={formData.name} onChange={handleChange}/>

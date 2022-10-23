@@ -39,10 +39,10 @@ const PostSchema = new mongoose.Schema({
         required:[true, 'Merci de renseigner la quantité approximative de déchets déjà collectée et jetée']
     },
     trash_picture: {
-        type:[String],
+        type:String,
         required:[true, 'Merci de poster une photo des déchets à collecter pour faciliter l\'implication de la communauté']
     }
-})
+},{timestamps: true})
 
 const PostModel = mongoose.models['Post'] || mongoose.model('Post', PostSchema );
 export default PostModel;

@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import moment from 'moment';
+import 'moment/locale/fr'
+moment.locale('fr');
 
 const url = `http://localhost:5000/cleaning-operation/post/`
 const Comments = ({comments}) => {
@@ -19,8 +22,8 @@ const Comments = ({comments}) => {
                         <p>{comment.content}</p>
                         <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{comment.trash_quantity_collected}</span>de déchets collectés</p>
                         <div className='flex justify-end'>
-                        <p className="py-2 text-sm italic text-end">{comment.createdAt}</p>
-                    </div>
+                            <p className="py-2 text-sm italic text-end">{moment(comment.createdAt).fromNow()}</p>
+                        </div>
                     </div>
                     
                 </div>)
