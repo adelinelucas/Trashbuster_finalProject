@@ -1,9 +1,24 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
-    const {userAuthenticated} = useGlobalContext();
+    const {userAuthenticated, logout} = useGlobalContext();
+    const user =  JSON.parse(sessionStorage.getItem('profil'));
+    const location = useLocation();
+
+    useEffect(() => {
+        const token = user?.token;
+    
+        if (token) {
+          const decodedToken = decode(token);
+    
+          if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
+    
+    }, [location]);
+
     return (
         <nav className="flex justify-between w-full py-10 px-4 shadow-lg">
         <div id="backHP" >

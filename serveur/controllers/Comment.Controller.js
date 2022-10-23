@@ -3,6 +3,8 @@ import PostModel from "../models/Post.js";
 import UserModel from "../models/User.js";
 
 export const createComment = async(req,res) =>{
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+
     try{
         const comment = await CommentModel.create(req.body);
         res.status(200).json({comment})
@@ -13,6 +15,8 @@ export const createComment = async(req,res) =>{
 }
 
 export const updateComment = async(req,res) =>{
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+
     console.log(req.params.id)
     try{
         console.log('test1')
@@ -58,6 +62,8 @@ export const updateComment = async(req,res) =>{
 }
 
 export const deleteComment = async(req,res) =>{
+
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     try{
         const _id = req.params.id;

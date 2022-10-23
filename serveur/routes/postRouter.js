@@ -8,8 +8,8 @@ import {getAllPost,getNumberOfPosts,getAllPostByUser, getPostById,createPost,upd
 
 router.route('/posts').get(getAllPost);
 router.route('/numberPosts').get(getNumberOfPosts);
-router.route('/post').post(fileUpload(), createPost);
+router.route('/post').post(auth, fileUpload(), createPost);
 router.route('/userposts/:id').get(auth, getAllPostByUser);
-router.route('/post/:id').get(auth, getPostById).put(updatePost).delete(deletePost);
+router.route('/post/:id').get(getPostById).put(auth, updatePost).delete(auth, deletePost);
 
 export default router;

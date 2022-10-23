@@ -3,10 +3,21 @@ import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
 import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT  } from '../constants/actionsTypes'
 import axios from 'axios';
-axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
-const baseUrl = `http://localhost:5000/cleaning-operation`;
-const userUrl = `http://localhost:5000/auth`;
+// middleware to check authentification
+const API = axios.create({ baseURL: 'http://localhost:5000'});
+
+API.interceptors.request.use( (req)=> {
+    console.log('api interceptors')
+    if(sessionStorage.getItem('profil')){
+        console.log('api profil')
+        req.headers.Authorization = `Bearer ${JSON.parse(sessionStorage.getItem('profil')).token}`;
+    }
+
+    return req;
+})
+// 
 const url = `http://localhost:5000`;
 const AppContext = React.createContext();
 
@@ -88,14 +99,14 @@ const AppProvider = ({children}) =>{
 
     const signup = async(datas)=>{
        
-        const response = await axios
-            .post(`${url}/auth/login`,datas)
+        const response = await API
+            .post(`/auth/login`,datas)
             .then((response) =>{
                 console.log(response)
                 if(response.data.message) {
                     initialState.errorMessage = response.data.message;
                 }
-                if(response.data.addToken){
+                if(response.data.token){
                     return dispatch({type:LOGIN, payload: response.data})
                 }
             })
@@ -106,8 +117,8 @@ const AppProvider = ({children}) =>{
 
     const register =  async(datas)=>{
 
-            const response = await axios
-            .post(`${url}/auth/register`, datas)
+            const response = await API
+            .post(`/auth/register`, datas)
             .then((respServeur) =>{
                 if(respServeur){
                     if(respServeur.data.message.code == 11000){
@@ -126,8 +137,8 @@ const AppProvider = ({children}) =>{
     }
 
     const logout = async()=>{
-        const response = await axios
-        .get(`${url}/auth/logout`)
+        const response = await API
+        .get(`/auth/logout`)
         .then((respServeur)=>{
             return dispatch({type:LOGOUT})
         })
@@ -136,8 +147,8 @@ const AppProvider = ({children}) =>{
 
     const fetchPostsByUser = async(userId) =>{
         dispatch({type:LOADING});
-        const response = await axios
-            .get(`${url}/cleaning-operation/userposts/${userId}`)
+        const response = await API
+            .get(`/cleaning-operation/userposts/${userId}`)
             .then((respServeur)=>{
                 console.log('fetchPostsByUser')
                 console.log('respServeur => ',respServeur)
@@ -147,16 +158,16 @@ const AppProvider = ({children}) =>{
     }
 
     const getUserInfo = async(idUser) =>{
-        const response = await axios
-            .get(`${url}/cleaning-operation/userposts`, idUser)
+        const response = await API
+            .get(`/cleaning-operation/userposts`, idUser)
             .then((respServeur)=>{
                 dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
             })
     }
 
     const registerAction = async(datas) =>{
-        const response = await axios
-        .post(`${url}/cleaning-operation/post`, datas)
+        const response = await API
+        .post(`/cleaning-operation/post`, datas)
         .then((respServeur) => {
             return dispatch({type: ADD_POST, payload: datas})
         })
@@ -165,8 +176,8 @@ const AppProvider = ({children}) =>{
     }
 
     const deleteAction = async(id) =>{
-        const response = await axios
-        .delete(`${url}/cleaning-operation/post/${id}`)
+        const response = await API
+        .delete(`/cleaning-operation/post/${id}`)
         .then((respServeur) => {
             return dispatch({type: DELETE_POST, payload: id})
         })
@@ -202,7 +213,7 @@ const AppProvider = ({children}) =>{
 
     const addAComment = async(datas) =>{
         console.log('exceute add comment')
-        const response = await axios
+        const response = await API
         .post(`${url}/comments`, datas)
         .then((respServeur) => {
             

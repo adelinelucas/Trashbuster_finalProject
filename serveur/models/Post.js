@@ -40,7 +40,7 @@ const PostSchema = new mongoose.Schema({
     },
     trash_picture: {
         type:String,
-        required:[true, 'Merci de poster une photo des déchets à collecter pour faciliter l\'implication de la communauté']
+        // required:[true, 'Merci de poster une photo des déchets à collecter pour faciliter l\'implication de la communauté']
     }
 },{timestamps: true})
 

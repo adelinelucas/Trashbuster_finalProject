@@ -57,35 +57,35 @@ export const getPostById = async(req, res) =>{
 }
 export const createPost = async(req, res)=>{    
     const {userId, trash_quantity_collected} = req.body
-    console.log('111',req.body);
-    if(!mongoose.Types.ObjectId.isValid(userId)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
+    const newPost = req.body;
+
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+
+    let _id =req.userId
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
-
         let update_trash_quantity_collected = await UserModel.findByIdAndUpdate(
-            {_id: userId}, 
+            {_id}, 
             { $push: { trash_quantity_collected : [ trash_quantity_collected] } }
             )
-            console.log('aa',req.body);
-            const post = await PostModel.create(req.body);
+
+           const post = await PostModel.create({...newPost, userId: req.userId});
             if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
-                // console.log(req.body);
-                console.log('tt',req.body);
+
                 const file = req.files.trash_picture;
                 const regex = /[^a-z0-9_]/i;
                 let baseName = file.name.replace(regex,'_').replace('__','_');
                 let uploadPath = `${__dirname}/../public/images/`;
-
+                // let uploadPath = express.static(path.join(__dirname, "./public/images/"))
                 file.mv(uploadPath+baseName,() => {
-
+                    
                     res.status(201).json({post})
                 });
 
             }
         
-
     }catch(err){
-        console.log('bbbbb',req.body);
         res.status(400).json({message:err.message})
     }
 }
@@ -93,11 +93,12 @@ export const createPost = async(req, res)=>{
 export const updatePost = async(req, res)=>{
     // console.log(req.params)
     // console.log(req.body);
+    const _id = req.params.id;
+
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
     try{
-        const _id = req.params.id;
-
         const {userId, name,street, postalCode,city,trash_quantity_total, trash_quantity_collected,trash_picture } = req.body;
          // vérifier que les champs sont vides ? 
         // 
@@ -114,11 +115,13 @@ export const updatePost = async(req, res)=>{
 }
 
 export const deletePost = async(req, res)=>{
+    const _id = req.params.id;
+
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
     try{
-        const _id = req.params.id;
-
         await PostModel.findByIdAndDelete(_id);
 
         //supprimer les commentaires associés

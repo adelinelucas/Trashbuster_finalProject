@@ -39,6 +39,7 @@ const EditPost = ({action}) => {
         if(selectedPost){
             updateAction(form)
         }else {
+            
             registerAction(form)
         }
         closeEditModal()

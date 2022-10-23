@@ -53,7 +53,7 @@ const DetailPost = () => {
         <section className="w-full flex flex-col justify-center items-center">
             <article className="w-4/5 btnNavBarShadow flex items-center my-3 bg-brightYellow">
                 <div className="mx-4  bg-white h-100% w-2/5">
-                    <img src="./hero.png" alt="photo illustrant les déchets à collecter" className="w-[550px]"/>
+                    <img src="../hero.png" alt="photo illustrant les déchets à collecter" className="w-[550px]"/>
                 </div>
                 <div className="bg-brightYellow px-4 w-fit">
                     <h3 className="font-bold text-xl py-2 font-Syne text-greenV2 uppercase">{post.name}</h3>
