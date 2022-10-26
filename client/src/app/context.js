@@ -196,15 +196,8 @@ const AppProvider = ({children}) =>{
 
     const updateAction = async(datas) =>{
         console.log('inside updateAction', datas)
-        const response = await axios({
-            method:'put',
-            url: `${url}/cleaning-operation/post/${datas.postId}`,
-            data : {...datas},
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-              },
-        })
-        // .post(`${baseUrl}/post/${datas.postId}`,datas)
+        const response = await API 
+        .put(`/cleaning-operation/post/${datas.postId}`,datas)
         .then((respServeur) => {
             return dispatch({type: UPDATE_POST, payload: datas})
         })
