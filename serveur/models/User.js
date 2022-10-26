@@ -70,7 +70,9 @@ UserSchema.methods.checkPassword = function(loginPassword) {
 }
 
 UserSchema.methods.addJWT = function(){
-    return jwt.sign({userId: this._id, pseudo: this.pseudo}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
+    let token = jwt.sign({userId: this._id, pseudo: this.pseudo}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
+    console.log('fonction add token ds models ', token)
+    return token
 }
 
 const UserModel = mongoose.models['User'] || mongoose.model('User', UserSchema );

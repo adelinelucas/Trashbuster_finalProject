@@ -14,6 +14,7 @@ const reducer= (state, action) =>{
         case CLOSE_ERROR_MODAL:
             return {...state, errorModal:false};
         case ADD_POST:
+            console.log(action.payload)
             state.userPosts.push(action.payload);
             return {...state};
         case SELECTED_POST:

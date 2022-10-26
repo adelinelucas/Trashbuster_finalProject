@@ -3,6 +3,8 @@ import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
 import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT  } from '../constants/actionsTypes'
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
 // axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
 // middleware to check authentification
@@ -14,7 +16,7 @@ API.interceptors.request.use( (req)=> {
         console.log('api profil')
         req.headers.Authorization = `Bearer ${JSON.parse(sessionStorage.getItem('profil')).token}`;
     }
-
+    console.log(req)
     return req;
 })
 // 
@@ -185,7 +187,6 @@ const AppProvider = ({children}) =>{
     }
 
     const setSelectedPost = (post) =>{
-        console.log('inside selected post', post)
         return dispatch({type: SELECTED_POST, payload: post})
     }
 

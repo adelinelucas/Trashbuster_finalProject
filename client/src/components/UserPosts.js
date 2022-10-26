@@ -4,11 +4,11 @@ import Loading from './Loading';
 import Post from './Post';
 import {HiUserGroup} from 'react-icons/hi'
 import EditPost from './EditPost';
-
+import { useLocation } from 'react-router-dom';
 
 const UserPosts = () => {
     const {loading,userPosts, openEditModal, editModal, fetchPostsByUser, authData, closeEditModal} = useGlobalContext();
-    
+    const location = useLocation();
     //  console.log(userPosts)
     //  console.log(userPosts[0])
     // if(loading){
@@ -24,9 +24,10 @@ const UserPosts = () => {
         openEditModal()
     }
 
+    console.log(location.pathname === '/profil')
     useEffect( ()=>{
-        fetchPostsByUser(authData.userId)
-    }, [])
+        if(location.pathname === '/profil') fetchPostsByUser(authData.userId)
+    }, [location])
 
     if(!userPosts || userPosts.length == 0){
         return(

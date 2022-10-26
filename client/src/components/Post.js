@@ -20,11 +20,11 @@ const Post = ({post, action}) => {
         setSelectedPost(post)
     }
 
-    useEffect( ()=>{
-        if(userAuthenticated){
-            fetchPostsByUser(authData.userId)
-        }
-    }, [])
+    // useEffect( ()=>{
+    //     if(userAuthenticated){
+    //         fetchPostsByUser(authData.userId)
+    //     }
+    // }, [])
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">

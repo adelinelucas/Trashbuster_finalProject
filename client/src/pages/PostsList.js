@@ -6,8 +6,7 @@ import { useGlobalContext } from '../app/context';
 const PostsList = () => {
     const {posts, loading,actionsNumber, fetchActionsNumber, fetchPosts} = useGlobalContext();
 
-    console.log('mpost',posts)
-    console.log('mpost',posts.posts)
+    console.log('PostsList',posts)
     // const[loading, setLoading] = useState(true);
     // const[posts, setPosts] = useState([]);
     // const [actionsNumber, setActionsNumber] = useState(0);
@@ -38,11 +37,11 @@ const PostsList = () => {
     //     }
     // }
 
-    // useEffect( ()=>{
-    //     loading = false;
-    //     fetchPosts();
-    //     fetchActionsNumber();
-    // },[]);
+    useEffect( ()=>{
+        // loading = false;
+        fetchPosts();
+        fetchActionsNumber();
+    },[]);
 
     if(loading){
         return (

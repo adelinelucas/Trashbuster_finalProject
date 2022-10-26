@@ -1,14 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
 import decode from 'jwt-decode';
 
 const Navbar = () => {
     const {userAuthenticated, logout} = useGlobalContext();
-    const user =  JSON.parse(sessionStorage.getItem('profil'));
+    const [user, setUser] = useState('')
     const location = useLocation();
 
     useEffect(() => {
+        if(sessionStorage.getItem('profil')){
+            setUser(JSON.parse(sessionStorage.getItem('profil')))
+        }
         const token = user?.token;
     
         if (token) {
