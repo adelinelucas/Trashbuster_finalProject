@@ -7,7 +7,7 @@ import FileBase from 'react-file-base64';
 const EditPost = ({action}) => {
     const {closeEditModal, editModal, authData, registerAction, selectedPost, clearSelectedPost, updateAction} = useGlobalContext();
 
-    const registerData = {name:'', description:'', userId:authData.userId, street:'', postalCode:'', city:'',trash_quantity_total:'',trash_quantity_collected:'',trash_picture:'picture.test' }
+    const registerData = {name:'', description:'', userId:authData.userId, street:'', postalCode:'', city:'',trash_quantity_total:'',trash_quantity_collected:'',trash_picture:'' }
 
     console.log('selectedpost',selectedPost)
     if(selectedPost){
@@ -33,14 +33,15 @@ const EditPost = ({action}) => {
     }
     const handelActionForm = (e) =>{
         e.preventDefault();
-        console.log(e.currentTarget)
-        const form = new FormData(e.currentTarget);
-        console.log(form)
+        // console.log(e.currentTarget)
+        // const form = new FormData(e.currentTarget);
+        // console.log(form)
+        console.log(formData)
         if(selectedPost){
-            updateAction(form)
+            updateAction(formData)
         }else {
             
-            registerAction(form)
+            registerAction(formData)
         }
         closeEditModal()
         clearSelectedPost()
@@ -53,7 +54,7 @@ const EditPost = ({action}) => {
                     <FaWindowClose  onClick={handelComment}/> 
                     </div>
                     <div className="bg-white border-8 border-brightYellow px-4 py-8 w-8/12">
-                        <form className="w-full" onSubmit={handelActionForm} encType="multipart/form-data">
+                        <form className="w-full" onSubmit={handelActionForm}>
                             <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                                 <label htmlFor="name" className="text-orangeV2 w-full mb-1 px-1 font-bold">Titre de l'action</label>
                                 <input type="text" autoComplete="off" name="name" id="name" className="border-2 border-orangeV2 leading-normal w-full" required value={formData.name} onChange={handleChange}/>
@@ -84,7 +85,8 @@ const EditPost = ({action}) => {
                             </div>
                             <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                                 <label htmlFor="trash_picture" className="text-orangeV2 w-full mb-1 px-1 font-bold">Charger une photographie du point de collecte</label>
-                                <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-orangeV2 leading-normal w-full" />
+                                {/* <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-orangeV2 leading-normal w-full" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}/> */}
+                                <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}  className="border-2 border-orangeV2 leading-normal w-full"/>
                             </div>
                             <div className="flex justify-end">
                                 <button className="border rounded-full p-2 mr-2 my-4 bg-orangeV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Publier l'action</button>

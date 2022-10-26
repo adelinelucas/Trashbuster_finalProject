@@ -71,19 +71,21 @@ export const createPost = async(req, res)=>{
             )
 
            const post = await PostModel.create({...newPost, userId: req.userId});
-            if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
+           res.status(201).json({post})
 
-                const file = req.files.trash_picture;
-                const regex = /[^a-z0-9_]/i;
-                let baseName = file.name.replace(regex,'_').replace('__','_');
-                let uploadPath = `${__dirname}/../public/images/`;
-                // let uploadPath = express.static(path.join(__dirname, "./public/images/"))
-                file.mv(uploadPath+baseName,() => {
+            // if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
+
+            //     const file = req.files.trash_picture;
+            //     const regex = /[^a-z0-9_]/i;
+            //     let baseName = file.name.replace(regex,'_').replace('__','_');
+            //     let uploadPath = `${__dirname}/../public/images/`;
+            //     // let uploadPath = express.static(path.join(__dirname, "./public/images/"))
+            //     file.mv(uploadPath+baseName,() => {
                     
-                    res.status(201).json({post})
-                });
+            //         res.status(201).json({post})
+            //     });
 
-            }
+            // }
         
     }catch(err){
         res.status(400).json({message:err.message})
