@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -14,7 +14,6 @@ const reducer= (state, action) =>{
         case CLOSE_ERROR_MODAL:
             return {...state, errorModal:false};
         case ADD_POST:
-            console.log(action.payload)
             state.userPosts.push(action.payload);
             return {...state};
         case SELECTED_POST:
@@ -22,9 +21,7 @@ const reducer= (state, action) =>{
         case CLEAR_SELECTED_POST:
             return {...state, selectedPost: null}
         case UPDATE_POST:
-            console.log('userPost before update =>',state.userPosts)
             state.userPosts =  state.userPosts.map( (post) => post._id === action.payload.postId ? action.payload : post)
-            console.log('userPost after update =>>',state.userPosts)
             return {
                 ...state  
             }
@@ -33,10 +30,7 @@ const reducer= (state, action) =>{
                 userPosts:state.userPosts.filter((post) => post._id !== action.payload)
             };
         case ADD_COMMENT:
-            console.log(action.payload)
-            console.log(state.comments)
             state.comments.push(action.payload)
-            console.log(state.comments)
             return {
                 ...state
             } 
@@ -49,10 +43,13 @@ const reducer= (state, action) =>{
         case DISPLAY_USER_POSTS : 
             return {...state, 
                 userPosts:action.payload, 
-                loading:false
+                loading:false,
+                latitude:null,
+                longitude:null
             }
         case DISPLAY_POST:
-            return {...state, post:action.payload, loading:false}
+            return {...state, post:action.payload, loading:false, latitude:null,
+                longitude:null}
         case DISPLAY_COMMENTS : 
             return {...state, comments:action.payload, loading:false}
         case LOADING : 
@@ -73,6 +70,10 @@ const reducer= (state, action) =>{
         case LOGOUT:
             sessionStorage.setItem('profil', ''); 
             return{...state, userAuthenticated:false, authData:null, userPosts:[], userData:null,registerData: null };
+        case SET_COORDINATES:
+            console.log(action.payload) 
+                return {...state, latitude:action.payload[0],
+                longitude:action.payload[1]}
         default: 
             return state
     }

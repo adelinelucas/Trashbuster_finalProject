@@ -3,8 +3,11 @@ import {Link} from 'react-router-dom'
 import Posts from './Posts';
 import { useGlobalContext } from '../app/context';
 import moment from 'moment';
-import 'moment/locale/fr'
+import 'moment/locale/fr';
+
+//
 moment.locale('fr');
+//
 
 const Post = ({post, action}) => {
     const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();

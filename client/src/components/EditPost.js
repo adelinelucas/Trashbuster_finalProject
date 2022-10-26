@@ -9,7 +9,6 @@ const EditPost = ({action}) => {
 
     const registerData = {name:'', description:'', userId:authData.userId, street:'', postalCode:'', city:'',trash_quantity_total:'',trash_quantity_collected:'',trash_picture:'' }
 
-    console.log('selectedpost',selectedPost)
     if(selectedPost){
         registerData.name = selectedPost.name;
         registerData.description = selectedPost.description;

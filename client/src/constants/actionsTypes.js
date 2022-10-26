@@ -21,3 +21,4 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
 export const COUNT_ACTIONS = 'COUNT_ACTIONS';
+export const SET_COORDINATES = 'SET_COORDINATES';

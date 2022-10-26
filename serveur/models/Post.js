@@ -20,7 +20,7 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:[true, 'Merci de renseigner la rue du lieu du point de déchets à collecter'],
         minlength:3,
-        maxlength:20
+        maxlength:50
     },
     postalCode: {
         type:Number,

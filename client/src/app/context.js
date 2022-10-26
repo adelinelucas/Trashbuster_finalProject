@@ -1,7 +1,7 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT  } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES  } from '../constants/actionsTypes'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
@@ -41,8 +41,11 @@ const initialState= {
     errorMessage: null,
     errorModal : true,
     editModal: false, 
-    selectedPost : null
+    selectedPost : null,
+    longitude:null,
+    latitude: null,
 }
+
 
 const AppProvider = ({children}) =>{
     const [state, dispatch] = useReducer(actionsReducer, initialState); 
@@ -67,6 +70,30 @@ const AppProvider = ({children}) =>{
     // const closeErrorModal = () =>{
     //     dispatch({type: CLOSE_ERROR_MODAL})
     // }
+
+    const getMap = (data) =>{
+        var requestOptions = {
+            method: 'GET',
+          };
+        //   https://api.geoapify.com/v1/geocode/search?text=142%20rue%20Henri%20Barbusse%2C%2093300%20Aubervilliers&lang=fr&limit=1&type=street&format=json&apiKey=YOUR_API_KEY
+        let postalCode = data.postalCode;
+        let city = data.city;
+        let street = data.street.replace(' ', '%20');
+        let locationURL = `https://api.geoapify.com/v1/geocode/search?text=${street}%2C%20${postalCode}%20${city}&lang=fr&limit=1&type=street&format=json&apiKey=${process.env.REACT_APP_API_KEY}`;
+        fetch(locationURL, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                console.log(result.results)
+                console.log(result.results[0])
+                let coordinates = [];   
+                coordinates.push(result.results[0].lat);
+                coordinates.push(result.results[0].lon)
+                console.log(coordinates)
+                dispatch({type:SET_COORDINATES, payload: coordinates})
+            })
+            .catch(error => console.log('error', error));
+    }
     
     const fetchPosts = async() =>{
         dispatch({type:LOADING});
@@ -79,9 +106,9 @@ const AppProvider = ({children}) =>{
         dispatch({type:LOADING});
         const response = await fetch(`${url}/cleaning-operation/post/${id}`);
         const data = await response.json();
-
         const post = data.post;
         dispatch({type:DISPLAY_POST, payload: post})
+        const getMAP = await getMap(post);
     }
 
     const fetchPostComments = async(id) =>{
@@ -168,11 +195,13 @@ const AppProvider = ({children}) =>{
     }
 
     const registerAction = async(datas) =>{
+        console.log(datas)
         const response = await API
         .post(`/cleaning-operation/post`, datas)
         .then((respServeur) => {
             return dispatch({type: ADD_POST, payload: datas})
         })
+        .then(fetchPostsByUser(datas.userId))
         .catch((error)=> console.log(error))
 
     }

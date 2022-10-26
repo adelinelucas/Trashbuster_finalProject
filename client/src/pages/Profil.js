@@ -10,7 +10,7 @@ const Profil = () => {
     let location = useLocation();
     const [messageUser, setMessageUser] = useState('');
     const {fetchPostsByUser, authData, userPosts, openEditModal, editModal} = useGlobalContext();
-    console.log(authData)
+    // console.log(authData)
 
 
     const handelClick = (e) =>{
