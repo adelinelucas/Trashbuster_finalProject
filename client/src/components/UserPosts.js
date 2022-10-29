@@ -7,7 +7,7 @@ import EditPost from './EditPost';
 import { useLocation } from 'react-router-dom';
 
 const UserPosts = () => {
-    const {loading,userPosts, openEditModal, editModal, fetchPostsByUser, authData, closeEditModal} = useGlobalContext();
+    const {loading,userPosts, openEditModal, editModal, fetchPostsByUser, authData, closeEditModal, getUserInfo} = useGlobalContext();
     const location = useLocation();
     //  console.log(userPosts)
     //  console.log(userPosts[0])
@@ -26,7 +26,10 @@ const UserPosts = () => {
 
     console.log(location.pathname === '/profil')
     useEffect( ()=>{
-        if(location.pathname === '/profil') fetchPostsByUser(authData.userId)
+        if(location.pathname === '/profil'){
+            fetchPostsByUser(authData.userId)
+            getUserInfo()
+        } 
     }, [location])
 
     if(!userPosts || userPosts.length == 0){

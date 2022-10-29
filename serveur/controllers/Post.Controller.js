@@ -9,7 +9,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const getAllPost = async(req, res)=>{
     try{
-        const posts = await PostModel.find({}).sort('-createdAt');
+        const posts = await PostModel.find({});
+        // const posts = await PostModel.aggregate([{ $sort : { createdAt : -1 } }], { "allowDiskUse" : true })
         res.status(200).json({posts })
 
     }catch(err){
@@ -47,8 +48,8 @@ export const getPostById = async(req, res) =>{
     try{
         const post = await PostModel.findOne({_id: postId});
 
-        const postComments = await CommentModel.find({postId}).sort('-createdAt')
-        
+        const postComments = await CommentModel.find({postId})
+        // const postComments = await CommentModel.find({postId}).sort('-createdAt')
         res.status(200).json({post, postComments})
 
     }catch(err){
@@ -65,10 +66,10 @@ export const createPost = async(req, res)=>{
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
-        let update_trash_quantity_collected = await UserModel.findByIdAndUpdate(
-            {_id}, 
-            { $push: { trash_quantity_collected : [ trash_quantity_collected] } }
-            )
+        // let update_trash_quantity_collected = await UserModel.findByIdAndUpdate(
+        //     {_id}, 
+        //     { $push: { trash_quantity_collected : [ trash_quantity_collected] } }
+        //     )
 
            const post = await PostModel.create({...newPost, userId: req.userId});
            res.status(201).json({post})

@@ -24,7 +24,7 @@ const CommentSchema = new mongoose.Schema({
         required:[true, 'Merci de poster une photo des déchets collectés pour faciliter l\'implication de la communauté et le suivi de ce point de collecte']
     },
     trash_quantity_collected: {
-        type:[Number],
+        type:Number,
         required:[true, 'Merci de renseigner la quantité approximative de déchets déjà collectée et jetée']
     }
 },

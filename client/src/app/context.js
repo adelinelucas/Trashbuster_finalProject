@@ -179,18 +179,20 @@ const AppProvider = ({children}) =>{
         const response = await API
             .get(`/cleaning-operation/userposts/${userId}`)
             .then((respServeur)=>{
-                console.log('fetchPostsByUser')
-                console.log('respServeur => ',respServeur)
+                // console.log('fetchPostsByUser')
+                // console.log('respServeur => ',respServeur)
                 return dispatch({type:DISPLAY_USER_POSTS, payload: respServeur.data.posts})
             })
             .catch((error)=> console.log(error))
     }
 
-    const getUserInfo = async(idUser) =>{
+    const getUserInfo = async() =>{
+        console.log('getUserInfo')
         const response = await API
-            .get(`/cleaning-operation/userposts`, idUser)
+            .get(`/auth/userInfos`, )
             .then((respServeur)=>{
-                dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
+                console.log(respServeur)
+                // dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
             })
     }
 
@@ -256,7 +258,7 @@ const AppProvider = ({children}) =>{
     },[initialState.comments])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo}}>
             {children}
         </AppContext.Provider>
     )
