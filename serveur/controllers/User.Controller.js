@@ -91,7 +91,7 @@ export const getUserInfos = async(req, res) =>{
             }
         ])
         console.log('postQuantityTrashCollected',postQuantityTrashCollected);
-        // const commentQuantityTrashCollected = null;
+
         const commentQuantityTrashCollected = await CommentModel.aggregate([
             {$match: {userId: mongoose.Types.ObjectId(_id)}},
             {

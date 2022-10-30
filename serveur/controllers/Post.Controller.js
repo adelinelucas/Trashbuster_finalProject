@@ -4,6 +4,8 @@ import CommentModel from "../models/Comment.js";
 import UserModel from "../models/User.js";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import PictureModel from "../models/Picture.js";
+import QuantityCollectedByPostModel from "../models/QuantityCollectedByPost.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -57,7 +59,7 @@ export const getPostById = async(req, res) =>{
     }
 }
 export const createPost = async(req, res)=>{    
-    const {userId, trash_quantity_collected} = req.body
+    const {userId, trash_quantity_collected, trash_picture} = req.body
     const newPost = req.body;
 
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
@@ -72,7 +74,11 @@ export const createPost = async(req, res)=>{
         //     )
 
            const post = await PostModel.create({...newPost, userId: req.userId});
-           res.status(201).json({post})
+           console.log(post)
+           
+           const picture = await PictureModel.create({postId:post._id, trash_picture:trash_picture});
+
+           res.status(201).json({post, picture})
 
             // if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
 
@@ -127,10 +133,54 @@ export const deletePost = async(req, res)=>{
     try{
         await PostModel.findByIdAndDelete(_id);
 
+        //supprimer les photos associées
+        await PictureModel.findByIdAndDelete({postId:_id});
+
         //supprimer les commentaires associés
-        await CommentModel.deleteMany({postId:_id});
+        await CommentModel.deleteMany({postId:_id});  ;  
 
         res.json({message: 'Le post et les commentaires associés ont bien été supprimé'})
+
+    }catch(err){
+        res.status(500).json({message:err.message})
+    }
+}
+
+export const getPicture = async(req, res) =>{
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+    const _id = req.params.id;
+    try{
+        let picture ;
+        const postPicture = await PictureModel.findOne({postId:_id});
+        if(!postPicture){
+            const commentPicture = await PictureModel.findOne({commentId:_id});
+            picture = commentPicture;
+        }else{
+            picture = postPicture;
+        }
+        res.json({picture})
+
+    }catch(err){
+        res.status(500).json({message:err.message})
+    }
+}
+    
+export const getQuantityCollectedByUser = async( req, res) => {
+    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+    const _id = req.params.id;
+    try{
+        const quantityRequest = await QuantityCollectedByPostModel.aggregate([
+            {$match: {postId: mongoose.Types.ObjectId(_id)}},
+            {
+                $group: {
+                    _id:null,
+                    trash_quantity_collected: { $sum: '$trash_quantity_collected' }
+                }
+            }
+        ])
+        const quantity = quantityRequest[0].trash_quantity_collected
+        
+        res.json({quantity})
 
     }catch(err){
         res.status(500).json({message:err.message})
