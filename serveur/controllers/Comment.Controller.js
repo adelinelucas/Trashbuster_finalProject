@@ -1,15 +1,22 @@
+import mongoose from "mongoose";
 import CommentModel from "../models/Comment.js";
 import PostModel from "../models/Post.js";
 import UserModel from "../models/User.js";
 import QuantityCollectedByPostModel from "../models/QuantityCollectedByPost.js"
 
 export const createComment = async(req,res) =>{
+    console.log('create comment ligne 7')
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     try{
-        console.log(req.body)
-        const comment = await CommentModel.create(req.body);
-        const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId:post._id, trash_quantity_collected});
+        const {postId, title, content, trash_quantity_collected} = req.body
+        const userId =req.userId;
+
+        const author = await UserModel.findOne({_id:mongoose.Types.ObjectId(userId)}, 'pseudo');
+
+        const comment = await CommentModel.create({postId, title, content, trash_quantity_collected, userId:mongoose.Types.ObjectId(userId), author: author.pseudo});
+
+        const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId, trash_quantity_collected, commentId: comment._id});
 
         res.status(200).json({comment})
 

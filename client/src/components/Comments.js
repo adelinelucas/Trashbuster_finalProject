@@ -17,7 +17,7 @@ const Comments = ({comments}) => {
                         <img src="../hero.png" alt="photo illustrant les déchets à collecter" className="w-[250px]"/>
                     </div>
                     <div className="px-4 flex flex-col w-[80%]">
-                        <h4 className="font-bold text-md my-1">Pseudo de l'auteur du commentaire </h4>
+                        <h4 className="font-bold text-md my-1">{comment.author ? comment.author: ''} </h4>
                         <h4 className="font-bold text-md my-1">{comment.title ? comment.title: ''}</h4>
                         <p>{comment.content}</p>
                         <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{comment.trash_quantity_collected}</span>de déchets collectés</p>

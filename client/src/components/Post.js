@@ -10,7 +10,7 @@ moment.locale('fr');
 //
 
 const Post = ({post, action}) => {
-    console.log(post)
+    // console.log(post)
     const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
     const [picture, setPicture] = useState(null)
     const handelDeletePost = (e) =>{
@@ -52,7 +52,7 @@ const Post = ({post, action}) => {
                     <p className="text-md">{post.street},<span className="font-bold text-lg ml-2">{post.postalCode}</span><span className="font-bold text-lg uppercase ml-2">{post.city}</span></p>
                 </div>
                 <div className="flex">
-                    <p className="py-4 pr-10"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</span>kilos de déchets à collectés</p>
+                    <p className="py-4 pr-10"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</span>kilos de déchets collectés</p>
                     <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightYellow text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</span>kilos de déchets à total sur l'action</p>
                 </div>
                 { post.createdAt &&

@@ -29,6 +29,7 @@ const initialState= {
     commentModalOpen: false,
     posts:[],
     post:[],
+    total_trash_collected:0,
     userPosts: [],
     comments:[],
     userActionsNumber : 0,
@@ -108,18 +109,21 @@ const AppProvider = ({children}) =>{
         dispatch({type:LOADING});
         const response = await fetch(`${url}/cleaning-operation/post/${id}`);
         const data = await response.json();
+        console.log(data)
         const post = data.post;
-        dispatch({type:DISPLAY_POST, payload: post})
+        dispatch({type:DISPLAY_POST, payload: data})
         const getMAP = await getMap(post);
+        return;
     }
 
     const fetchPostComments = async(id) =>{
-        if(!id) return;
-        dispatch({type:LOADING});
-        const response = await fetch(`${url}/cleaning-operation/post/${id}`);
-        const data = await response.json();
-        const comments = data.postComments;
-        dispatch({type:DISPLAY_COMMENTS, payload: comments})
+        // if(!id) return;
+        // dispatch({type:LOADING});
+        // const response = await fetch(`${url}/cleaning-operation/post/${id}`);
+        // const data = await response.json();
+        // const comments = data.postComments;
+        // const total = data.total;
+        // dispatch({type:DISPLAY_COMMENTS, payload: comments})
     }
 
     const fetchActionsNumber = async() =>{

@@ -48,7 +48,13 @@ const reducer= (state, action) =>{
                 longitude:null
             }
         case DISPLAY_POST:
-            return {...state, post:action.payload, loading:false, latitude:null,
+            console.log(action.payload)
+            return {...state, 
+                post:action.payload.post, 
+                comments:action.payload.postComments, 
+                total_trash_collected:action.payload.total, 
+                loading:false, 
+                latitude:null,
                 longitude:null}
         case DISPLAY_COMMENTS : 
             return {...state, comments:action.payload, loading:false}

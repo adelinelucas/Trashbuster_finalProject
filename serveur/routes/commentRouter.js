@@ -4,7 +4,7 @@ import auth from '../middleware/auth.js';
 
 import {createComment,updateComment, deleteComment } from '../controllers/Comment.Controller.js'
 
-router.route('', auth).post(createComment)
-router.route('/:id', auth).patch(updateComment).delete(deleteComment)
+router.route('').post(auth, createComment)
+router.route('/:id').patch(auth, updateComment).delete(auth,deleteComment)
 
 export default router;

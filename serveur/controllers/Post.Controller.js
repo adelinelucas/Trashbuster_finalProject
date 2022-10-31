@@ -52,7 +52,18 @@ export const getPostById = async(req, res) =>{
 
         const postComments = await CommentModel.find({postId})
         // const postComments = await CommentModel.find({postId}).sort('-createdAt')
-        res.status(200).json({post, postComments})
+
+        const trash_quantity_collected_all_posts = await QuantityCollectedByPostModel.aggregate([
+            {$match: {postId: mongoose.Types.ObjectId(postId)}},
+            {
+                $group: {
+                    _id:null,
+                    total: { $sum: '$trash_quantity_collected' }
+                }
+            }
+        ])
+        const total = trash_quantity_collected_all_posts[0].total
+        res.status(200).json({post, postComments, total})
 
     }catch(err){
         res.status(404).json({message:err.message})
