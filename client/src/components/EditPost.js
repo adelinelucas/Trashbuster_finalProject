@@ -82,13 +82,16 @@ const EditPost = ({action}) => {
                                 <label htmlFor="trash_quantity_collected" className="text-orangeV2 w-full mb-1 px-1 font-bold">Quantité de déchets (approximative) déjà collectée en kg</label>
                                 <input type="number" min="0" max="1000" step="1" name="trash_quantity_collected" id="trash_quantity_collected" className="border-2 border-orangeV2 leading-normal w-full" value={formData.trash_quantity_collected} onChange={handleChange}/>
                             </div>
-                            <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
-                                <label htmlFor="trash_picture" className="text-orangeV2 w-full mb-1 px-1 font-bold">Charger une photographie du point de collecte</label>
-                                {/* <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-orangeV2 leading-normal w-full" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}/> */}
-                                <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}  className="border-2 border-orangeV2 leading-normal w-full"/>
-                            </div>
+                            {selectedPost ? '' : 
+                                <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                                    <label htmlFor="trash_picture" className="text-orangeV2 w-full mb-1 px-1 font-bold">Charger une photographie du point de collecte</label>
+                                    {/* <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-orangeV2 leading-normal w-full" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}/> */}
+                                    <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, trash_picture: base64 })}  className="border-2 border-orangeV2 leading-normal w-full"/>
+                                </div>
+                            }
+                            
                             <div className="flex justify-end">
-                                <button className="border rounded-full p-2 mr-2 my-4 bg-orangeV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Publier l'action</button>
+                                <button className="border rounded-full p-2 mr-2 my-4 bg-orangeV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">{selectedPost ?"Mettre à jour l'action" : "Publier l'action"}</button>
                             </div>
                         </form>                     
                     </div>

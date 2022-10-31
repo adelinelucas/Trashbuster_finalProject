@@ -9,6 +9,8 @@ export const createComment = async(req,res) =>{
     try{
         console.log(req.body)
         const comment = await CommentModel.create(req.body);
+        const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId:post._id, trash_quantity_collected});
+
         res.status(200).json({comment})
 
     }catch(err){

@@ -38,9 +38,9 @@ const PostSchema = new mongoose.Schema({
         type:Number,
         required:[true, 'Merci de renseigner la quantité approximative de déchets déjà collectée et jetée']
     },
-    trash_quantity_collected_by_users: {
-        type:[Number],
-    }
+    // trash_quantity_collected_by_users: {
+    //     type:[Number],
+    // }
 },{timestamps: true})
 
 const PostModel = mongoose.models['Post'] || mongoose.model('Post', PostSchema );

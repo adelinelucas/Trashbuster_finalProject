@@ -42,9 +42,11 @@ export const login = async(req, res) =>{
                 pseudo: user.pseudo,
                 email: user.email,
                 name: user.name,
-                lastname: user.lastname
+                lastname: user.lastname,
+                userType: user.userType
             }
             const userId = user._id
+            console.log(userInfo)
             res.status(200).json({userInfo, userId, token})
         }
 
@@ -118,6 +120,7 @@ export const getUserInfos = async(req, res) =>{
         }
         userInfos.quantityTrashCollected = postQuantity + commentQuantity;
         userInfos.actionsNumber = postActions + commentActions;
+        console.log('getUserInfos',userInfos)
 
         if('220'<userInfos.quantityTrashCollected.toString() > '120'){
             const updateBadge = await BadgeModel.find({ level:{$eq:"master"} }, '_id' ).exec()

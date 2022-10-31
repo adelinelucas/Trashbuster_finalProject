@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const getAllPost = async(req, res)=>{
     try{
-        const posts = await PostModel.find({});
+        const posts = await PostModel.find({}).sort('-createdAt');
         // const posts = await PostModel.aggregate([{ $sort : { createdAt : -1 } }], { "allowDiskUse" : true })
         res.status(200).json({posts })
 
@@ -77,7 +77,7 @@ export const createPost = async(req, res)=>{
            console.log(post)
            
            const picture = await PictureModel.create({postId:post._id, trash_picture:trash_picture});
-
+           const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId:post._id, trash_quantity_collected});
            res.status(201).json({post, picture})
 
             // if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
@@ -108,7 +108,7 @@ export const updatePost = async(req, res)=>{
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
     try{
-        const {userId, name,street, postalCode,city,trash_quantity_total, trash_quantity_collected,trash_picture } = req.body;
+        // const {userId, name,street, postalCode,city,trash_quantity_total, trash_quantity_collected,trash_picture } = req.body;
          // vérifier que les champs sont vides ? 
         // 
         // const post = await PostModel.findByIdAndUpdate({_id},{...req.body, _id},{new:true, runValidators:true})
@@ -116,6 +116,11 @@ export const updatePost = async(req, res)=>{
             {_id},
             req.body,
             {new:true, runValidators:true}
+        )
+
+        const trash_quantity_collected = await QuantityCollectedByPostModel.findOneAndUpdate(
+            {postId: _id},
+            {trash_quantity_collected: req.body.trash_quantity_collected}
         )
         res.status(200).json({post})
     }catch(err){
@@ -134,10 +139,13 @@ export const deletePost = async(req, res)=>{
         await PostModel.findByIdAndDelete(_id);
 
         //supprimer les photos associées
-        await PictureModel.findByIdAndDelete({postId:_id});
+        await PictureModel.deleteOne({postId:_id});
 
         //supprimer les commentaires associés
-        await CommentModel.deleteMany({postId:_id});  ;  
+        await CommentModel.deleteMany({postId:_id});  
+
+        //supprimer les quantités collecté
+        await QuantityCollectedByPostModel.deleteMany({postId:_id}); 
 
         res.json({message: 'Le post et les commentaires associés ont bien été supprimé'})
 
