@@ -155,7 +155,6 @@ export const deletePost = async(req, res)=>{
 }
 
 export const getPicture = async(req, res) =>{
-    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
     const _id = req.params.id;
     try{
         let picture ;
@@ -166,6 +165,7 @@ export const getPicture = async(req, res) =>{
         }else{
             picture = postPicture;
         }
+        // console.log('picture', picture)
         res.json({picture})
 
     }catch(err){
@@ -174,7 +174,6 @@ export const getPicture = async(req, res) =>{
 }
     
 export const getQuantityCollectedByUser = async( req, res) => {
-    if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
     const _id = req.params.id;
     try{
         const quantityRequest = await QuantityCollectedByPostModel.aggregate([

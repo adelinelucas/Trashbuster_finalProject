@@ -14,30 +14,28 @@ const DetailPost = () => {
     const location = useLocation();
     // console.log(location)
     // console.log(userAuthenticated)
+    const [picture, setPicture] = useState(null)
     const handleComment =() =>{
         openModal(commentModalOpen);
     }
 
     const center = [latitude, longitude]
     const url = `https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=${process.env.REACT_APP_API_KEY}`
-
-    // const getPost = async()=>{
-    //     setLoading(true);
-    //     try{
-    //         const response = await fetch('http://localhost:5000/cleaning-operation/post/6339ccb44e67b4673eae2057');
-    //         const post = await response.json();
-    //         console.log(post)
-    //         setLoading(false)
-    //         setPost(post.post)
-    //         // setComments(post.postComments)
-    //     }catch(error){
-    //         setLoading(false)
-    //         console.log(error)
-    //     }
-    // }
+    
+    const getPicture = async()=>{
+        try{
+            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${post._id}`);
+            const data = await response.json();
+            console.log(data)
+            setPicture(data.picture.trash_picture)
+            // setComments(post.postComments)
+        }catch(error){
+            console.log(error)
+        }
+    }
 
     useEffect( ()=>{
-        //getPost();
+        getPicture();
         fetchPost(id)
         fetchPostComments(id)
     },[]);
@@ -58,8 +56,8 @@ const DetailPost = () => {
         <section className="w-full flex flex-col justify-center items-center">
             <article className="w-4/5 btnNavBarShadow flex flex-col my-3 bg-brightYellow">
                 <div className='flex'>
-                    <div className="mx-4 bg-brightYellow h-fit w-fit">
-                        <img src={post.trash_picture ? post.trash_picture : './hero.png'} alt="photo illustrant les déchets à collecter" className="w-[240px]"/>
+                    <div className="mx-4 mt-4 bg-brightYellow h-fit w-fit">
+                        <img src={picture ? picture : '../Trasbuster_white.png'} alt="photo illustrant les déchets à collecter" className="w-[240px]"/>
                     </div>
                     <div className="bg-brightYellow px-4 w-full">
                         <h3 className="font-bold text-xl py-2 font-Syne text-greenV2 uppercase">{post.name}</h3>
@@ -85,7 +83,7 @@ const DetailPost = () => {
                         }
                     </div>
                 </div>
-                <div className="my-2 w-full">
+                <div className="my-2 w-full z-10">
                         {longitude && latitude ? 
                             <MapContainer
                                 center={center}

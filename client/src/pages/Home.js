@@ -1,13 +1,10 @@
 import React from 'react';
 import {FaRecycle, FaLocationArrow, FaBalanceScale} from 'react-icons/fa';
+import {Link} from 'react-router-dom'
 
 const Home = () => {
     return (
         <>
-            {/* <section className=" w-full flex justify-end h-20" id="connexionBloc">
-                <button className="border rounded-full m-4 p-4 pb-10 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-r-4 border-b-4">Inscription</button>
-                <button className="border border-greenV2 rounded-full m-4 p-4 pb-10 text-greenV2 cursor-pointer btnConnexion shadow-lg border-r-4 border-b-4" >Connexion</button>
-            </section> */}
             <div className="shadow-md w-full h-1" id="separator"></div>
             <section className="shadow-md h-auto w-full flex flex-col items-center py-28 bg-hero-HP2 bg-no-repeat bg-center bg-cover"  id="heroBloc"> 
                 <article className="my-6">
@@ -16,7 +13,7 @@ const Home = () => {
                 <h1 className="text-purpleGrey my-6 text-xl font-bold">Trash Buster,</h1>
                 <h2 className="text-purpleGrey my-6 text-lg font-bold">Une communauté engagée pour trier et collecter les déchets</h2>
                 <article className="my-6">
-                    <button className="bg-greenV2 rounded-2xl shadow-lg py-6 px-6 text-white btnHero border-darkGreen border-r-8 border-b-8 text-xl">Je crée un point de collecte des déchets</button>
+                    <Link to={`/liste_des_actions`} className="bg-greenV2 rounded-2xl shadow-lg py-6 px-6 text-white btnHero border-darkGreen border-r-8 border-b-8 text-xl">Voir les actions de la communauté</Link>
                 </article>
             </section>
             <div className="shadow-md w-full h-1" id="separator"></div>

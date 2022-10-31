@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
 import Posts from './Posts';
 import { useGlobalContext } from '../app/context';
@@ -12,7 +12,7 @@ moment.locale('fr');
 const Post = ({post, action}) => {
     console.log(post)
     const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
-
+    const [picture, setPicture] = useState(null)
     const handelDeletePost = (e) =>{
         e.preventDefault();
         deleteAction(post._id)
@@ -24,15 +24,26 @@ const Post = ({post, action}) => {
         setSelectedPost(post)
     }
 
-    // useEffect( ()=>{
-    //     if(userAuthenticated){
-    //         fetchPostsByUser(authData.userId)
-    //     }
-    // }, [])
+    const getPicture = async()=>{
+        try{
+            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${post._id}`);
+            const data = await response.json();
+            console.log(data)
+            setPicture(data.picture.trash_picture)
+            // setComments(post.postComments)
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect( ()=>{
+        getPicture()
+    }, [])
+
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">
-                <img src={post.trash_picture ? post.trash_picture : 'hero.png'} alt="photo illustrant les déchets à collecter" className="w-[150px]"/>
+                <img src={picture ? picture : 'hero.png'} alt="photo illustrant les déchets à collecter" className="w-[150px]"/>
             </div>
             <div className="bg-brightYellow px-4 min-w-[84%] ">
                 <h3 className="font-bold text-xl py-2 uppercase">{post.name}</h3>
