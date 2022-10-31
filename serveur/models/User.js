@@ -36,10 +36,6 @@ const UserSchema = new mongoose.Schema({
         required:[true, 'Merci de renseigner un mot de passe comprenant au moins 8 caractères '],
         minlength: 4,
     },
-    // profilPicture:{
-    //     type: String,
-    //     required:[true, 'Merci de choisir une photo de profil '],
-    // },
     userType:{
         type:String,
         default: 'particulier',
@@ -53,10 +49,7 @@ const UserSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:'Badge',
         default:'633875c121c86af46390b518'
-    },
-    // trash_quantity_collected:{
-    //     type: [Number]
-    // }
+    }
 },
 {timestamps: true})
 

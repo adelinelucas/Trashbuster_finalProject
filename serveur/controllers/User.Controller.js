@@ -41,6 +41,8 @@ export const login = async(req, res) =>{
             const userInfo = {
                 pseudo: user.pseudo,
                 email: user.email,
+                name: user.name,
+                lastname: user.lastname
             }
             const userId = user._id
             res.status(200).json({userInfo, userId, token})
@@ -78,19 +80,16 @@ export const getUserInfos = async(req, res) =>{
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
-        console.log('getUserInfos in try => ')
-        console.log(_id)
         const postQuantityTrashCollected = await PostModel.aggregate([
             {$match: {userId: mongoose.Types.ObjectId(_id)}},
             {
                 $group: {
                     _id:null,
-                    trash_quantity_collected: { $sum: "$city" },
+                    trash_quantity_collected: { $sum: "$trash_quantity_collected" },
                     nb: { $sum: 1 }
                 }
             }
         ])
-        console.log('postQuantityTrashCollected',postQuantityTrashCollected);
 
         const commentQuantityTrashCollected = await CommentModel.aggregate([
             {$match: {userId: mongoose.Types.ObjectId(_id)}},
@@ -102,8 +101,6 @@ export const getUserInfos = async(req, res) =>{
                 }
             }
         ])
-        console.log('commentQuantityTrashCollected', commentQuantityTrashCollected)
-        console.log('test')
         const userInfos = {
             quantityTrashCollected: 0,
             actionsNumber: 0,
@@ -123,8 +120,6 @@ export const getUserInfos = async(req, res) =>{
         userInfos.quantityTrashCollected = postQuantity + commentQuantity;
         userInfos.actionsNumber = postActions + commentActions;
 
-        console.log(userInfos)
-
         if('220'<userInfos.quantityTrashCollected.toString() > '120'){
             const updateBadge = await BadgeModel.find({ level:{$eq:"master"} }, '_id' ).exec()
            let badge = (updateBadge[0]._id)
@@ -143,8 +138,8 @@ export const getUserInfos = async(req, res) =>{
         }else{
             user = await UserModel.findOne({_id});
         }
-
-        res.status(200).json({user, userInfos})
+        // console.log('ligne 142',userInfos)
+        res.status(200).json({userInfos})
          
     }catch(err){
         res.status(400).json({message:err.message})
@@ -155,15 +150,18 @@ export const getBadgeCategory = async(req, res) =>{
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
+    console.log(_id)
     // const _id = req.params.id;
     let user = null;
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
         const badgeUser = await UserModel.findOne({_id}, 'badge')
-        console.log(badgeUser)
-        const badgeLevel = await BadgeModel.findOne({_id: mongoose.Types.ObjectId(badgeUser[0]._id)}, 'level' )
-        console.log(badgeLevel)
+        console.log('badgeUser', badgeUser)
+        console.log('badgeUser._id', badgeUser._id)
+        console.log('badgeUser._id', badgeUser._id)
+        const badgeLevel = await BadgeModel.findOne({_id: badgeUser.badge}, 'level' )
+        console.log('badgeLevel',badgeLevel)
         res.status(200).json({badgeLevel})
     }catch(err){
         res.status(400).json({message:err.message})

@@ -9,8 +9,9 @@ import UserPosts from '../components/UserPosts';
 const Profil = () => {
     let location = useLocation();
     const [messageUser, setMessageUser] = useState('');
-    const {fetchPostsByUser, authData, userPosts, openEditModal, editModal} = useGlobalContext();
+    const {fetchPostsByUser, authData, userPosts, openEditModal, editModal, getUserInfo, getUserBadge } = useGlobalContext();
     // console.log(authData)
+    const [userInfo, setUserInfo] = useState(null);
 
 
     const handelClick = (e) =>{
@@ -27,10 +28,14 @@ const Profil = () => {
         }
     }, [location]);
 
-    // useEffect( ()=>{
-    //     console.log(authData.userId)
-    //     fetchPostsByUser(authData.userId)
-    // }, [])
+    useEffect( ()=>{
+        // console.log(authData.userId)
+        // fetchPostsByUser(authData.userId)
+        getUserInfo();
+        getUserBadge()
+    }, [])
+
+    console.log(userInfo)
     return (
         <>
         

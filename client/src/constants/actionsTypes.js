@@ -20,5 +20,7 @@ export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
+export const PROFIL_INFOS = 'PROFIL_INFOS';
+export const PROFIL_BADGE = 'PROFIL_BADGE';
 export const COUNT_ACTIONS = 'COUNT_ACTIONS';
 export const SET_COORDINATES = 'SET_COORDINATES';

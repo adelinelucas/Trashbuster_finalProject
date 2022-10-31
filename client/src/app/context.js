@@ -1,7 +1,7 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
 import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES  } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE  } from '../constants/actionsTypes'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
@@ -31,7 +31,9 @@ const initialState= {
     post:[],
     userPosts: [],
     comments:[],
-    actionsNumber : 0,
+    userActionsNumber : 0,
+    userQuantityCollected: 0,
+    userBadge: 'explorator',
     isEditing: false,
     userAuthenticated: false,
     userRole : null, 
@@ -185,15 +187,35 @@ const AppProvider = ({children}) =>{
             })
             .catch((error)=> console.log(error))
     }
+    // const fetchQuantityCollected = async(userId) =>{
+    //     dispatch({type:LOADING});
+    //     const response = await API
+    //         .get(`/cleaning-operation/quantity/${userId}`)
+    //         .then((respServeur)=>{
+    //             console.log('respServeur => ',respServeur.data.userInfos)
+                
+    //         })
+    //         .catch((error)=> console.log(error))
+    // }
+    const getUserBadge = async(userId) =>{
+        dispatch({type:LOADING});
+        const response = await API
+            .get(`/auth/userBadge`)
+            .then((respServeur)=>{
+                console.log('respServeur => ',respServeur)
+                return dispatch({type:PROFIL_BADGE, payload: respServeur.data.badgeLevel.level})
+            })
+            .catch((error)=> console.log(error))
+    }
 
     const getUserInfo = async() =>{
-        console.log('getUserInfo')
         const response = await API
-            .get(`/auth/userInfos`, )
+            .get(`/auth/userInfos`)
             .then((respServeur)=>{
-                console.log(respServeur)
-                // dispatch({DISPLAY_USER_POSTS, payload: respServeur.data})
+                // console.log(respServeur)
+                return dispatch({type:PROFIL_INFOS, payload: respServeur.data.userInfos})
             })
+            .catch((error)=> console.log(error))
     }
 
     const registerAction = async(datas) =>{
@@ -258,7 +280,7 @@ const AppProvider = ({children}) =>{
     },[initialState.comments])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge}}>
             {children}
         </AppContext.Provider>
     )

@@ -10,6 +10,7 @@ moment.locale('fr');
 //
 
 const Post = ({post, action}) => {
+    console.log(post)
     const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
 
     const handelDeletePost = (e) =>{
@@ -31,7 +32,7 @@ const Post = ({post, action}) => {
     return (
         <article className="w-3/5 btnNavBarShadow flex items-center my-3">
             <div className="mx-4">
-                <img src={post.trash_picture ? post.trash_picture : './hero.png'} alt="photo illustrant les déchets à collecter" className="w-[150px]"/>
+                <img src={post.trash_picture ? post.trash_picture : 'hero.png'} alt="photo illustrant les déchets à collecter" className="w-[150px]"/>
             </div>
             <div className="bg-brightYellow px-4 min-w-[84%] ">
                 <h3 className="font-bold text-xl py-2 uppercase">{post.name}</h3>

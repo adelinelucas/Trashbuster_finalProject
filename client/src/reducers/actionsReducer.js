@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, COUNT_ACTIONS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -56,9 +56,14 @@ const reducer= (state, action) =>{
             return {...state, loading:true }
         case COUNT_ACTIONS :
             return {...state, actionsNumber:action.payload }
+        case PROFIL_INFOS :
+            return {...state, userActionsNumber:action.payload.actionsNumber, userQuantityCollected:action.payload.quantityTrashCollected }
+        case PROFIL_BADGE :
+            console.log(action.payload)
+            return {...state, userBadge:action.payload }
         case LOGIN:
            sessionStorage.setItem('profil', JSON.stringify(action.payload)); 
-        //    console.log('action.payload=>', action.payload)
+        console.log('action.payload=>', action.payload)
         //    console.log('type of action.payload=>', typeof(action.payload))
             return{...state, 
                 errorMessage: '',
