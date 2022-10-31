@@ -137,12 +137,6 @@ const Connexion = () => {
                     </div>
                     <p id="passwordConfirmInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>Le mot de passe et la confirmation de mot de passe ne sont pas identiques.</p>
                     
-                    <div className="mx-6 mb-2 px-4 py-1">
-                        <label htmlFor="avatar" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Choix de votre avatar
-                        </label>
-                        <input type="file" autoComplete="off" name="avatar" id="avatar" />
-                    </div>
-                    {/* value={formData.profilPicture} onChange={handleChange} */}
                     <fieldset className="mx-6 mb-2 px-4 py-1">
                         <legend className="bg-greenV2 text-white w-[200px] mb-1 px-1">Catégorie d'utilisateur</legend>
                         <div className="flex justify-start" onChange={handelRadioBtn}>

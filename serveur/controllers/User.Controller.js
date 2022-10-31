@@ -58,7 +58,6 @@ export const logout = async(req, res) =>{
     console.log('logout server controller ')
     try{
         res.cookie('jwt', '', { maxAge: 1 });
-        // res.redirect('/');
         res.status(200).json({message: "L'utilisateur a bien été déconnecté."})
     }catch(err){
         res.status(500).json({message: 'Une erreur est survenue, nous n\'avons pas pu vous déconnecter'})
@@ -157,11 +156,7 @@ export const getBadgeCategory = async(req, res) =>{
 
     try{
         const badgeUser = await UserModel.findOne({_id}, 'badge')
-        console.log('badgeUser', badgeUser)
-        console.log('badgeUser._id', badgeUser._id)
-        console.log('badgeUser._id', badgeUser._id)
         const badgeLevel = await BadgeModel.findOne({_id: badgeUser.badge}, 'level' )
-        console.log('badgeLevel',badgeLevel)
         res.status(200).json({badgeLevel})
     }catch(err){
         res.status(400).json({message:err.message})

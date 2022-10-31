@@ -21,10 +21,10 @@ const UserInfo = () => {
 
     if(userBadge === 'explorator'){
         userBadgeBorder = 'bg-pink';
-    }else if (userBadge === 'ecole'){
+    }else if (userBadge === 'master'){
         userBadgeBorder = 'bg-purple';
     }
-    else if(userBadge === 'association'){
+    else if(userBadge === 'knight'){
         userBadgeBorder = 'bg-mustard'
     }
 

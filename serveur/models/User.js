@@ -64,7 +64,6 @@ UserSchema.methods.checkPassword = function(loginPassword) {
 
 UserSchema.methods.addJWT = function(){
     let token = jwt.sign({userId: this._id, pseudo: this.pseudo}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
-    console.log('fonction add token ds models ', token)
     return token
 }
 
