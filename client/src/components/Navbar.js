@@ -23,12 +23,12 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <nav className="flex justify-between w-full py-10 px-4 shadow-lg">
+        <nav className="flex flex-col sm:flex-row items-center sm:items-end justify-between w-full py-10 px-4 shadow-lg">
         <div id="backHP" >
             <NavLink to={'/'}><img src="./logoTB.png" alt="back to home page" className="w-[160px] cursor-pointer"/>
             </NavLink>
         </div>
-        <div className="flex">
+        <div className="flex flex-col sm:flex-row text-sm sm:text-base">
             <ul className="flex">
                 <li  className="m-2 p-2 bg-orangeV2 text-white cursor-pointer btnNavBar btnNavBarShadow">
                     <NavLink to={'/liste_des_actions'}>Voir toutes les actions
@@ -40,7 +40,7 @@ const Navbar = () => {
                     </NavLink>
                 </li>
             </ul>
-            <ul className="flex ml-4">
+            <ul className="flex ml-4 mt-4 sm:mt-0">
                 {userAuthenticated && 
                     <>
                         <li className="m-2 p-2 bg-lightRed text-white cursor-pointer btnNavBar btnNavBarShadow">

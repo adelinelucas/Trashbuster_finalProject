@@ -19,9 +19,9 @@ const CharteCommu = () => {
     console.log(engagements[value])
 
     return (
-        <section className='w-full my-10 mx-8 min-h-screen'>
+        <section className='w-full my-10 mx-0 md:mx-8 min-h-screen'>
             <h1 className='text-2xl my-4 text-greenV2 text-center'>Charte de la commuanuté</h1>
-            <div className='flex flex-row justify-center'>
+            <div className='flex flex-col lg:flex-row justify-center'>
                 <aside className='flex flex-col mr-12 '>
                     {
                         tabs.map((tab, index)=>{
@@ -31,7 +31,7 @@ const CharteCommu = () => {
                         })
                     }
                 </aside>
-                <article className='w-2/5 bg-greenV2 text-white p-4 cardBoxShadow'>
+                <article className='w-11/12 lg:w-6/12 mt-4 lg:mt-0 bg-greenV2 text-white p-4 cardBoxShadow'>
                     <div>
                         <h3 className='text-2xl text-center mb-4 underline'>{categorie}</h3>
                     </div>

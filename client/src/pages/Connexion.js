@@ -97,47 +97,47 @@ const Connexion = () => {
     if(!isUserRegistered){
         return(
             <div className="w-full flex flex-row justify-around">
-                <section className="flex flex-col items-center w-2/5 my-5">
+                <section className="flex-col items-center w-2/5 my-5 hidden md:flex">
                     <img src="./logoTB.png" alt="back to home page" className="w-[360px]"/>
-                    <div className="bg-hero w-full h-[800px] bg-cover">
+                    <div className="bg-hero w-full h-[800px] lg:bg-cover md:bg-no-repeat ">
                     </div>
                 </section>
-                <section id="inscriptionBloc" className="w-[450px] my-5 mx-20 border-4 border-greenV2 flex justify-center flex-col rounded-2xl formShadow p-4">
+                <section id="inscriptionBloc" className="w-full md:w-[450px] my-5 mx-0 md:mx-20 border-4 border-greenV2 flex justify-center flex-col rounded-2xl formShadow p-4">
                 <div className="w-full mb-4">
                     <h2 className="text-2xl text-greenV2 font-bold text-center">Je m'inscris !</h2>
                     <div className="w-full h-1 border-b-2 border-greenV2" id="underline"></div>
                 </div>
                 <form className="flex flex-col w-full" onSubmit={handelRegisterForm}>
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="lastname" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Nom</label>
-                        <input type="text" autoComplete="off" name="lastname" id="lastname" className="border-2 border-greenV2 leading-normal w-[300px]" value={formData.lastname} onChange={handleChange} required/>
+                        <input type="text" autoComplete="off" name="lastname" id="lastname" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.lastname} onChange={handleChange} required/>
                     </div>
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="name" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Prénom</label>
-                        <input type="text" autoComplete="off" name="name" id="name" className="border-2 border-greenV2 leading-normal w-[300px]" value={formData.name} onChange={handleChange} required/>
+                        <input type="text" autoComplete="off" name="name" id="name" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.name} onChange={handleChange} required/>
                     </div>
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="pseudo" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Pseudo</label>
-                        <input type="text" autoComplete="off" name="pseudo" id="pseudo" className="border-2 border-greenV2 leading-normal w-[300px]" value={formData.pseudo} onChange={handleChange} required/>
+                        <input type="text" autoComplete="off" name="pseudo" id="pseudo" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.pseudo} onChange={handleChange} required/>
                     </div>                
     
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="email" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Email</label>
-                        <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenV2 leading-normal w-[300px]" value={formData.email} onChange={handleChange} required/>
+                        <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.email} onChange={handleChange} required/>
                     </div>
                     <p id="emailInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>Merci de renseigner un email valide.</p>
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="password" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Mot de passe</label>
-                        <input type="password" autoComplete="off" name="password" id="password" className="border-2 border-greenV2 leading-normal w-[300px]" value={formData.password} onChange={handleChange} required/>
+                        <input type="password" autoComplete="off" name="password" id="password" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.password} onChange={handleChange} required/>
                     </div>            
                     
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="confirmPassword" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Confirmez le mot de passe</label>
-                        <input type="password" autoComplete="off" name="confirmPassword" id="confirmPassword" className="border-2 border-greenV2 leading-normal w-[300px]" value={confirmPassword} onChange={handleConfirmPassword} required/>
+                        <input type="password" autoComplete="off" name="confirmPassword" id="confirmPassword" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={confirmPassword} onChange={handleConfirmPassword} required/>
                     </div>
                     <p id="passwordConfirmInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>Le mot de passe et la confirmation de mot de passe ne sont pas identiques.</p>
                     
-                    <fieldset className="mx-6 mb-2 px-4 py-1">
+                    <fieldset className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <legend className="bg-greenV2 text-white w-[200px] mb-1 px-1">Catégorie d'utilisateur</legend>
                         <div className="flex justify-start" onChange={handelRadioBtn}>
                             <div className="mr-2">
@@ -154,7 +154,7 @@ const Connexion = () => {
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset className="flex flex-row text-greenV2 font-bold mx-6  mb-2 w-fit px-4 py-2">
+                    <fieldset className="flex flex-row text-greenV2 font-bold mx-0 md:mx-6 mb-2 w-fit px-0 md:px-4 py-2">
                         <div  className="mr-2">
                             <input type="checkbox" id="charteCommu" name="charteCommu"/>
                         </div>
@@ -163,7 +163,7 @@ const Connexion = () => {
                         </div>
                     </fieldset>
                     <p id="charteCommuInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>L'acceptation de la charte d'engagement de Trash Buster obligatoire</p>
-                    <fieldset className="flex flex-row text-greenV2 font-bold mx-6  mb-2 w-fit px-4 py-2">
+                    <fieldset className="flex flex-row text-greenV2 font-bold mx-0 md:mx-6 mb-2 w-fit px-0 md:px-4 py-2">
                         <div className="mr-2">
                             <input type="checkbox" id="cgv" name="cgv"/>
                         </div>
@@ -185,24 +185,24 @@ const Connexion = () => {
 
     return (
         <div className="w-full flex flex-row justify-around">
-            <section id="inscriptionBloc" className="w-[450px] my-40 mx-20 border-4 border-greenApple flex justify-center align-start flex-col rounded-2xl formShadow p-4">
+            <section id="inscriptionBloc" className="w-full md:w-[450px] my-20 md:my-40 mx-0 md:mx-20 border-4 border-greenApple flex justify-center align-start flex-col rounded-2xl formShadow p-4">
                 <div className="w-full mb-4">
                     <h2 className="text-2xl text-greenApple font-bold text-center">Je me connecte ! </h2>
                     <div className="w-full h-1 border-b-2 border-greenApple" id="underline"></div>
                 </div>
                 <form className="flex flex-col w-full" onSubmit={handelConnexionForm}>
-                    <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="email" className="bg-greenApple text-white w-[200px] mb-1 px-1">Email de votre compte</label>
-                        <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenApple leading-normal w-[300px]" value={loginData.email} onChange={handleAuthChange} required/>
+                        <input type="email" autoComplete="off" name="email" id="email" className="border-2 border-greenApple leading-normal w-[250px] md:w-[300px]" value={loginData.email} onChange={handleAuthChange} required/>
                     </div>
-                    <div className="mx-6  mb-2 px-4 py-1 flex flex-col">
+                    <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="password" className="bg-greenApple text-white w-[200px] mb-1 px-1">Mot de passe</label>
-                        <input type="password" autoComplete="off" name="password" id="password" className="border-2 border-greenApple leading-normal w-[300px]" value={loginData.password} onChange={handleAuthChange} required/>
+                        <input type="password" autoComplete="off" name="password" id="password" className="border-2 border-greenApple leading-normal w-[250px] md:w-[300px]" value={loginData.password} onChange={handleAuthChange} required/>
                     </div>
                     <button className="rounded-full m-4 p-2 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-greenGrass border-r-4 border-b-4" type="submit">Se connecter</button>  
                 </form>
             </section>
-            <section className="flex flex-col items-center w-2/5 my-5">
+            <section className="hidden md:flex flex-col items-center w-2/5 my-5">
                 <img src="./logoTB.png" alt="back to home page" className="w-[360px]"/>
                 <div className="bg-hero w-full h-[590px] bg-cover"></div>
             </section>
