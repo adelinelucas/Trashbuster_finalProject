@@ -30,7 +30,7 @@ const UserInfo = () => {
 
 
     return (
-        <aside id="profilBloc" className={`w-[550px] my-20 ml-20 border-8 flex justify-evenly flex-col profilShadow p-4 h-[550px] ${userInfoBorder} relative`}>
+        <aside id="profilBloc" className={`w-11/12 md:w-8/12 lg:w-[550px] my-5 md:my-10 ml-2 lg:ml-20 border-8 flex justify-evenly flex-col profilShadow p-4 h-[550px] ${userInfoBorder} relative`}>
             <div className="absolute top-[18px]">
                     <div className={`rounded-full ${userBadgeBorder} w-24 h-24 ${userInfoBorder} flex items-center justify-center text-center border-8`}>
                         <p className='font-bold'>{userData.name ? `${userData.name.charAt(0)} - ` : ''} {userData.lastname ? userData.lastname.charAt(0): ''}</p>

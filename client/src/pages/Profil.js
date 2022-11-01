@@ -40,7 +40,7 @@ const Profil = () => {
         <>
         
             <section className="w-full flex justify-center">
-                <h1 className="text-greenV2 text-2xl font-bold py-4">Mes actions & participations</h1>
+                <h1 className="text-center md:text-left text-greenV2 text-2xl font-bold py-4">Mes actions & participations</h1>
             </section>
             {messageUser && 
                 <section className="w-full flex justify-center">
@@ -48,14 +48,14 @@ const Profil = () => {
                 </section> 
             }
             {!userPosts || userPosts.length === 0 ? '' : 
-                <section className="w-full flex justify-end">
-                    <div className="flex justify-end">
+                <section className="w-full flex justify-center md:justify-end">
+                    <div className="flex justify-center md:justify-end">
                         <button className="border rounded-full p-2 mr-2 my-4 bg-orangeV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={handelClick}>Créer un point de collecte</button>
                     </div>
                 </section>
             }
             
-            <div className="flex">
+            <div className="flex flex-col lg:flex-row">
             <UserInfo />
             {editModal && <EditPost action={'addPost'} />}
             <UserPosts />

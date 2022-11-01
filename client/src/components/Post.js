@@ -41,19 +41,25 @@ const Post = ({post, action}) => {
     }, [])
 
     return (
-        <article className="w-3/5 btnNavBarShadow flex items-center my-3">
-            <div className="mx-4">
+        <article className="w-full md:w-10/12 lg:w-3/5 btnNavBarShadow flex items-center my-3">
+            <div className="hidden md:block mx-4">
                 <img src={picture ? picture : 'hero.png'} alt="photo illustrant les déchets à collecter" className="w-[150px]"/>
             </div>
             <div className="bg-brightYellow px-4 min-w-[84%] ">
                 <h3 className="font-bold text-xl py-2 uppercase">{post.name}</h3>
                 {post.description ? <p className="py-2">{post.description}</p> : ''}
                 <div>
-                    <p className="text-md">{post.street},<span className="font-bold text-lg ml-2">{post.postalCode}</span><span className="font-bold text-lg uppercase ml-2">{post.city}</span></p>
+                    <p className="text-sm md:text-md">{post.street},<span className="font-bold text-lg ml-2">{post.postalCode}</span><span className="font-bold text-lg uppercase ml-2">{post.city}</span></p>
                 </div>
-                <div className="flex">
-                    <p className="py-4 pr-10"><span className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</span>kilos de déchets collectés</p>
-                    <p className="py-4"><span className="border rounded-full p-2 mr-2 bg-brightYellow text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</span>kilos de déchets à total sur l'action</p>
+                <div className="flex text-sm md:text-md flex-col md:flex-row ">
+                    <div className='flex items-center md:flex-row'>
+                        <p className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_collected}</p>
+                        <p className="py-4 pr-10">kilos de déchets collectés</p>
+                    </div>
+                    <div className='flex items-center md:flex-row'>
+                        <p className="border rounded-full p-2 mr-2 bg-brightYellow text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{post.trash_quantity_total}</p>
+                        <p className="py-4">kilos de déchets à total sur l'action</p>
+                    </div>
                 </div>
                 { post.createdAt &&
                 <div className='flex justify-end'>

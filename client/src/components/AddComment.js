@@ -33,7 +33,7 @@ const AddComment = ({idPost}) => {
     }
     return (
         <section className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">
-            <div id="add comment" className="w-3/5 btnNavBarShadow flex flex-col items-center my-3 bg-lightGrey p-5">
+            <div id="add comment" className="w-10/12  lg:w-3/5 btnNavBarShadow flex flex-col items-center my-3 bg-lightGrey p-5">
                 <div className='relative top-[-15px] right-[-50%] text-3xl cursor-pointer'>
                    <FaWindowClose  onClick={closeComment}/> 
                 </div>
