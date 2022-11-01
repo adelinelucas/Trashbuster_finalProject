@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {FaWindowClose} from 'react-icons/fa'
 import { useGlobalContext } from '../app/context';
+import FileBase from 'react-file-base64';
 
 const AddComment = ({idPost}) => {
     const {closeModal, commentModalOpen, post, addAComment} = useGlobalContext();
@@ -49,11 +50,12 @@ const AddComment = ({idPost}) => {
                     </div>
                     <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                         <label htmlFor="trash_picture" className="text-greenV2 w-full mb-1 px-1 font-bold">Ajouter une photo à votre commentaire</label>
-                        <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-greenV2 leading-normal" />
+                        {/* <input type="file" name="trash_picture" id="trash_picture" className="border-2 border-greenV2 leading-normal" /> */}
+                        <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormCommentData({ ...formCommentData, trash_picture: base64 })}  className="text-greenV2 w-full mb-1 px-1 font-bold"/>
                     </div>
                     <div className="mx-6 mb-2 px-4 py-1 flex flex-col">
                         <label htmlFor="trash_quantity_collected" className="text-greenV2 w-full mb-1 px-1 font-bold">Quantité collectée</label>
-                        <input type="number" name="trash_quantity_collected" id="trash_quantity_collected" className="border-2 border-greenV2 leading-normal w-full" required value={formCommentData.trash_quantity_collected} onChange={handleChange}/>
+                        <input type="number" name="trash_quantity_collected" id="trash_quantity_collected" min="0" max="1000" step="1" className="border-2 border-greenV2 leading-normal w-full" required value={formCommentData.trash_quantity_collected} onChange={handleChange}/>
                     </div>
                     <div className="w-full flex justify-end">
                         <button type="submit" className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Commenter l'action</button>
