@@ -201,7 +201,6 @@ const AppProvider = ({children}) =>{
         const response = await API
             .get(`/auth/userBadge`)
             .then((respServeur)=>{
-                console.log('respServeur => ',respServeur)
                 return dispatch({type:PROFIL_BADGE, payload: respServeur.data.badgeLevel.level})
             })
             .catch((error)=> console.log(error))
@@ -218,15 +217,15 @@ const AppProvider = ({children}) =>{
     }
 
     const registerAction = async(datas) =>{
-        console.log(datas)
         const response = await API
         .post(`/cleaning-operation/post`, datas)
         .then((respServeur) => {
-            return dispatch({type: ADD_POST, payload: datas})
+            console.log(respServeur)
+            return dispatch({type: ADD_POST, payload: respServeur.data.post})
         })
-        .then(fetchPostsByUser(datas.userId))
+        .then(getUserBadge)
+        .then(getUserInfo)
         .catch((error)=> console.log(error))
-
     }
 
     const deleteAction = async(id) =>{
@@ -235,6 +234,8 @@ const AppProvider = ({children}) =>{
         .then((respServeur) => {
             return dispatch({type: DELETE_POST, payload: id})
         })
+        .then(getUserBadge)
+        .then(getUserInfo)
         .catch((error)=> console.log(error))
     }
 
@@ -253,6 +254,8 @@ const AppProvider = ({children}) =>{
         .then((respServeur) => {
             return dispatch({type: UPDATE_POST, payload: datas})
         })
+        .then(getUserBadge)
+        .then(getUserInfo)
         .catch((error)=> console.log(error))
 
     }

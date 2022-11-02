@@ -15,6 +15,7 @@ const reducer= (state, action) =>{
             return {...state, errorModal:false};
         case ADD_POST:
             state.userPosts.push(action.payload);
+            state.post = action.payload;
             return {...state};
         case SELECTED_POST:
             return {...state, selectedPost:action.payload};
@@ -34,10 +35,6 @@ const reducer= (state, action) =>{
             return {
                 ...state
             } 
-        case UPDATE_COMMENT:
-            return
-        case DELETE_COMMENT :
-            return
         case DISPLAY_POSTS : 
             return {...state, posts:action.payload, loading:false}
         case DISPLAY_USER_POSTS : 

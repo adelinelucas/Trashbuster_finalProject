@@ -26,11 +26,17 @@ module.exports = {
             'lightOrangeV2': '#F7A258',
             'darkGreen': '#082600',
             'popUp': '#797d7fa9',
+            'gold': '#BFA249',
+            'silver': '#8C837B',
+            'bronze': '#A34F02',
         },
         backgroundImage: {
           'hero': "url('./images/hero.png')",
           'hero-HP': "url('./images/hero-HP.png')",
           'hero-HP2': "url('./images/hero-HPv2.png')",
+          'explorateur': "url('./images/explorator.png')",
+          'master': "url('./images/master.png')",
+          'knight': "url('./images/knight.png')",
         },
         backgroundSize: {
           'auto': 'auto',
