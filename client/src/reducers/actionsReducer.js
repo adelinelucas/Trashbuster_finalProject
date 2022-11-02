@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE, SET_MESSAGE_MODAL } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -45,7 +45,6 @@ const reducer= (state, action) =>{
                 longitude:null
             }
         case DISPLAY_POST:
-            console.log(action.payload)
             return {...state, 
                 post:action.payload.post, 
                 comments:action.payload.postComments, 
@@ -62,11 +61,9 @@ const reducer= (state, action) =>{
         case PROFIL_INFOS :
             return {...state, userActionsNumber:action.payload.actionsNumber, userQuantityCollected:action.payload.quantityTrashCollected }
         case PROFIL_BADGE :
-            console.log(action.payload)
             return {...state, userBadge:action.payload }
         case LOGIN:
            sessionStorage.setItem('profil', JSON.stringify(action.payload)); 
-        console.log('action.payload=>', action.payload)
         //    console.log('type of action.payload=>', typeof(action.payload))
             return{...state, 
                 errorMessage: '',
@@ -79,9 +76,11 @@ const reducer= (state, action) =>{
             sessionStorage.setItem('profil', ''); 
             return{...state, userAuthenticated:false, authData:null, userPosts:[], userData:null,registerData: null };
         case SET_COORDINATES:
-            console.log(action.payload) 
                 return {...state, latitude:action.payload[0],
-                longitude:action.payload[1]}
+                longitude:action.payload[1]};
+        case SET_MESSAGE_MODAL:  
+            state.alertInfo = action.payload
+            return {...state }
         default: 
             return state
     }

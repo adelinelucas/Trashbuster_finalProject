@@ -7,8 +7,6 @@ const loginDatas = {email:'', password:''}
 
 const Connexion = () => {
     let location = useLocation();
-    // console.log(location)
-    // console.log(location.pathname)
     const {userAuthenticated, register, signup} = useGlobalContext();
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
@@ -33,13 +31,6 @@ const Connexion = () => {
         passwordConfirmInfo.classList.add('hidden')
     }
 
-    // const generateErrorMessage = (field) =>{
-        
-    //     let errorInfo=`<p className='text-red-900 font-xl'>Le champ ${field} doit être complété ! </p>`
-    //     let errorContainer = React.createElement('div', errorInfo);
-    //     let input = document.getElementById(`${field}`);
-    //     input.appendChild(errorContainer);
-    // }
     const handelRadioBtn = (e) =>{
         setFormData({...formData, userType: e.target.value })
     }
@@ -184,7 +175,7 @@ const Connexion = () => {
 
     return (
         <div className="w-full flex flex-row justify-around">
-            <section id="inscriptionBloc" className="w-full md:w-[450px] my-20 md:my-40 mx-0 md:mx-20 border-4 border-greenApple flex justify-center align-start flex-col rounded-2xl formShadow p-4">
+            <section id="inscriptionBloc" className="w-10/12 sm:w-6/12 md:w-[450px] my-20 md:my-40 mx-0 md:mx-20 border-4 border-greenApple flex justify-center align-start flex-col rounded-2xl formShadow p-4">
                 <div className="w-full mb-4">
                     <h2 className="text-2xl text-greenApple font-bold text-center">Je me connecte ! </h2>
                     <div className="w-full h-1 border-b-2 border-greenApple" id="underline"></div>

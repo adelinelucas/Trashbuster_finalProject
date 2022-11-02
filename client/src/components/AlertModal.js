@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FaWindowClose} from 'react-icons/fa'
 import { useGlobalContext } from '../app/context';
 
-const AltertModal = ({msg, type, removeAlert, alertInfo}) => {
-    const {errorMessage, errorModal,closeErrorModal} = useGlobalContext();
+const AlertModal = ({}) => {
+    const {alertInfo, closeAlert} = useGlobalContext();
 
     useEffect( ()=>{
         const timeOut = setTimeout( ()=>{
-          removeAlert()
+          closeAlert()
         }, 3000);
         return ()=>{
           clearTimeout(timeOut)
@@ -15,7 +15,7 @@ const AltertModal = ({msg, type, removeAlert, alertInfo}) => {
       }, [alertInfo])
 
     const handelModal = () =>{
-        closeErrorModal()
+      closeAlert()
     }
     return (
         <section className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">
@@ -24,10 +24,10 @@ const AltertModal = ({msg, type, removeAlert, alertInfo}) => {
                    <FaWindowClose  onClick={handelModal}/> 
                 </div>
                 <h4 className='text-red-900 w-full mb-1 px-1 font-bold text-2xl text-center'>Une erreur est survenue : </h4>
-                <p className={`text-${type}-900 `}>{msg}</p>
+                <p className={`text-${alertInfo.type}-900 `}>{alertInfo.msg}</p>
             </div>
         </section>
     );
 };
 
-export default AltertModal;
+export default AlertModal;

@@ -1,7 +1,6 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
-import authReducer from "../reducers/authReducer";
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT, UPDATE_COMMENT, DELETE_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, OPEN_ERROR_MODAL, CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE  } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, LOGIN,DISPLAY_USER_POSTS, CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE,SET_MESSAGE_MODAL  } from '../constants/actionsTypes'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
@@ -45,7 +44,9 @@ const initialState= {
     selectedPost : null,
     longitude:null,
     latitude: null,
-    alertInfo: false,
+    alertInfo: {
+        show:false, msg:'', type:''  
+    },
 }
 
 
@@ -104,7 +105,6 @@ const AppProvider = ({children}) =>{
         dispatch({type:LOADING});
         const response = await fetch(`${url}/cleaning-operation/post/${id}`);
         const data = await response.json();
-        console.log(data)
         const post = data.post;
         dispatch({type:DISPLAY_POST, payload: data})
         const getMAP = await getMap(post);
@@ -129,19 +129,25 @@ const AppProvider = ({children}) =>{
 
     const signup = async(datas)=>{
        
-        const response = await API
+        const response = await axios
             .post(`/auth/login`,datas)
             .then((response) =>{
                 console.log(response)
-                if(response.data.message) {
-                    initialState.errorMessage = response.data.message;
-                }
-                if(response.data.token){
+                if(199< response.status <300){
                     return dispatch({type:LOGIN, payload: response.data})
+                }
+                if(response.status < 400){
+                    console.log('response.status < 400')
+                    console.log(response.data.message)
                 }
             })
             .catch((error) => {
-                console.log('error',error);
+                let alertPayload = {
+                    show: true,
+                    msg : error.response.data.message,
+                    type: 'red'
+                }
+                return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
             })
     }
 
@@ -150,15 +156,14 @@ const AppProvider = ({children}) =>{
             const response = await API
             .post(`/auth/register`, datas)
             .then((respServeur) =>{
+                console.log(respServeur)
                 if(respServeur){
                     if(respServeur.data.message.code == 11000){
                         initialState.errorMessage = "L'adresse mail existe déjà en base de donnée. Une adresse mail ne peut etre associée qu'à un seul compte.";  
                     }
                     if(respServeur.data.message) {
                         initialState.errorMessage = 'Une erreur est survenue votre inscription n\'a pas pu être finalisée';
-                        console.log(initialState)
                     }
-                    console.log(initialState)
                 }
             })
             .catch((error) => {
@@ -271,6 +276,15 @@ const AppProvider = ({children}) =>{
         .catch((error)=> console.log(error))
     }
 
+    const closeAlert = () =>{
+        let alertPayload = {
+            show: false,
+            msg : null,
+            type: ''
+        }
+        return dispatch({type: SET_MESSAGE_MODAL, payload: alertPayload})
+    }
+
     // on appelle le chargement de nos données
     useEffect(()=>{
         fetchPosts();
@@ -282,7 +296,7 @@ const AppProvider = ({children}) =>{
     },[initialState.comments])
 
     return (
-        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge}}>
+        <AppContext.Provider value={{...state,openModal, closeModal, fetchPostComments, fetchPost, register, signup, fetchPostsByUser, openEditModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge, closeAlert}}>
             {children}
         </AppContext.Provider>
     )
