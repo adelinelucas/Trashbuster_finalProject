@@ -41,12 +41,11 @@ const initialState= {
     authData: null,
     userData: null,
     registerData: null,
-    errorMessage: null,
-    errorModal : true,
     editModal: false, 
     selectedPost : null,
     longitude:null,
     latitude: null,
+    alertInfo: false,
 }
 
 
@@ -86,14 +85,10 @@ const AppProvider = ({children}) =>{
         fetch(locationURL, requestOptions)
             .then(response => response.json())
             .then(result => {
-                console.log(result)
-                console.log(result.results)
-                console.log(result.results[0])
                 let coordinates = [];   
                 coordinates.push(result.results[0].lat);
                 coordinates.push(result.results[0].lon)
-                console.log(coordinates)
-                dispatch({type:SET_COORDINATES, payload: coordinates})
+                return dispatch({type:SET_COORDINATES, payload: coordinates})
             })
             .catch(error => console.log('error', error));
     }
@@ -102,7 +97,7 @@ const AppProvider = ({children}) =>{
         dispatch({type:LOADING});
         const response = await fetch(`${url}/cleaning-operation/posts`);
         const posts = await response.json();
-        dispatch({type:DISPLAY_POSTS, payload: posts})
+        return dispatch({type:DISPLAY_POSTS, payload: posts})
     }
 
     const fetchPost = async(id) =>{
@@ -129,7 +124,7 @@ const AppProvider = ({children}) =>{
     const fetchActionsNumber = async() =>{
         const response = await fetch(`${url}/cleaning-operation/numberPosts`);
         const number = await response.json();
-        dispatch({type:COUNT_ACTIONS, payload: number})
+        return dispatch({type:COUNT_ACTIONS, payload: number})
     }
 
     const signup = async(datas)=>{

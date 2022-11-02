@@ -17,6 +17,7 @@ const Post = ({post, action}) => {
         e.preventDefault();
         deleteAction(post._id)
     }
+    console.log(post)
 
     const handelUpdatePost = (e) =>{
         e.preventDefault();
@@ -68,7 +69,7 @@ const Post = ({post, action}) => {
                 }
 
                 <div className='my-4'>
-                    <Link to={`/detail_action/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={()=>{console.log('click')}}>Voir le détail de l'action</Link>
+                    <Link to={`/detail_action/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Voir le détail de l'action</Link>
                 </div>
                 {action == 'edit' ? 
                     <div className="flex justify-end">

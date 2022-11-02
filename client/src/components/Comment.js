@@ -12,7 +12,6 @@ const Comment = ({comment}) => {
         try{
             const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${comment._id}`);
             const data = await response.json();
-            console.log(data)
             setPicture(data.picture.trash_picture)
         }catch(error){
             console.log(error)
@@ -32,14 +31,14 @@ const Comment = ({comment}) => {
                     <img src={picture ? picture :"../hero.png"} alt="photo illustrant les déchets à collecter" className="w-[250px]"/>
                 </div>
                 <div className="px-4 flex flex-col w-[80%]">
-                    <h4 className="font-bold text-md my-1">{comment.author ? comment.author: ''} </h4>
-                    <h4 className="font-bold text-md my-1">{comment.title ? comment.title: ''}</h4>
+                    <h4 className="font-bold text-md my-1">{comment.title ? 'Titre du commentaire: ' + comment.title : ''}</h4>
                     <p>{comment.content}</p>
                     <div className='flex flex-row items-center'>
                         <p className="border rounded-full p-2 mr-2 bg-brightOrange text-white btnInscription shadow-lg border-white border-r-4 border-b-4">{comment.trash_quantity_collected}</p>
                         <p className="py-4">kilos de déchets collectés</p>
                     </div>
-                    <div className='flex justify-end'>
+                    <div className='flex justify-end flex-col items-end'>
+                        <h4 className="italic font-bold text-md my-1">Ecrit par : {comment.author ? comment.author: ''} </h4>
                         <p className="py-2 text-sm italic text-end">{moment(comment.createdAt).fromNow()}</p>
                     </div>
                 </div>

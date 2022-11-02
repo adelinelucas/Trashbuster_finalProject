@@ -1,7 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import { redirect, useNavigate, useLocation  } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
-import ErrorModal from '../components/ErrorModal';
 const registerData = {name:'', lastname:'', pseudo:'', email:'', password:'', profilPicture:'picture.test', userType:''}
 const loginDatas = {email:'', password:''}
 

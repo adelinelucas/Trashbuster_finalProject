@@ -24,9 +24,8 @@ const DetailPost = () => {
     
     const getPicture = async()=>{
         try{
-            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${post._id}`);
+            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${id}`);
             const data = await response.json();
-            console.log(data)
             setPicture(data.picture.trash_picture)
             // setComments(post.postComments)
         }catch(error){
@@ -106,7 +105,7 @@ const DetailPost = () => {
                                 attribution='Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | © OpenStreetMap <a href="https://www.openstreetmap.org/copyright" target="_blank">contributors</a>' />
                             </MapContainer>
                         : 
-                        'Aucune carte disponible pour l\'action.' }        
+                        'Chargement de la carte. Si aucune carte n\'apparaît d\'ici quelques secondes c\'est qu\'aucune carte n`\' disponible pour l\'action.' }        
                 </div>
             
             </article>

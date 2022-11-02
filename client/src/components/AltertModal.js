@@ -2,8 +2,17 @@ import React from 'react';
 import {FaWindowClose} from 'react-icons/fa'
 import { useGlobalContext } from '../app/context';
 
-const ErrorModal = () => {
+const AltertModal = ({msg, type, removeAlert, alertInfo}) => {
     const {errorMessage, errorModal,closeErrorModal} = useGlobalContext();
+
+    useEffect( ()=>{
+        const timeOut = setTimeout( ()=>{
+          removeAlert()
+        }, 3000);
+        return ()=>{
+          clearTimeout(timeOut)
+        }
+      }, [alertInfo])
 
     const handelModal = () =>{
         closeErrorModal()
@@ -15,10 +24,10 @@ const ErrorModal = () => {
                    <FaWindowClose  onClick={handelModal}/> 
                 </div>
                 <h4 className='text-red-900 w-full mb-1 px-1 font-bold text-2xl text-center'>Une erreur est survenue : </h4>
-                <p className='text-red-900'>{errorMessage}</p>
+                <p className={`text-${type}-900 `}>{msg}</p>
             </div>
         </section>
     );
 };
 
-export default ErrorModal;
+export default AltertModal;
