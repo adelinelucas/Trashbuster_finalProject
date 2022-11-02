@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { redirect, useNavigate, useLocation  } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
-const registerData = {name:'', lastname:'', pseudo:'', email:'', password:'', profilPicture:'picture.test', userType:''}
+const registerData = {name:'', lastname:'', pseudo:'', email:'', password:'',confirmPassword:'', userType:'particulier'}
 const loginDatas = {email:'', password:''}
 
 
@@ -11,7 +11,7 @@ const Connexion = () => {
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
     const [loginData, setLoginData] = useState(loginDatas);
-    const [confirmPassword, setConfirmPassword] = useState('');
+    // const [confirmPassword, setConfirmPassword] = useState('');
     const [isUserRegistered, setIsUserRegistered] = useState(false);
     const [displayConnexionBloc,setDisplayConnexionBloc ] = useState(location)
     let cgv = document.getElementById('cgv');
@@ -26,10 +26,10 @@ const Connexion = () => {
         setFormData({...formData, [e.target.name]: e.target.value })
     }
 
-    const handleConfirmPassword =(e) =>{
-        setConfirmPassword(e.target.value)
-        passwordConfirmInfo.classList.add('hidden')
-    }
+    // const handleConfirmPassword =(e) =>{
+    //     setConfirmPassword(e.target.value)
+    //     passwordConfirmInfo.classList.add('hidden')
+    // }
 
     const handelRadioBtn = (e) =>{
         setFormData({...formData, userType: e.target.value })
@@ -40,19 +40,22 @@ const Connexion = () => {
     }
     const handelRegisterForm =(e)=>{
         e.preventDefault();
-
+        cgvInfo.classList.add('hidden')
+        charteCommuInfo.classList.add('hidden')
+        passwordConfirmInfo.classList.add('hidden')
         if(!cgv.checked){
-            cgvInfo.classList.remove('hidden')
+            return cgvInfo.classList.remove('hidden')
         }
         if(!charteCommu.checked){
-            charteCommuInfo.classList.remove('hidden')
+           return charteCommuInfo.classList.remove('hidden')
         }
-
-        if(confirmPassword === formData.password ){
-            passwordConfirmInfo.classList.remove('hidden')
+        console.log(formData.confirmPassword)
+        console.log(formData.password)
+        if(formData.password !== formData.password ){
+            return passwordConfirmInfo.classList.remove('hidden')
+        }else {
+            register(formData);
         }
-        // console.log(formData)
-        register(formData);
     }
 
     const handleAuthChange =(e) =>{
@@ -123,7 +126,7 @@ const Connexion = () => {
                     
                     <div className="mx-0 md:mx-6 mb-2 px-0 md:px-4 py-1 flex flex-col">
                         <label htmlFor="confirmPassword" className="bg-greenV2 text-white w-[200px] mb-1 px-1">Confirmez le mot de passe</label>
-                        <input type="password" autoComplete="off" name="confirmPassword" id="confirmPassword" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={confirmPassword} onChange={handleConfirmPassword} required/>
+                        <input type="password" autoComplete="off" name="confirmPassword" id="confirmPassword" className="border-2 border-greenV2 leading-normal w-[250px] md:w-[300px]" value={formData.confirmPassword} onChange={handleChange} required/>
                     </div>
                     <p id="passwordConfirmInfo" className='hidden mx-6 px-4 text-red-900 text-sm'>Le mot de passe et la confirmation de mot de passe ne sont pas identiques.</p>
                     

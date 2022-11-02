@@ -34,7 +34,7 @@ module.exports = {
           'hero': "url('./images/hero.png')",
           'hero-HP': "url('./images/hero-HP.png')",
           'hero-HP2': "url('./images/hero-HPv2.png')",
-          'explorateur': "url('./images/explorator.png')",
+          'explorator': "url('./images/explorator.png')",
           'master': "url('./images/master.png')",
           'knight': "url('./images/knight.png')",
         },
