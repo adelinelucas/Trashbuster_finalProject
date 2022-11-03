@@ -1,0 +1,184 @@
+[{
+  "_id": {
+    "$oid": "6362f26e72da898e891ff785"
+  },
+  "trash_quantity_collected": 11,
+  "postId": {
+    "$oid": "6362f26e72da898e891ff781"
+  },
+  "__v": 0,
+  "userId": {
+    "$oid": "6362f1d872da898e891ff775"
+  }
+},{
+  "_id": {
+    "$oid": "6362f46972da898e891ff7a5"
+  },
+  "trash_quantity_collected": 2,
+  "postId": {
+    "$oid": "6362f46972da898e891ff7a1"
+  },
+  "__v": 0,
+  "userId": {
+    "$oid": "6362f39d72da898e891ff795"
+  }
+},{
+  "_id": {
+    "$oid": "6363a5406e6fc9390ae1d0b2"
+  },
+  "trash_quantity_collected": 3,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "userId": {
+    "$oid": "6363a40927ddea4dcfddf9d3"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636416ed03401effa5b76950"
+  },
+  "trash_quantity_collected": 3,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "commentId": {
+    "$oid": "636416ed03401effa5b7694e"
+  },
+  "userId": {
+    "$oid": "63640b0d03401effa5b76878"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364176103401effa5b7697e"
+  },
+  "trash_quantity_collected": 70,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "commentId": {
+    "$oid": "6364176103401effa5b7697c"
+  },
+  "userId": {
+    "$oid": "63640b0d03401effa5b76878"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364193503401effa5b769c1"
+  },
+  "trash_quantity_collected": 3,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "commentId": {
+    "$oid": "6364193503401effa5b769bf"
+  },
+  "userId": {
+    "$oid": "63640b5203401effa5b7687d"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641a0a03401effa5b769ff"
+  },
+  "trash_quantity_collected": 50,
+  "postId": {
+    "$oid": "6362f26e72da898e891ff781"
+  },
+  "commentId": {
+    "$oid": "63641a0a03401effa5b769fd"
+  },
+  "userId": {
+    "$oid": "6362f1d872da898e891ff775"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641ea2afab1446e560c4e1"
+  },
+  "trash_quantity_collected": 15,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "commentId": {
+    "$oid": "63641ea2afab1446e560c4df"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641f2cafab1446e560c51c"
+  },
+  "trash_quantity_collected": 5,
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "commentId": {
+    "$oid": "63641f2cafab1446e560c51a"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641fc92c956b0d698d6ffa"
+  },
+  "trash_quantity_collected": 25,
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641fea2c956b0d698d7009"
+  },
+  "trash_quantity_collected": 5,
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "commentId": {
+    "$oid": "63641fea2c956b0d698d7007"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364206d2c956b0d698d7035"
+  },
+  "trash_quantity_collected": 5,
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "commentId": {
+    "$oid": "6364206d2c956b0d698d7033"
+  },
+  "userId": {
+    "$oid": "63640c7403401effa5b76895"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636420c6af43f2e3e52b4d16"
+  },
+  "trash_quantity_collected": 5,
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "commentId": {
+    "$oid": "636420c6af43f2e3e52b4d14"
+  },
+  "userId": {
+    "$oid": "63640c7403401effa5b76895"
+  },
+  "__v": 0
+}]
