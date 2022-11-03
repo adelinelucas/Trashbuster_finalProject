@@ -9,6 +9,10 @@ import QuantityCollectedByPostModel from "../models/QuantityCollectedByPost.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Méthode pour récupérer tous les posts en bdd
+ * pas d'authentification requise
+ */
 export const getAllPost = async(req, res)=>{
     try{
         const posts = await PostModel.find({}).sort('-createdAt');
@@ -20,6 +24,10 @@ export const getAllPost = async(req, res)=>{
     }
 }
 
+/**
+ * Méthode pour compter tous en bdd 
+ * pas d'authentification requise
+ */
 export const getNumberOfPosts = async(req, res)=>{
     try{
         const numberOfPost = await PostModel.count({});
@@ -30,6 +38,9 @@ export const getNumberOfPosts = async(req, res)=>{
     }
 }
 
+/**
+ * Méthode pour récupérer tous les posts d'un user 
+ */
 export const getAllPostByUser = async(req, res)=>{
 
     const userId = req.params.id;
@@ -43,6 +54,9 @@ export const getAllPostByUser = async(req, res)=>{
     }
 }
 
+/**
+ * Méthode pour récupérer un post par Id + récupération des commentaires associés
+ */
 export const getPostById = async(req, res) =>{
     const postId = req.params.id;
     if(!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
@@ -51,7 +65,6 @@ export const getPostById = async(req, res) =>{
         const post = await PostModel.findOne({_id: postId});
 
         const postComments = await CommentModel.find({postId})
-        // const postComments = await CommentModel.find({postId}).sort('-createdAt')
 
         const trash_quantity_collected_all_posts = await QuantityCollectedByPostModel.aggregate([
             {$match: {postId: mongoose.Types.ObjectId(postId)}},
@@ -69,6 +82,10 @@ export const getPostById = async(req, res) =>{
         res.status(404).json({message:err.message})
     }
 }
+
+/**
+ * Méthode pour créer un post
+ */
 export const createPost = async(req, res)=>{    
     const {userId, trash_quantity_collected, trash_picture} = req.body
     const newPost = req.body;
@@ -79,56 +96,37 @@ export const createPost = async(req, res)=>{
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
-        // let update_trash_quantity_collected = await UserModel.findByIdAndUpdate(
-        //     {_id}, 
-        //     { $push: { trash_quantity_collected : [ trash_quantity_collected] } }
-        //     )
-
-           const post = await PostModel.create({...newPost, userId: req.userId});
-           console.log(post)
-           
-           const picture = await PictureModel.create({postId:post._id, trash_picture:trash_picture});
-           const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId:post._id, trash_quantity_collected});
-           res.status(201).json({post, picture})
-
-            // if(typeof req.files != undefined &&typeof req.files.trash_picture != undefined) {
-
-            //     const file = req.files.trash_picture;
-            //     const regex = /[^a-z0-9_]/i;
-            //     let baseName = file.name.replace(regex,'_').replace('__','_');
-            //     let uploadPath = `${__dirname}/../public/images/`;
-            //     // let uploadPath = express.static(path.join(__dirname, "./public/images/"))
-            //     file.mv(uploadPath+baseName,() => {
-                    
-            //         res.status(201).json({post})
-            //     });
-
-            // }
+        const post = await PostModel.create({...newPost, userId: req.userId});
+        // ajout de la photo dans la collection Picture model
+        const picture = await PictureModel.create({postId:post._id, trash_picture:trash_picture});
+         // ajout de la quantité de déchets collectée dans la collection QuantityCollectedByPostModel
+        const add_trash_quantity_collected = await QuantityCollectedByPostModel.create({postId:post._id, trash_quantity_collected, userId: req.userId});
+        res.status(201).json({post, picture})
         
     }catch(err){
         res.status(400).json({message:err.message})
     }
 }
 
+/**
+ * Méthode pour mettre à jour un post
+ */
 export const updatePost = async(req, res)=>{
-    // console.log(req.params)
-    // console.log(req.body);
+
     const _id = req.params.id;
 
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
+    // vérification de l'id du user est valide
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
 
     try{
-        // const {userId, name,street, postalCode,city,trash_quantity_total, trash_quantity_collected,trash_picture } = req.body;
-         // vérifier que les champs sont vides ? 
-        // 
-        // const post = await PostModel.findByIdAndUpdate({_id},{...req.body, _id},{new:true, runValidators:true})
         const post = await PostModel.findByIdAndUpdate(
             {_id},
             req.body,
             {new:true, runValidators:true}
         )
 
+        // update de la quantité collecté dans la collection QuantityCollectedByPostModel
         const trash_quantity_collected = await QuantityCollectedByPostModel.findOneAndUpdate(
             {postId: _id},
             {trash_quantity_collected: req.body.trash_quantity_collected}
@@ -139,6 +137,9 @@ export const updatePost = async(req, res)=>{
     }
 }
 
+/**
+ * Méthode pour supprimer un post
+ */
 export const deletePost = async(req, res)=>{
     const _id = req.params.id;
 
@@ -152,20 +153,23 @@ export const deletePost = async(req, res)=>{
         //supprimer les photos associées
         await PictureModel.deleteOne({postId:_id});
 
-        //supprimer les commentaires associés
+        //supprimer tous les commentaires associés
         await CommentModel.deleteMany({postId:_id});  
 
-        //supprimer les quantités collecté
+        //supprimer toutes les quantités collectées
         await QuantityCollectedByPostModel.deleteMany({postId:_id}); 
 
         res.json({message: 'Le post et les commentaires associés ont bien été supprimé'})
 
     }catch(err){
-        res.status(500).json({message:err.message})
+        res.status(400).json({message:err.message})
     }
 }
 
-export const getPicture = async(req, res) =>{
+/**
+ * Méthode pour récupérer la photo d'un post
+ */
+export const getPostPicture = async(req, res) =>{
     const _id = req.params.id;
     try{
         let picture ;
@@ -176,7 +180,6 @@ export const getPicture = async(req, res) =>{
         }else{
             picture = postPicture;
         }
-        // console.log('picture', picture)
         res.json({picture})
 
     }catch(err){
@@ -184,23 +187,23 @@ export const getPicture = async(req, res) =>{
     }
 }
     
-export const getQuantityCollectedByUser = async( req, res) => {
-    const _id = req.params.id;
-    try{
-        const quantityRequest = await QuantityCollectedByPostModel.aggregate([
-            {$match: {postId: mongoose.Types.ObjectId(_id)}},
-            {
-                $group: {
-                    _id:null,
-                    trash_quantity_collected: { $sum: '$trash_quantity_collected' }
-                }
-            }
-        ])
-        const quantity = quantityRequest[0].trash_quantity_collected
+// export const getQuantityCollectedByUser = async( req, res) => {
+//     const _id = req.params.id;
+//     try{
+//         const quantityRequest = await QuantityCollectedByPostModel.aggregate([
+//             {$match: {postId: mongoose.Types.ObjectId(_id)}},
+//             {
+//                 $group: {
+//                     _id:null,
+//                     trash_quantity_collected: { $sum: '$trash_quantity_collected' }
+//                 }
+//             }
+//         ])
+//         const quantity = quantityRequest[0].trash_quantity_collected
         
-        res.json({quantity})
+//         res.json({quantity})
 
-    }catch(err){
-        res.status(500).json({message:err.message})
-    }
-}
+//     }catch(err){
+//         res.status(500).json({message:err.message})
+//     }
+// }

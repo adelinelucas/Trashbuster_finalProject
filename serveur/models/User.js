@@ -53,15 +53,25 @@ const UserSchema = new mongoose.Schema({
 },
 {timestamps: true})
 
+/**
+ * Méthode permettant d'encryter le password avant envoie en bdd
+ */
 UserSchema.pre('save', async function(){
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt)
 })
 
+/**
+ * Méthode permettant de vérifier le mot de passe
+ */
 UserSchema.methods.checkPassword = function(loginPassword) {
     return bcrypt.compare(loginPassword, this.password)
 }
 
+/**
+ * Méthode permettant d'ajouter le token
+ * Utilisé lors du register et login de l'utilisateur
+ */
 UserSchema.methods.addJWT = function(){
     let token = jwt.sign({userId: this._id, pseudo: this.pseudo}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
     return token

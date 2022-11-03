@@ -11,6 +11,11 @@ const QuantityCollectedByPostSchema = new mongoose.Schema({
     commentId :{
         type:mongoose.Types.ObjectId,
         ref:'Comment',
+    },
+    userId : {
+        type:mongoose.Types.ObjectId,
+        ref:'User',
+        required: true
     }
 })
 

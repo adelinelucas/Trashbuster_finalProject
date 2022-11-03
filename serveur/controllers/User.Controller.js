@@ -3,9 +3,12 @@ import UserModel from '../models/User.js';
 import BadgeModel from '../models/Badge.js';
 import PostModel from '../models/Post.js';
 import CommentModel from '../models/Comment.js';
+import QuantityCollectedByPostModel from "../models/QuantityCollectedByPost.js";
 
+/**
+ * Méthode register pour créer un nouvel utilisateur
+ */
 export const register = async(req, res) =>{
-    console.log(req.body)
     const {email ,password, confirmPassword} = req.body;
 
     try{
@@ -18,15 +21,16 @@ export const register = async(req, res) =>{
 
         const token = user.addJWT();
 
-        console.log(user)
         res.status(200).json({user, token})
 
     }catch(err){
-        console.log(err)
         res.status(500).json({message: 'Une erreur est survenue, nous n\'avons pas pu créer un compte utilisateur'})
     }
 }
 
+/**
+ * Méthode register pour connecter un utilisateur
+ */
 export const login = async(req, res) =>{
     const {email, password} = req.body;
     try{
@@ -46,18 +50,18 @@ export const login = async(req, res) =>{
                 userType: user.userType
             }
             const userId = user._id
-            console.log(userInfo)
             res.status(200).json({userInfo, userId, token})
         }
 
     }catch(err){
-        console.log(err) 
         res.status(500).json({message: 'Une erreur est survenue, nous n\'avons pas pu vous connecter'})
     }
 }
 
+/**
+ * Méthode pour déconnecter l'utilisateur
+ */
 export const logout = async(req, res) =>{
-    console.log('logout server controller ')
     try{
         res.cookie('jwt', '', { maxAge: 1 });
         res.status(200).json({message: "L'utilisateur a bien été déconnecté."})
@@ -68,31 +72,47 @@ export const logout = async(req, res) =>{
 
 /**
  * Méthode pour récupérer les infos du user
- * id du user récupérer par le middleware
+ * L'id du user récupéré par le middleware
  */
 export const getUserInfos = async(req, res) =>{
-    // console.log('getUserInfos req => ',req)
-    // console.log('getUserInfos req => ')
+
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
-    // const _id = req.params.id;
     let user = null;
+    // vérification sur l'_id est valid
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{
-        const postQuantityTrashCollected = await PostModel.aggregate([
-            {$match: {userId: mongoose.Types.ObjectId(_id)}},
-            {
-                $group: {
-                    _id:null,
-                    trash_quantity_collected: { $sum: "$trash_quantity_collected" },
-                    nb: { $sum: 1 }
-                }
-            }
-        ])
+        // récupération de la quantité de déchets collecté pour un post
+        // recherche dans la table post model
+        // const postQuantityTrashCollected = await PostModel.aggregate([
+        //     {$match: {userId: mongoose.Types.ObjectId(_id)}},
+        //     {
+        //         $group: {
+        //             _id:null,
+        //             trash_quantity_collected: { $sum: "$trash_quantity_collected" },
+        //             nb: { $sum: 1 }
+        //         }
+        //     }
+        // ])
 
-        const commentQuantityTrashCollected = await CommentModel.aggregate([
+        // const commentQuantityTrashCollected = await CommentModel.aggregate([
+        //     {$match: {userId: mongoose.Types.ObjectId(_id)}},
+        //     {
+        //         $group: {
+        //             _id:null,
+        //             trash_quantity_collected: { $sum: '$trash_quantity_collected' },
+        //             nb: { $sum: 1 }
+        //         }
+        //     }
+        // ])
+        const userInfos = {
+            quantityTrashCollected: 0,
+            actionsNumber: 0,
+        }
+        //  récupération de la quantité de déchets collecté pour un user
+        const quantityRequest = await QuantityCollectedByPostModel.aggregate([
             {$match: {userId: mongoose.Types.ObjectId(_id)}},
             {
                 $group: {
@@ -102,26 +122,28 @@ export const getUserInfos = async(req, res) =>{
                 }
             }
         ])
-        const userInfos = {
-            quantityTrashCollected: 0,
-            actionsNumber: 0,
-        }
-        let postQuantity = 0;
-        let postActions = 0;
-        let commentQuantity =0;
-        let commentActions = 0;
-        if(postQuantityTrashCollected.length> 0){
-            postQuantity = postQuantityTrashCollected[0].trash_quantity_collected;
-            postActions = postQuantityTrashCollected[0].nb
-        }
-        if(commentQuantityTrashCollected.length> 0){
-            commentQuantity = commentQuantityTrashCollected[0].trash_quantity_collected;
-            commentActions = commentQuantityTrashCollected[0].nb
-        }
-        userInfos.quantityTrashCollected = postQuantity + commentQuantity;
-        userInfos.actionsNumber = postActions + commentActions;
+        const quantity = quantityRequest[0].trash_quantity_collected;
+        const number = quantityRequest[0].nb;
+        console.log('line 127',quantity, number);
+        // let postQuantity = 0;
+        // let postActions = 0;
+        // let commentQuantity =0;
+        // let commentActions = 0;
+        // if(postQuantityTrashCollected.length> 0){
+        //     postQuantity = postQuantityTrashCollected[0].trash_quantity_collected;
+        //     postActions = postQuantityTrashCollected[0].nb
+        // }
+        // if(commentQuantityTrashCollected.length> 0){
+        //     commentQuantity = commentQuantityTrashCollected[0].trash_quantity_collected;
+        //     commentActions = commentQuantityTrashCollected[0].nb
+        // }
+        // userInfos.quantityTrashCollected = postQuantity + commentQuantity;
+        // userInfos.actionsNumber = postActions + commentActions;
+        userInfos.quantityTrashCollected = quantity;
+        userInfos.actionsNumber = number;
         console.log('getUserInfos',userInfos)
 
+        // mise à jour du badge utilisateur en fonction de la quantité de déchets total collectée (post + comments)
         if('220'<userInfos.quantityTrashCollected.toString() > '120'){
             const updateBadge = await BadgeModel.find({ level:{$eq:"master"} }, '_id' ).exec()
            let badge = (updateBadge[0]._id)
@@ -140,7 +162,6 @@ export const getUserInfos = async(req, res) =>{
         }else{
             user = await UserModel.findOne({_id});
         }
-        // console.log('ligne 142',userInfos)
         res.status(200).json({userInfos})
          
     }catch(err){
@@ -148,12 +169,13 @@ export const getUserInfos = async(req, res) =>{
     }
 }
 
+/**
+ * Méthode pour récupérer l'information concernant le badge du user
+ */
 export const getBadgeCategory = async(req, res) =>{
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
-    console.log(_id)
-    // const _id = req.params.id;
     let user = null;
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
