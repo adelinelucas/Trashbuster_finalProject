@@ -1,0 +1,101 @@
+[{
+  "_id": {
+    "$oid": "6362f26e72da898e891ff781"
+  },
+  "userId": {
+    "$oid": "6362f1d872da898e891ff775"
+  },
+  "name": "Tas de bois abandonné près de la forêt",
+  "description": "Gros tas de bois découvert de matin à coté de la forêt de Brocéliande.",
+  "street": "Pont du Secret",
+  "postalCode": 35380,
+  "city": "Paimpont",
+  "trash_quantity_total": 230,
+  "trash_quantity_collected": 11,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667428974089"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667428974089"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6362f46972da898e891ff7a1"
+  },
+  "userId": {
+    "$oid": "6362f39d72da898e891ff795"
+  },
+  "name": "Tas de bidons sur la plage",
+  "description": "Ce matin en promenant mon chien, j'ai découvert sur notre magnifique place de Gruissan un tas de plastique abandonnés. J'ai pu en ramasser 3, mais il en reste beaucoup sur la place. Il annonce marée haute ce soir à 18h00, si nous pouvions avoir tout récupérer avant ça serait formidable. ",
+  "street": "Rue du Merlan",
+  "postalCode": 11430,
+  "city": "Gruissan",
+  "trash_quantity_total": 15,
+  "trash_quantity_collected": 2,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667429481025"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667429719829"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "userId": {
+    "$oid": "6363a40927ddea4dcfddf9d3"
+  },
+  "name": "Meubles abandonnés + tas de bois",
+  "description": "Ce matin en allant au boulot j'ai repéré ce tas de meubles abandonnés et de bois, il y en a un sacré paquet. Je devais aller au travail, je n'ai pas pu récupérer beaucoup de déchets. ",
+  "street": "8 Avenue Claude Perrault",
+  "postalCode": 92330,
+  "city": "Sceaux",
+  "trash_quantity_total": 170,
+  "trash_quantity_collected": 3,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667474752463"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667474752463"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "name": "Tas de meubles devant l'immeuble",
+  "description": "Quelles surprise ce matin de découvrir autant de déchets, les encombrants sont passés hier !! ",
+  "street": "15 rue des lilas",
+  "postalCode": 95100,
+  "city": "Argenteuil",
+  "trash_quantity_total": 250,
+  "trash_quantity_collected": 25,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667506121042"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667506121042"
+    }
+  },
+  "__v": 0
+}]

@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "level": "explorator"
+},{
+  "_id": {
+    "$oid": "633875dd21c86af46390b519"
+  },
+  "level": "master"
+},{
+  "_id": {
+    "$oid": "633875f121c86af46390b51a"
+  },
+  "level": "knight"
+}]

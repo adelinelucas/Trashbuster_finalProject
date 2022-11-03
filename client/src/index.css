@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+
+@font-face {
+    font-family: "Amatic SC";
+    src: url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap");
+  }
+
+.btnConnexion:hover{
+    @apply shadow-md bg-greenV2 text-white  
+}
+
+.btnInscription:hover{
+    @apply shadow-md bg-white text-greenV2 border-greenV2
+}
+
+.btnNavBar:hover{
+    @apply bg-white text-greenV2 border-darkGreen
+
+}
+.btnDelete:hover{
+    @apply shadow-md bg-white text-lightRed border-lightRed
+}
+
+.btnUpdate:hover{
+    @apply shadow-md bg-white text-aquaBlue border-aquaBlue
+}
+.btnHero:hover{
+    @apply shadow-md bg-white text-brightOrange border-darkGreen scale-110 font-bold
+}
+
+.btnNavBarShadow {
+    box-shadow: 6px 6px 0px 1px #000; 
+}
+
+.cardBoxShadow{
+    box-shadow: 17px 16px 0px 1px #000;
+}
+
+#progressBar::-webkit-progress-bar {
+	background-color: #eee;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(8, 8, 8, 0.25) inset;
+	background-image:#2F6C14;
+}
+
+.cardBoxShadowPurpleGrey{
+    box-shadow: 17px 16px 0px 1px #082600;
+}
+
+.presentationBorder{
+    box-shadow: 0px 3px 21px 20px #805BA6;
+}
+
+.formShadow{
+    box-shadow: 10px 10px 0px -1px #082600;
+}
+
+.profilShadow{
+    box-shadow: 10px 10px 0px -1px #082600;
+}
+
+.btnText {
+	text-shadow: 1px 1px 2px black;
+}
+@keyframes myAnim {
+	0%,
+	100% {
+		transform: translateX(0%);
+		transform-origin: 50% 50%;
+	}
+
+	15% {
+		transform: translateX(-30px) rotate(-6deg);
+	}
+
+	30% {
+		transform: translateX(15px) rotate(6deg);
+	}
+
+	45% {
+		transform: translateX(-15px) rotate(-3.6deg);
+	}
+
+	60% {
+		transform: translateX(9px) rotate(2.4deg);
+	}
+
+	75% {
+		transform: translateX(-6px) rotate(-1.2deg);
+	}
+}
+
+@keyframes myJello {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.25, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.75, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.15, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(0.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.05, 0.95, 1);
+	}
+
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}

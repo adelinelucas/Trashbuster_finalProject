@@ -1,0 +1,291 @@
+[{
+  "_id": {
+    "$oid": "6362f1d872da898e891ff775"
+  },
+  "name": "Joel",
+  "lastname": "Martin",
+  "pseudo": "Jojo52",
+  "email": "joel@gmail.com",
+  "password": "$2a$10$PPpgekPWvcPz/e4ca5VDvuxo5Ien6Qez5TvRVSPgYJAZHj2vCiVUi",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667428824724"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667428824724"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6362f39d72da898e891ff795"
+  },
+  "name": "Martine",
+  "lastname": "Doe",
+  "pseudo": "Martine_Doe",
+  "email": "martine@gmail.com",
+  "password": "$2a$10$3aWxrh9tW.QS6xq8TW7TSuySRnANethwXBMOLayYwO5p3qxJJwWJe",
+  "userType": "association",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667429277882"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667429277882"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6363a40927ddea4dcfddf9d3"
+  },
+  "name": "Joey",
+  "lastname": "Seni",
+  "pseudo": "Seniword",
+  "email": "joey@gmail.com",
+  "password": "$2a$10$IDJI.DJmJGqJZApMLCZIyObHcD3fXNkH4M5TUxW5wPmCOAX8teNTO",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875f121c86af46390b51a"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667474442004"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667497803139"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636406c303401effa5b7678c"
+  },
+  "name": "admin",
+  "lastname": "admin",
+  "pseudo": "admin",
+  "email": "admin@test.com",
+  "password": "$2a$10$ePLRH6igPNCGEeUT3PmY.e/kbDoiH2XCxVZAd3944qSUSiR6dCw62",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667499715408"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667499715408"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63640a7403401effa5b76871"
+  },
+  "name": "Julien",
+  "lastname": "Joyeux",
+  "pseudo": "juju89",
+  "email": "juju@gmail.com",
+  "password": "$2a$10$LrdRhalvXBFDK/lzvMaFcuzTLln7KwywCR2J3i71YeGCw0Pg/drXe",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667500660308"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667500660308"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63640b0d03401effa5b76878"
+  },
+  "name": "Jacqueline",
+  "lastname": "Bois",
+  "pseudo": "Jacqueline",
+  "email": "jacqueline@gmail.com",
+  "password": "$2a$10$SOa5nIFDIxIKuagFbjjJa.AI8Be1Q7U.obpsNUDtBjbtETCakH2jq",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875f121c86af46390b51a"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667500813828"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667504133388"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63640b5203401effa5b7687d"
+  },
+  "name": "Eric",
+  "lastname": "Michel",
+  "pseudo": "rico",
+  "email": "rico@gmail.com",
+  "password": "$2a$10$d8RpPPc9PaWwRv/Ks52ch.JNHThqxGSgQvISKCNZBjyq92/6n9Xv.",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667500882999"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667500882999"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63640be603401effa5b76888"
+  },
+  "name": "Antoinette",
+  "lastname": "Paris",
+  "pseudo": "toinette",
+  "email": "toinette@gmail.com",
+  "password": "$2a$10$njJowR5hFCeYd9TnDWmRT.haBfMDZo0s1b6YG7hVl2dDVwMRmVwdy",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667501030361"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667501030361"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63640c7403401effa5b76895"
+  },
+  "name": "Adeline",
+  "lastname": "Lucas",
+  "pseudo": "ade",
+  "email": "ade@gmail.com",
+  "password": "$2a$10$h.J31DNm9flpzrWrm2yTNuiV93bZUW7ZhLKo0DImOJ7Ut/utSlBPK",
+  "userType": "particulier",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875c121c86af46390b518"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667501172626"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667501172626"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "name": "Roger",
+  "lastname": "Bellouga",
+  "pseudo": "roger-asso-44",
+  "email": "roger@gmail.com",
+  "password": "$2a$10$AN3gHYeoFrLx1u4giidybOde5kQe8oX360yXIwJGAuISfs8xcOpaO",
+  "userType": "association",
+  "role": [
+    {
+      "$oid": "6338756521c86af46390b516"
+    }
+  ],
+  "badge": {
+    "$oid": "633875f121c86af46390b51a"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667502282454"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667506121302"
+    }
+  },
+  "__v": 0
+}]

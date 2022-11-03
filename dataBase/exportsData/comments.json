@@ -1,0 +1,226 @@
+[{
+  "_id": {
+    "$oid": "636416ed03401effa5b7694e"
+  },
+  "userId": {
+    "$oid": "63640b0d03401effa5b76878"
+  },
+  "author": "Jacqueline",
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "title": "Récolte du soir environ 3kg",
+  "content": "Avec mon mari, nous sommes repassés sur soir il y avait toujours autant de déchets, nous avons pu collecter un peu. ",
+  "trash_quantity_collected": 3,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667503853128"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667503853128"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364176103401effa5b7697c"
+  },
+  "userId": {
+    "$oid": "63640b0d03401effa5b76878"
+  },
+  "author": "Jacqueline",
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "title": "nouvelle collecte avec une remorque",
+  "content": "Cette fois ci nous sommes repassés avec une remorque, nous avons pu prendre beaucoup plus de déchets, il n'en reste plus beaucoup. Bravo ",
+  "trash_quantity_collected": 70,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667503969280"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667503969280"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364193503401effa5b769bf"
+  },
+  "userId": {
+    "$oid": "63640b5203401effa5b7687d"
+  },
+  "author": "rico",
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "title": "Collecte de 2 sacs poubelles",
+  "content": "En promenant mon chien je suis passé récupérer l'équivalent de 2 sacs de bois.",
+  "trash_quantity_collected": 3,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667504437777"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667504437777"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641a0a03401effa5b769fd"
+  },
+  "userId": {
+    "$oid": "6362f1d872da898e891ff775"
+  },
+  "author": "Jojo52",
+  "postId": {
+    "$oid": "6362f26e72da898e891ff781"
+  },
+  "title": "3 sacs collectés",
+  "content": "Avec ma femme nous sommes passés ce soir et avoir déjà pu récolter 3 sacs! C'est malheureux tout ces déchets !! ",
+  "trash_quantity_collected": 50,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667504650838"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667504650838"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641ea2afab1446e560c4df"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "author": "roger-asso-44",
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "title": "Collecte de 2 sacs ",
+  "content": "Je suis passé récupérer environ 2 sacs de déchets, mais c'est sans fin !! ",
+  "trash_quantity_collected": 15,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667505826456"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667505826456"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641f2cafab1446e560c51a"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "author": "roger-asso-44",
+  "postId": {
+    "$oid": "6363a5406e6fc9390ae1d0ae"
+  },
+  "title": "Collecte de 1 sac",
+  "content": "Ma femme vient de revenir avec un sac de déchets et bas dis donc",
+  "trash_quantity_collected": 5,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667505964234"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667505964234"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63641fea2c956b0d698d7007"
+  },
+  "userId": {
+    "$oid": "636410ca03401effa5b768c7"
+  },
+  "author": "roger-asso-44",
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "title": "Collecte de 1 sac",
+  "content": "Mon voisin Henri a déjà pu collecter 1 nouveau sac !",
+  "trash_quantity_collected": 5,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667506154805"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667506154805"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6364206d2c956b0d698d7033"
+  },
+  "userId": {
+    "$oid": "63640c7403401effa5b76895"
+  },
+  "author": "ade",
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "title": "Collecte d'un gros sac",
+  "content": "Ce soir j'ai pu collecter un sac ",
+  "trash_quantity_collected": 5,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667506285978"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667506285978"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636420c6af43f2e3e52b4d14"
+  },
+  "userId": {
+    "$oid": "63640c7403401effa5b76895"
+  },
+  "author": "ade",
+  "postId": {
+    "$oid": "63641fc92c956b0d698d6ff6"
+  },
+  "title": "Un nouveau sac de plus ",
+  "content": "gros sac poubelles remplis de bois",
+  "trash_quantity_collected": 5,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667506374739"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667506374739"
+    }
+  },
+  "__v": 0
+}]
