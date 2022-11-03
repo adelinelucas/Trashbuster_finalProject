@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../app/context';
-import { Navigate,useNavigate  } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 
 const Logout = () => {
     const {logout} = useGlobalContext();
@@ -8,10 +8,8 @@ const Logout = () => {
     const [redirecToHome, setRedirectToHome] = useState(false)
 
     const handleLogout = () =>{
-        console.log('logout')
         let btn = document.getElementById('btnLogout');
         btn.style.animation= 'myJello 1s ease 0s 1 normal forwards'; 
-        console.log(btn)
         logout();
         setTimeout( ()=>{
             setRedirectToHome(true)
@@ -21,7 +19,7 @@ const Logout = () => {
 
     useEffect(()=>{
         if(redirecToHome) navigate('/')
-    }, [redirecToHome])
+    }, [navigate, redirecToHome])
 
     return (
         <div className='flex flex-col justify-center h-fit'>

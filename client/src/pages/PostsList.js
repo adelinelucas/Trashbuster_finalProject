@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Posts from '../components/Posts';
 import Loading from '../components/Loading';
 import { useGlobalContext } from '../app/context';
@@ -6,39 +6,7 @@ import { useGlobalContext } from '../app/context';
 const PostsList = () => {
     const {posts, loading,actionsNumber, fetchActionsNumber, fetchPosts} = useGlobalContext();
 
-    console.log('PostsList',posts)
-    // const[loading, setLoading] = useState(true);
-    // const[posts, setPosts] = useState([]);
-    // const [actionsNumber, setActionsNumber] = useState(0);
-
-    // const getPosts = async()=>{
-    //     setLoading(true);
-
-    //     try{
-    //         const response = await fetch('http://localhost:5000/cleaning-operation/posts');
-    //         const posts = await response.json();
-    //         // console.log(posts)
-    //         setLoading(false)
-    //         setPosts(posts)
-    //     }catch(error){
-    //         setLoading(false)
-    //         console.log(error)
-    //     }
-    // }
-
-    // const getactionsNumber = async() =>{
-    //     try{
-    //         const response = await fetch('http://localhost:5000/cleaning-operation/numberPosts');
-    //         const number = await response.json();
-    //         setActionsNumber(number.numberOfPost)
-    //     }catch(error){
-    //         // setLoading(false)
-    //         console.log(error)
-    //     }
-    // }
-
     useEffect( ()=>{
-        // loading = false;
         fetchPosts();
         fetchActionsNumber();
     },[]);

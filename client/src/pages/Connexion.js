@@ -7,13 +7,12 @@ const loginDatas = {email:'', password:''}
 
 const Connexion = () => {
     let location = useLocation();
-    const {userAuthenticated, register, signup} = useGlobalContext();
+    const {userAuthenticated, register, login} = useGlobalContext();
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
     const [loginData, setLoginData] = useState(loginDatas);
     // const [confirmPassword, setConfirmPassword] = useState('');
     const [isUserRegistered, setIsUserRegistered] = useState(false);
-    const [displayConnexionBloc,setDisplayConnexionBloc ] = useState(location)
     let cgv = document.getElementById('cgv');
     let cgvInfo = document.getElementById('cgvInfo');
     let charteCommu = document.getElementById('charteCommu');
@@ -64,7 +63,7 @@ const Connexion = () => {
     const handelConnexionForm =(e)=>{
         e.preventDefault();
         console.log(loginData)
-        signup(loginData);
+        login(loginData);
         // userAuthenticated(true)
     }
 
@@ -83,7 +82,7 @@ const Connexion = () => {
     useEffect(() => {
         if (userAuthenticated){
             return navigate("/profil", {otherParam: 'fromConnexion'});
-        }},[signup]);
+        }},[login]);
     // if(userAuthenticated){
     //     return redirect('/liste_des_actions');
     // }

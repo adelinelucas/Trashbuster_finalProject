@@ -16,14 +16,14 @@ moment.locale('fr');
 const url = `http://localhost:5000/cleaning-operation/post/`
 const DetailPost = () => {
     const {id} = useParams();
-    const {loading,openModal,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated, longitude, latitude, total_trash_collected} = useGlobalContext();
+    const {loading,openCommentModal,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated, longitude, latitude, total_trash_collected} = useGlobalContext();
     const location = useLocation();
     // console.log(location)
     // console.log(userAuthenticated)
     const [picture, setPicture] = useState(null);
     const [progressValue, setProgressValue] = useState(0)
     const handleComment =() =>{
-        openModal(commentModalOpen);
+        openCommentModal(commentModalOpen);
     }
 
     const center = [latitude, longitude]

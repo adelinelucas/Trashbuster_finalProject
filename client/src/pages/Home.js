@@ -38,16 +38,18 @@ const Home = () => {
             </section>
             <section className="bg-greenApple w-full flex flex-col md:flex-row px-0 pr-10 lg:px-40 py-20 justify-center" id="recycleInfoBloc">
                 <article className="w-full lg:w-3/12 xl:w-2/12 bg-darkGreen mx-4 px-8 py-4 flex justify-center border-4 border-lightGrey items-center hover:scale-105 cardBoxShadow flex-col">
-                    <a href="#" className="text-white text-lg hover:underline">Voir les actions</a>
-                    <p className="text-white text-lg mt-2"><FaLocationArrow /></p>
+                    <Link className="text-white text-lg hover:underline" to={`/liste_des_actions`} >
+                    Voir les actions <p className="text-white text-lg mt-2"><FaLocationArrow /></p>
+                    </Link>                    
                 </article>
                 <article className="w-full lg:w-3/12 xl:w-2/12 bg-greenApple mx-4 px-8 py-4 flex justify-center border-4 border-lightGrey items-center hover:scale-105 cardBoxShadow flex-col">
-                    <a href="#" className="text-white text-lg hover:underline">En savoir plus sur le recyclage</a>
+                    <a href="https://www.citeo.com/info-tri" target="_blank" className="text-white text-lg hover:underline">En savoir plus sur le recyclage</a>
                     <p className="text-white text-lg mt-2"><FaRecycle /></p>
                 </article>
                 <article className="w-full lg:w-3/12 xl:w-2/12 bg-brightYellow mx-4 px-8 py-4 flex justify-center border-4 border-lightGrey items-center hover:scale-105 cardBoxShadow flex-col">
-                    <a href="#" className="text-black text-lg hover:underline">Comment estimer la quantité de déchets</a>
-                    <p className="text-black text-lg mt-2"><FaBalanceScale /></p>
+                    <Link className="text-black text-lg hover:underline" to={`/question&response`} >
+                    Comment estimer la quantité de déchets <p className="text-black text-lg mt-2"><FaBalanceScale /></p>
+                    </Link>                    
                 </article>
             </section>
         </>

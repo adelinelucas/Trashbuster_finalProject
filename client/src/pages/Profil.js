@@ -9,14 +9,14 @@ import UserPosts from '../components/UserPosts';
 const Profil = () => {
     let location = useLocation();
     const [messageUser, setMessageUser] = useState('');
-    const {fetchPostsByUser, authData, userPosts, openEditModal, editModal, getUserInfo, getUserBadge } = useGlobalContext();
+    const {fetchPostsByUser, authData, userPosts, openPostModal, editModal, getUserInfo, getUserBadge } = useGlobalContext();
     // console.log(authData)
     const [userInfo, setUserInfo] = useState(null);
 
 
     const handelClick = (e) =>{
         e.preventDefault()
-        openEditModal()
+        openPostModal()
     }
     // console.log(location)
     const history = useNavigate();

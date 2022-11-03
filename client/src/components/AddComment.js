@@ -4,7 +4,7 @@ import { useGlobalContext } from '../app/context';
 import FileBase from 'react-file-base64';
 
 const AddComment = ({idPost}) => {
-    const {closeModal, commentModalOpen, post, addAComment} = useGlobalContext();
+    const {closeCommentModal, commentModalOpen, post, addAComment} = useGlobalContext();
 
     const commentData = {userId:'', postId:post._id, userId:post.userId,title:'', content:'', trash_picture:'picture.test', trash_quantity_collected:'' }
     /*
@@ -18,7 +18,7 @@ const AddComment = ({idPost}) => {
     const [formCommentData, setFormCommentData] = useState(commentData);
 
     const closeComment = () =>{
-        closeModal()
+        closeCommentModal()
     }
 
     const handleChange =(e) =>{
@@ -30,7 +30,7 @@ const AddComment = ({idPost}) => {
         console.log('handelCommentForm')
         console.log(formCommentData)
         addAComment(formCommentData)
-        closeModal()
+        closeCommentModal()
     }
     return (
         <section className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">

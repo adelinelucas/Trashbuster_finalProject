@@ -11,7 +11,7 @@ moment.locale('fr');
 
 const Post = ({post, action}) => {
     // console.log(post)
-    const { deleteAction, openEditModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
+    const { deleteAction, openPostModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
     const [picture, setPicture] = useState(null)
     const handelDeletePost = (e) =>{
         e.preventDefault();
@@ -21,7 +21,7 @@ const Post = ({post, action}) => {
 
     const handelUpdatePost = (e) =>{
         e.preventDefault();
-        openEditModal()
+        openPostModal()
         setSelectedPost(post)
     }
 

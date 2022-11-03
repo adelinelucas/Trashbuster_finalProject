@@ -3,20 +3,18 @@ import charteEngagement from '../datas/charteEngament';
 
 const CharteCommu = () => {
 
-    const [engagements, setEngagements] = useState(charteEngagement);
+    const engagements = charteEngagement;
     const [tabs, setTabs] = useState([]);
     const [value, setValue] = useState(0);
 
     useEffect( ()=>{
-        let datas = engagements;
         setTabs([]);
-        datas.map( (data)=>{
-            setTabs((tabs) => [...tabs, data.categorie])
+        engagements.map( (data)=>{
+            return setTabs((tabs) => [...tabs, data.categorie])
         });
-    },[])
+    },[engagements])
 
-    const {id,categorie, reponses} = engagements[value];
-    console.log(engagements[value])
+    const {categorie, reponses} = engagements[value];
 
     return (
         <section className='w-full my-10 mx-0 md:mx-8 min-h-screen'>
@@ -53,20 +51,3 @@ const CharteCommu = () => {
 };
 
 export default CharteCommu;
-
-{/* <article className='w-2/5 bg-greenV2 text-white p-4'>
-{
-    engagements.map((engagement, index)=>{
-        
-        return( 
-            <div key={index}>
-                {engagement.reponse.map((reponse, i)=>{
-                    return( 
-                        <p key={i}>{reponse}</p>
-                    )
-                })}
-            </div>
-        )
-    })
-}
-</article> */}

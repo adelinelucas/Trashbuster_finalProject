@@ -7,7 +7,7 @@ import EditPost from './EditPost';
 import { useLocation } from 'react-router-dom';
 
 const UserPosts = () => {
-    const {loading,userPosts, openEditModal, editModal, fetchPostsByUser, authData, closeEditModal, getUserInfo} = useGlobalContext();
+    const {loading,userPosts, openPostModal, editModal, fetchPostsByUser, authData, closeEditModal, getUserInfo} = useGlobalContext();
     const location = useLocation();
     //  console.log(userPosts)
     //  console.log(userPosts[0])
@@ -21,7 +21,7 @@ const UserPosts = () => {
 
     const handelClick = (e) =>{
         e.preventDefault()
-        openEditModal()
+        openPostModal()
     }
 
     console.log(location.pathname === '/profil')
