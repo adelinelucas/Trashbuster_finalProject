@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_POST_MODAL, OPEN_POST_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE, SET_MESSAGE_MODAL } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_POST_MODAL, OPEN_POST_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE, SET_MESSAGE_MODAL, UPDATE_TRASH_COLLECTED } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -22,7 +22,7 @@ const reducer= (state, action) =>{
         case CLEAR_SELECTED_POST:
             return {...state, selectedPost: null}
         case UPDATE_POST:
-            state.userPosts =  state.userPosts.map( (post) => post._id === action.payload.postId ? action.payload : post)
+            state.userPosts =  state.userPosts.map( (post) => post._id === action.payload._id ? action.payload : post)
             return {
                 ...state  
             }
@@ -71,7 +71,12 @@ const reducer= (state, action) =>{
                 authData: action.payload,
                 userData: action.payload.userInfo };
         case REGISTER : 
-            return state;
+            sessionStorage.setItem('profil', JSON.stringify(action.payload)); 
+            return{...state, 
+                errorMessage: '',
+                userAuthenticated: true, 
+                authData: action.payload,
+                userData: action.payload.user };
         case LOGOUT:
             sessionStorage.setItem('profil', ''); 
             return{...state, userAuthenticated:false, authData:null, userPosts:[], userData:null,registerData: null };
@@ -81,6 +86,9 @@ const reducer= (state, action) =>{
         case SET_MESSAGE_MODAL:  
             state.alertInfo = action.payload
             return {...state }
+        case UPDATE_TRASH_COLLECTED:
+            console.log(action.payload) 
+            return {...state, total_trash_collected:action.payload }
         default: 
             return state
     }

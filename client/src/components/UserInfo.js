@@ -3,7 +3,6 @@ import { useGlobalContext } from '../app/context';
 
 const UserInfo = () => {
     const {userData, userQuantityCollected,userActionsNumber, userBadge} = useGlobalContext();
-
     let userType = userData.userType; 
     let userInfoBorder; 
     let userBadgeBorder;

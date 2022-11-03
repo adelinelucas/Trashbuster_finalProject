@@ -10,14 +10,12 @@ moment.locale('fr');
 //
 
 const Post = ({post, action}) => {
-    // console.log(post)
     const { deleteAction, openPostModal,setSelectedPost, authData, fetchPostsByUser, userAuthenticated } = useGlobalContext();
     const [picture, setPicture] = useState(null)
     const handelDeletePost = (e) =>{
         e.preventDefault();
         deleteAction(post._id)
     }
-    console.log(post)
 
     const handelUpdatePost = (e) =>{
         e.preventDefault();
@@ -29,9 +27,7 @@ const Post = ({post, action}) => {
         try{
             const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${post._id}`);
             const data = await response.json();
-            console.log(data)
             setPicture(data.picture.trash_picture)
-            // setComments(post.postComments)
         }catch(error){
             console.log(error)
         }

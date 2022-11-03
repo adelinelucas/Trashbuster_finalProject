@@ -1,6 +1,5 @@
-import React, { useState,useEffect} from 'react';
+import React, { useEffect} from 'react';
 import { useGlobalContext } from '../app/context';
-import Loading from './Loading';
 import Post from './Post';
 import {HiUserGroup} from 'react-icons/hi'
 import EditPost from './EditPost';
@@ -9,26 +8,21 @@ import { useLocation } from 'react-router-dom';
 const UserPosts = () => {
     const {loading,userPosts, openPostModal, editModal, fetchPostsByUser, authData, closeEditModal, getUserInfo} = useGlobalContext();
     const location = useLocation();
-    //  console.log(userPosts)
-    //  console.log(userPosts[0])
-    // if(loading){
-    //     return(
-    //         <>
-    //         <Loading />
-    //         </>
-    //     )
-    // }
 
     const handelClick = (e) =>{
         e.preventDefault()
         openPostModal()
     }
 
-    console.log(location.pathname === '/profil')
     useEffect( ()=>{
         if(location.pathname === '/profil'){
-            fetchPostsByUser(authData.userId)
-            getUserInfo()
+            if(authData.userId){
+                fetchPostsByUser(authData.userId)
+                getUserInfo()
+            }else {
+                fetchPostsByUser(authData.user._id)
+                getUserInfo()
+            }            
         } 
     }, [location])
 

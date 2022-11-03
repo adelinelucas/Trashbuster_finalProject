@@ -35,7 +35,6 @@ const Profil = () => {
         getUserBadge()
     }, [])
 
-    console.log(userInfo)
     return (
         <>
         

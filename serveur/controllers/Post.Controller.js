@@ -63,7 +63,6 @@ export const getPostById = async(req, res) =>{
 
     try{
         const post = await PostModel.findOne({_id: postId});
-
         const postComments = await CommentModel.find({postId})
 
         const trash_quantity_collected_all_posts = await QuantityCollectedByPostModel.aggregate([
@@ -186,24 +185,3 @@ export const getPostPicture = async(req, res) =>{
         res.status(500).json({message:err.message})
     }
 }
-    
-// export const getQuantityCollectedByUser = async( req, res) => {
-//     const _id = req.params.id;
-//     try{
-//         const quantityRequest = await QuantityCollectedByPostModel.aggregate([
-//             {$match: {postId: mongoose.Types.ObjectId(_id)}},
-//             {
-//                 $group: {
-//                     _id:null,
-//                     trash_quantity_collected: { $sum: '$trash_quantity_collected' }
-//                 }
-//             }
-//         ])
-//         const quantity = quantityRequest[0].trash_quantity_collected
-        
-//         res.json({quantity})
-
-//     }catch(err){
-//         res.status(500).json({message:err.message})
-//     }
-// }

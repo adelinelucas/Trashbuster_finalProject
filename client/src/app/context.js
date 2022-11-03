@@ -1,6 +1,6 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, LOGIN,DISPLAY_USER_POSTS, CLOSE_POST_MODAL, OPEN_POST_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE,SET_MESSAGE_MODAL  } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, LOGIN,DISPLAY_USER_POSTS, CLOSE_POST_MODAL, OPEN_POST_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE,SET_MESSAGE_MODAL,REGISTER, UPDATE_TRASH_COLLECTED  } from '../constants/actionsTypes'
 import axios from 'axios';
 // axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
@@ -58,7 +58,6 @@ const AppProvider = ({children}) =>{
         const signIn = await axios
             .post(`/auth/login`,datas)
             .then((response) =>{
-                console.log(response)
                 if(199< response.status <300){
                     return dispatch({type:LOGIN, payload: response.data})
                 }
@@ -68,7 +67,6 @@ const AppProvider = ({children}) =>{
                         msg : response.data.message,
                         type: 'red'
                     }
-                    console.log(response.data.message)
                     return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
                 }
             })
@@ -85,36 +83,9 @@ const AppProvider = ({children}) =>{
     const register =  async(datas)=>{
             const signUp = await API
             .post(`/auth/register`, datas)
-            .then((response) =>{
-                console.log(response)
-                if(199< response.status <300){
-                    if(response.data.message.code == 11000){
-                        let alertPayload = {
-                            show: true,
-                            msg : "L'adresse mail existe déjà en base de donnée. Une adresse mail ne peut etre associée qu'à un seul compte.",
-                            type: 'red'
-                        }
-                        console.log(response.data.message)
-                        return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
-                    }
-                    dispatch({type:LOGIN, payload: response.data})
-                }
-                // if(respServeur){
-                //     if(respServeur.data.message.code == 11000){
-                //         initialState.errorMessage = "L'adresse mail existe déjà en base de donnée. Une adresse mail ne peut etre associée qu'à un seul compte.";  
-                //     }
-                //     if(respServeur.data.message) {
-                //         initialState.errorMessage = 'Une erreur est survenue votre inscription n\'a pas pu être finalisée';
-                //     }
-                // }
-                if(response.status < 400){
-                    let alertPayload = {
-                        show: true,
-                        msg : response.data.message,
-                        type: 'red'
-                    }
-                    console.log(response.data.message)
-                    return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
+            .then((response) =>{ 
+                if(response.status === 200){
+                    return dispatch({type:REGISTER, payload: response.data})
                 }
             })
             .catch((error) => {
@@ -246,7 +217,6 @@ const AppProvider = ({children}) =>{
                         msg : respServeur.data.message,
                         type: 'red'
                     }
-                    console.log(respServeur.data.message)
                     return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
                 }
             })
@@ -287,7 +257,6 @@ const AppProvider = ({children}) =>{
         const response = await API
             .get(`/auth/userInfos`)
             .then((respServeur)=>{
-                // console.log(respServeur)
                 return dispatch({type:PROFIL_INFOS, payload: respServeur.data.userInfos})
             })
             .catch((error)=> console.log(error))
@@ -300,7 +269,6 @@ const AppProvider = ({children}) =>{
         const response = await API
         .post(`/cleaning-operation/post`, datas)
         .then((respServeur) => {
-            console.log(respServeur)
             if(199< respServeur.status <300){
                 return dispatch({type: ADD_POST, payload: respServeur.data.post})
             }
@@ -310,7 +278,6 @@ const AppProvider = ({children}) =>{
                     msg : response.data.message,
                     type: 'red'
                 }
-                console.log(response.data.message)
                 return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
             }
         })
@@ -362,11 +329,10 @@ const AppProvider = ({children}) =>{
      * methode pour mettre à jour une action 
      */
     const updateAction = async(datas) =>{
-        console.log('inside updateAction', datas)
         const response = await API 
         .put(`/cleaning-operation/post/${datas.postId}`,datas)
         .then((respServeur) => {
-            return dispatch({type: UPDATE_POST, payload: datas})
+            return dispatch({type: UPDATE_POST, payload: respServeur.data.post})
         })
         .then(getUserBadge)
         .then(getUserInfo)
@@ -388,8 +354,7 @@ const AppProvider = ({children}) =>{
         const response = await API
         .post(`${url}/comments`, datas)
         .then((respServeur) => {
-            
-            return dispatch({type: ADD_COMMENT, payload: datas})
+            return dispatch({type: ADD_COMMENT, payload: respServeur.data.comment})
         })
         .catch((error) => {
             let alertPayload = {
@@ -401,6 +366,25 @@ const AppProvider = ({children}) =>{
         })
     }
 
+    /**
+     * methode pour actualiser le total des déchets collectés
+     */
+    const actualisationTrashCollected = async(postId)=>{
+        const response = await API
+        .get(`/comments/updateInfosPost/${postId}`)
+        .then((respServeur) => {
+            return dispatch({type: UPDATE_TRASH_COLLECTED, payload: respServeur.data.total})
+        })
+        .catch((error) => {
+            let alertPayload = {
+                show: true,
+                msg : error.response.data.message,
+                type: 'red'
+            }
+            return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
+        })
+    } 
+
     // on appelle le chargement de nos données
     useEffect(()=>{
         fetchPosts();
@@ -408,7 +392,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openCommentModal, closeCommentModal, fetchPost, register, login, fetchPostsByUser, openPostModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge, closeAlert}}>
+        <AppContext.Provider value={{...state,openCommentModal, closeCommentModal, fetchPost, register, login, fetchPostsByUser, openPostModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge, closeAlert, actualisationTrashCollected}}>
             {children}
         </AppContext.Provider>
     )

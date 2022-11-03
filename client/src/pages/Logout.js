@@ -13,7 +13,6 @@ const Logout = () => {
         logout();
         setTimeout( ()=>{
             setRedirectToHome(true)
-            console.log('setimeout')
         }, 1000)
     }
 

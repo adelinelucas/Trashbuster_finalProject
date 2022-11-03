@@ -54,7 +54,7 @@ export const getCommentPicture = async(req, res) =>{
 
 /**
  * Méthode mettre à jour un commentaire
- * methode non finalisé ajoutée en case de demande de feature du client
+ * methode non finalisée ajoutée en case de demande de feature du client
  */
 export const updateComment = async(req,res) =>{
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
@@ -86,7 +86,35 @@ export const updateComment = async(req,res) =>{
 }
 
 /**
+ * Méthode pour actualiser la quantité collectée à l'ajout d'un commentaire
+ */
+ export const getTotalTrashCollected = async(req, res) =>{
+    const postId = req.params.id;
+    if(!mongoose.Types.ObjectId.isValid(postId)) return res.status(404).json({message: 'Une erreur est survenue, aucun post ne correspond à l\'id indiqué'});
+
+    try{
+        const trash_quantity_collected_all_posts = await QuantityCollectedByPostModel.aggregate([
+            {$match: {postId: mongoose.Types.ObjectId(postId)}},
+            {
+                $group: {
+                    _id:null,
+                    total: { $sum: '$trash_quantity_collected' }
+                }
+            }
+        ])
+
+        const total = trash_quantity_collected_all_posts[0].total
+        res.status(200).json({ total})
+
+    }catch(err){
+        res.status(404).json({message:err.message})
+    }
+}
+
+
+/**
  * Méthode supprimer un commentaire
+ * methode non finalisée ajoutée en case de demande de feature du client
  */
 export const deleteComment = async(req,res) =>{
 

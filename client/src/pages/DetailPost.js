@@ -18,8 +18,6 @@ const DetailPost = () => {
     const {id} = useParams();
     const {loading,openCommentModal,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated, longitude, latitude, total_trash_collected} = useGlobalContext();
     const location = useLocation();
-    // console.log(location)
-    // console.log(userAuthenticated)
     const [picture, setPicture] = useState(null);
     const [progressValue, setProgressValue] = useState(0)
     const handleComment =() =>{
@@ -41,20 +39,19 @@ const DetailPost = () => {
     }
 
     const updateProgressValue = () =>{
-        console.log(post.trash_quantity_total)
         if(post.trash_quantity_total){
-            console.log(typeof(total_trash_collected))
-            console.log(typeof(post.trash_quantity_total))
-            let result = (parseInt(total_trash_collected) / parseInt(post.trash_quantity_total)) *100;
-            console.log(result, 'line 46')
+            let result = ( 100* parseInt(total_trash_collected)) / parseInt(post.trash_quantity_total);
             setProgressValue(Math.ceil(parseInt(result)))
         }
     }
     useEffect( ()=>{
         getPicture();
         fetchPost(id);
-        updateProgressValue()
     },[]);
+
+    useEffect( ()=>{
+        updateProgressValue()
+    },[updateProgressValue]);
 
     // useEffect( ()=>{
     //     fetchPostsByUser(authData.userId)
@@ -101,7 +98,7 @@ const DetailPost = () => {
                         </div>
                         <div className='flex flex-col'>
                             <h4>Progression de l'objectif :</h4>
-                            <progress id="progressBar" max="100" value={progressValue}>{progressValue}%</progress>
+                            <progress id="progressBar" max={post.trash_quantity_total} value={total_trash_collected}>{progressValue}%</progress>
                         </div>
                         {userAuthenticated && 
                         <div className="flex justify-end">

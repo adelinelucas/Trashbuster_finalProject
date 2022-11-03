@@ -19,7 +19,6 @@ const EditPost = ({action}) => {
         registerData.trash_quantity_collected = selectedPost.trash_quantity_collected;
         registerData.postId = selectedPost._id;
     }
-    // console.log(action)
     const [formData, setFormData] = useState(registerData);
 
     const handelComment = () =>{
@@ -32,10 +31,6 @@ const EditPost = ({action}) => {
     }
     const handelActionForm = (e) =>{
         e.preventDefault();
-        // console.log(e.currentTarget)
-        // const form = new FormData(e.currentTarget);
-        // console.log(form)
-        console.log(formData)
         if(selectedPost){
             updateAction(formData)
         }else {

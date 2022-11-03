@@ -6,7 +6,6 @@ moment.locale('fr');
 
 const url = `http://localhost:5000/cleaning-operation/post/`
 const Comments = ({comments}) => {
-    console.log(comments)
     const [loading, setLoading]= useState(true);
     const [editing, setEditing]= useState(false);
 

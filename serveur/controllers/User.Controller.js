@@ -124,24 +124,8 @@ export const getUserInfos = async(req, res) =>{
         ])
         const quantity = quantityRequest[0].trash_quantity_collected;
         const number = quantityRequest[0].nb;
-        console.log('line 127',quantity, number);
-        // let postQuantity = 0;
-        // let postActions = 0;
-        // let commentQuantity =0;
-        // let commentActions = 0;
-        // if(postQuantityTrashCollected.length> 0){
-        //     postQuantity = postQuantityTrashCollected[0].trash_quantity_collected;
-        //     postActions = postQuantityTrashCollected[0].nb
-        // }
-        // if(commentQuantityTrashCollected.length> 0){
-        //     commentQuantity = commentQuantityTrashCollected[0].trash_quantity_collected;
-        //     commentActions = commentQuantityTrashCollected[0].nb
-        // }
-        // userInfos.quantityTrashCollected = postQuantity + commentQuantity;
-        // userInfos.actionsNumber = postActions + commentActions;
         userInfos.quantityTrashCollected = quantity;
         userInfos.actionsNumber = number;
-        console.log('getUserInfos',userInfos)
 
         // mise à jour du badge utilisateur en fonction de la quantité de déchets total collectée (post + comments)
         if('220'<userInfos.quantityTrashCollected.toString() > '120'){

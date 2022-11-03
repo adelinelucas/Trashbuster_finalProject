@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react';
-import { redirect, useNavigate, useLocation  } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import { useGlobalContext } from '../app/context';
 const registerData = {name:'', lastname:'', pseudo:'', email:'', password:'',confirmPassword:'', userType:'particulier'}
 const loginDatas = {email:'', password:''}
@@ -11,7 +11,6 @@ const Connexion = () => {
     let navigate = useNavigate();
     const [formData, setFormData] = useState(registerData);
     const [loginData, setLoginData] = useState(loginDatas);
-    // const [confirmPassword, setConfirmPassword] = useState('');
     const [isUserRegistered, setIsUserRegistered] = useState(false);
     let cgv = document.getElementById('cgv');
     let cgvInfo = document.getElementById('cgvInfo');
@@ -19,16 +18,9 @@ const Connexion = () => {
     let charteCommuInfo = document.getElementById('charteCommuInfo');
     let passwordConfirmInfo = document.getElementById('passwordConfirmInfo');
 
-
-    // console.log(formData)
     const handleChange =(e) =>{
         setFormData({...formData, [e.target.name]: e.target.value })
     }
-
-    // const handleConfirmPassword =(e) =>{
-    //     setConfirmPassword(e.target.value)
-    //     passwordConfirmInfo.classList.add('hidden')
-    // }
 
     const handelRadioBtn = (e) =>{
         setFormData({...formData, userType: e.target.value })
@@ -48,9 +40,7 @@ const Connexion = () => {
         if(!charteCommu.checked){
            return charteCommuInfo.classList.remove('hidden')
         }
-        console.log(formData.confirmPassword)
-        console.log(formData.password)
-        if(formData.password !== formData.password ){
+        if(formData.password !== formData.confirmPassword ){
             return passwordConfirmInfo.classList.remove('hidden')
         }else {
             register(formData);
@@ -62,9 +52,7 @@ const Connexion = () => {
     }
     const handelConnexionForm =(e)=>{
         e.preventDefault();
-        console.log(loginData)
         login(loginData);
-        // userAuthenticated(true)
     }
 
     useEffect(() => {
@@ -82,10 +70,8 @@ const Connexion = () => {
     useEffect(() => {
         if (userAuthenticated){
             return navigate("/profil", {otherParam: 'fromConnexion'});
-        }},[login]);
-    // if(userAuthenticated){
-    //     return redirect('/liste_des_actions');
-    // }
+        }},[login, register]);
+ 
     if(!isUserRegistered){
         return(
             <div className="w-full flex flex-row justify-around">
