@@ -29,7 +29,7 @@ const Logout = () => {
                     <p><span className="font-bold flex justify-center text-xl text-white">Chaque geste compte !</span></p>
                 </article>
                 <article className="my-6 w-full flex justify-center py-8">
-                    <button id="btnLogout" className={`bg-hero-HP2 bg-no-repeat bg-btnLogout rounded-2xl shadow-lg py-6 px-6 text-orangeV2 border-darkGreen border-r-8 border-b-8 text-3xl font-extrabold w-10/12 md:w-2/4 h-28 lg:h-44 m-auto hover:animate-wobbleAnim drop-shadow-2xl `} onClick={handleLogout}><span className='btnText'>Me déconnecter</span></button>
+                    <button id="btnLogout" className={`bg-hero-HP2 bg-no-repeat bg-btnLogout rounded-2xl shadow-lg py-6 px-6 text-orangeV2 border-darkGreen border-r-8 border-b-8 text-3xl font-extrabold w-10/12 md:w-2/4 h-28 lg:h-64 m-auto hover:animate-wobbleAnim drop-shadow-2xl `} onClick={handleLogout}><span className='btnText'>Me déconnecter</span></button>
                 </article>
             </section>
         </div>

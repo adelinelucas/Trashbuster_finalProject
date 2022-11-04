@@ -43,7 +43,7 @@ module.exports = {
           'cover': 'cover',
           'contain': 'contain',
           'heroSize': '84% 100%',
-          'btnLogout': '102%',
+          'btnLogout': '105%',
         },
         animation: {
           'wobbleAnim': 'myAnim 1s ease 0s 1 normal forwards',
