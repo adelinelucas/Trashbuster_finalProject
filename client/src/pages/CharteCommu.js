@@ -12,13 +12,13 @@ const CharteCommu = () => {
         engagements.map( (data)=>{
             return setTabs((tabs) => [...tabs, data.categorie])
         });
-    },[engagements])
+    },[])
 
     const {categorie, reponses} = engagements[value];
 
     return (
         <section className='w-full my-10 mx-0 md:mx-8 min-h-screen'>
-            <h1 className='text-2xl my-4 text-greenV2 text-center'>Charte de la commuanuté</h1>
+            <h1 className='text-4xl my-4 text-greenV2 text-center'>Charte de la commuanuté</h1>
             <div className='flex flex-col lg:flex-row justify-center'>
                 <aside className='flex flex-col mr-12 '>
                     {

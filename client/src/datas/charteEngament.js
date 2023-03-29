@@ -11,16 +11,16 @@ const charteEngagement = [
         id:2,
         categorie: 'Réutilisation & Recyclage',
         reponses:[
-            "1. titiiit.",
-            "2. tatatatat "
+            "1. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam fuga magnam deleniti soluta illo distinctio ex laboriosam accusantium maiores sapiente earum totam nobis, sint dicta odit? Minima ex obcaecati nostrum inventore reprehenderit fugit porro, est odio maxime eius amet! Deleniti saepe quia error ex repudiandae ipsum officiis placeat distinctio aut..",
+            "2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas consectetur aliquid maiores? "
         ]
     },
     {
         id:3,
         categorie: 'Solidarité',
         reponses:[
-            "1. tetetetet.",
-            "2. tutuutututu"
+            "1. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem sed voluptas eius nemo aspernatur hic quam mollitia maiores reiciendis officia..",
+            "2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam veritatis saepe explicabo rerum fugiat aperiam optio? Earum blanditiis magnam pariatur eveniet cupiditate quam, corporis nemo dicta, deleniti fugiat dolores ducimus rerum, doloribus reprehenderit labore quo laborum exercitationem dolorem itaque aliquam sequi dolorum. Ea voluptate neque eos maxime harum dolor facilis repudiandae natus dicta pariatur voluptas obcaecati rem, adipisci ab dignissimos ullam dolores? Eius quaerat illum amet earum saepe officiis, illo cum quasi maxime corporis incidunt impedit aut veritatis. Assumenda accusamus aperiam vitae blanditiis in tempore magnam neque iure recusandae ullam provident ratione labore doloremque, saepe accusantium, porro quas fugit quod!"
         ]
     },
     {
