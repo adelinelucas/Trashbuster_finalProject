@@ -16,6 +16,8 @@ const reducer= (state, action) =>{
         case ADD_POST:
             state.userPosts.push(action.payload);
             state.post = action.payload;
+            state.userActionsNumber=state.userActionsNumber +1 ;
+            state.userQuantityCollected=action.payload.quantityTrashCollected;
             return {...state};
         case SELECTED_POST:
             return {...state, selectedPost:action.payload};
@@ -28,7 +30,8 @@ const reducer= (state, action) =>{
             }
         case DELETE_POST:
             return {...state, 
-                userPosts:state.userPosts.filter((post) => post._id !== action.payload)
+                userPosts:state.userPosts.filter((post) => post._id !== action.payload),
+                userActionsNumber: state.userActionsNumber -1
             };
         case ADD_COMMENT:
             state.comments.push(action.payload)
