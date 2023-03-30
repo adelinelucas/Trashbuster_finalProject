@@ -75,7 +75,6 @@ export const logout = async(req, res) =>{
  * L'id du user récupéré par le middleware
  */
 export const getUserInfos = async(req, res) =>{
-    console.log('j entre dans getUserInfos');
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
@@ -166,7 +165,6 @@ export const getBadgeCategory = async(req, res) =>{
     try{
         const badgeUser = await UserModel.findOne({_id}, 'badge')
         const badgeLevel = await BadgeModel.findOne({_id: badgeUser.badge}, 'level' )
-        console.log(badgeLevel)
         res.status(200).json({badgeLevel})
     }catch(err){
         res.status(400).json({message:err.message})

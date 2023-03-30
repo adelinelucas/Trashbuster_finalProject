@@ -29,7 +29,6 @@ export const createComment = async(req,res) =>{
 
         // j'ajoute la photo du commentaire dans la collection Picture
         const picture = await PictureModel.create({postId,trash_picture, commentId:mongoose.Types.ObjectId(commentId) });
-
         res.status(200).json({comment})
 
     }catch(err){
