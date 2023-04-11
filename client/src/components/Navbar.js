@@ -25,7 +25,7 @@ const Navbar = () => {
     return (
         <nav className="flex flex-col sm:flex-row items-center sm:items-end justify-between w-full py-10 px-4 shadow-lg">
         <div id="backHP" >
-            <NavLink to={'/'}><img src='/images/logoTB.png' alt="back to home page" className="w-[160px] cursor-pointer"/>
+            <NavLink to={'/'}><img src='/logoTB.png' alt="back to home page" className="w-[160px] cursor-pointer"/>
             </NavLink>
         </div>
         <div className="flex flex-col sm:flex-row text-sm sm:text-base">
