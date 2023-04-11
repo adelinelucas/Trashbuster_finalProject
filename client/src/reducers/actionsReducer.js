@@ -1,4 +1,4 @@
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_POST_MODAL, OPEN_POST_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE, SET_MESSAGE_MODAL, UPDATE_TRASH_COLLECTED } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS, LOGOUT, REGISTER, OPEN_ERROR_MODAL,CLOSE_ERROR_MODAL, LOGIN,DISPLAY_USER_POSTS,CLOSE_POST_MODAL, OPEN_POST_MODAL, SELECTED_POST,CLEAR_SELECTED_POST, SET_COORDINATES, PROFIL_INFOS, COUNT_ACTIONS, PROFIL_BADGE, SET_MESSAGE_MODAL, UPDATE_TRASH_COLLECTED, UPDATE_TRASH_COLLECTED_BY_POST } from '../constants/actionsTypes'
 const reducer= (state, action) =>{
     switch(action.type){
         case OPEN_MODAL:
@@ -16,6 +16,8 @@ const reducer= (state, action) =>{
         case ADD_POST:
             state.userPosts.push(action.payload);
             state.post = action.payload;
+            state.userActionsNumber=state.userActionsNumber +1 ;
+            state.userQuantityCollected=action.payload.quantityTrashCollected;
             return {...state};
         case SELECTED_POST:
             return {...state, selectedPost:action.payload};
@@ -28,7 +30,8 @@ const reducer= (state, action) =>{
             }
         case DELETE_POST:
             return {...state, 
-                userPosts:state.userPosts.filter((post) => post._id !== action.payload)
+                userPosts:state.userPosts.filter((post) => post._id !== action.payload),
+                userActionsNumber: state.userActionsNumber -1
             };
         case ADD_COMMENT:
             state.comments.push(action.payload)
@@ -87,7 +90,8 @@ const reducer= (state, action) =>{
             state.alertInfo = action.payload
             return {...state }
         case UPDATE_TRASH_COLLECTED:
-            console.log(action.payload) 
+            return {...state, total_trash_collected:action.payload }
+        case UPDATE_TRASH_COLLECTED_BY_POST:
             return {...state, total_trash_collected:action.payload }
         default: 
             return state

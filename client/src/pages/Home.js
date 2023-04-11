@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
             <div className="shadow-md w-full h-1" id="separator"></div>
-            <section className="shadow-md h-auto w-full flex flex-col items-center py-28 bg-hero-HP2 bg-no-repeat bg-center bg-cover"  id="heroBloc"> 
+            <section className="shadow-md h-auto w-full flex flex-col items-center py-38 lg:py-48 bg-hero-HP2 bg-no-repeat bg-center bg-cover"  id="heroBloc"> 
                 <article className=" my-0 sm:my-6">
                     <img src="logoTB.png" alt="Trash Buster logo" className="w-[430px] h-auto"  />
                 </article>

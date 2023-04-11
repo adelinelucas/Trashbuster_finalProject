@@ -1,6 +1,6 @@
 import React, {useContext, useReducer, useEffect} from "react"
 import actionsReducer from '../reducers/actionsReducer';
-import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, LOGIN,DISPLAY_USER_POSTS, CLOSE_POST_MODAL, OPEN_POST_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE,SET_MESSAGE_MODAL,REGISTER, UPDATE_TRASH_COLLECTED  } from '../constants/actionsTypes'
+import {OPEN_MODAL, CLOSE_MODAL, ADD_POST, UPDATE_POST, DELETE_POST, ADD_COMMENT,LOADING, DISPLAY_POSTS, DISPLAY_POST, DISPLAY_COMMENTS,COUNT_ACTIONS, LOGIN,DISPLAY_USER_POSTS, CLOSE_POST_MODAL, OPEN_POST_MODAL,SELECTED_POST,CLEAR_SELECTED_POST, LOGOUT,SET_COORDINATES, PROFIL_INFOS, PROFIL_BADGE,SET_MESSAGE_MODAL,REGISTER, UPDATE_TRASH_COLLECTED, UPDATE_TRASH_COLLECTED_BY_POST  } from '../constants/actionsTypes'
 import axios from 'axios';
 // axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
@@ -41,6 +41,7 @@ const initialState= {
     selectedPost : null,
     longitude:null,
     latitude: null,
+    quantityCollectedByPost: 0,
     alertInfo: {
         show:false, msg:'', type:''  
     },
@@ -354,7 +355,8 @@ const AppProvider = ({children}) =>{
         const response = await API
         .post(`${url}/comments`, datas)
         .then((respServeur) => {
-            return dispatch({type: ADD_COMMENT, payload: respServeur.data.comment})
+            dispatch({type: ADD_COMMENT, payload: respServeur.data.comment})
+            if(respServeur.status === 200) actualisationTrashCollectedByPost(datas.postId)
         })
         .catch((error) => {
             let alertPayload = {
@@ -385,6 +387,25 @@ const AppProvider = ({children}) =>{
         })
     } 
 
+    /**
+     * methode pour actualiser le total des déchets collectés
+     */
+    const actualisationTrashCollectedByPost = async(postId)=>{
+        const response = await API
+        .get(`/comments/updateInfosPost/${postId}`)
+        .then((respServeur) => {
+            return dispatch({type: UPDATE_TRASH_COLLECTED_BY_POST, payload: respServeur.data.total})
+        })
+        .catch((error) => {
+            let alertPayload = {
+                show: true,
+                msg : error.response.data.message,
+                type: 'red'
+            }
+            return dispatch({type:SET_MESSAGE_MODAL, payload:alertPayload})
+        })
+    } 
+
     // on appelle le chargement de nos données
     useEffect(()=>{
         fetchPosts();
@@ -392,7 +413,7 @@ const AppProvider = ({children}) =>{
     },[])
 
     return (
-        <AppContext.Provider value={{...state,openCommentModal, closeCommentModal, fetchPost, register, login, fetchPostsByUser, openPostModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge, closeAlert, actualisationTrashCollected}}>
+        <AppContext.Provider value={{...state,openCommentModal, closeCommentModal, fetchPost, register, login, fetchPostsByUser, openPostModal,closeEditModal, registerAction, deleteAction, updateAction, setSelectedPost, clearSelectedPost, addAComment, fetchActionsNumber, fetchPosts, logout, getUserInfo, getUserBadge, closeAlert, actualisationTrashCollected, actualisationTrashCollectedByPost}}>
             {children}
         </AppContext.Provider>
     )

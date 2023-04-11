@@ -75,7 +75,6 @@ export const logout = async(req, res) =>{
  * L'id du user récupéré par le middleware
  */
 export const getUserInfos = async(req, res) =>{
-
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
@@ -116,19 +115,19 @@ export const getUserInfos = async(req, res) =>{
             {$match: {userId: mongoose.Types.ObjectId(_id)}},
             {
                 $group: {
-                    _id:null,
+                    _id:_id,
                     trash_quantity_collected: { $sum: '$trash_quantity_collected' },
                     nb: { $sum: 1 }
                 }
             }
         ])
-        const quantity = quantityRequest[0].trash_quantity_collected;
-        const number = quantityRequest[0].nb;
+        const quantity = quantityRequest[0] != undefined ? quantityRequest[0].trash_quantity_collected : 0 ;
+        const number = quantityRequest[0] != undefined ? quantityRequest[0].nb : 0;
         userInfos.quantityTrashCollected = quantity;
         userInfos.actionsNumber = number;
 
         // mise à jour du badge utilisateur en fonction de la quantité de déchets total collectée (post + comments)
-        if('220'<userInfos.quantityTrashCollected.toString() > '120'){
+        if('220'<quantity.toString() > '120'){
             const updateBadge = await BadgeModel.find({ level:{$eq:"master"} }, '_id' ).exec()
            let badge = (updateBadge[0]._id)
             user = await UserModel.findByIdAndUpdate(
@@ -136,7 +135,7 @@ export const getUserInfos = async(req, res) =>{
                 { badge : badge },
                 {new: true})
             
-        }else if (userInfos.quantityTrashCollected.toString() >= '220'){
+        }else if (quantity.toString() >= '220'){
             const updateBadge = await BadgeModel.find({ level:{$eq:"knight"} }, '_id' )
             let badge = updateBadge[0]._id;
             user = await UserModel.findByIdAndUpdate(
@@ -160,7 +159,7 @@ export const getBadgeCategory = async(req, res) =>{
     if(!req.userId) return res.status(200).json({message: 'Accès refusé, utilisateur non authentifié.'});
 
     let _id = req.userId
-    let user = null;
+    // create badgeTable and rectificate userModel in consequences
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: 'Une erreur est survenue, aucun profil utilisateur correspondant en base de donnée'});
 
     try{

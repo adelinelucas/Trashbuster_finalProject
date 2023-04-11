@@ -1,0 +1,28 @@
+const fakeUsers = [
+    {
+        _id:"64243d78907873df3d39b488",
+        name:"Adeline",
+        lastname:"Webdev",
+        pseudo:"Adeline",
+        email:"adeline@gmail.com",
+        password:"$2a$10$QeMtiYyGqa3WYSYjGA2k0.OT0aOVhdjsj1aPwK0P/31HvsQEj5S1a",
+        userType:"particulier",
+        role:[{"$oid":"6338756521c86af46390b516"}],
+        badge:"explorateur",
+        createdAt:"29 mars 2023",
+        updatedAt:"",
+    },
+    {
+        _id:"64244c30907873df3d39b537",
+        name:"Martin",
+        lastname:"Pecheur",
+        pseudo:"Fish95",
+        email:"martin@gmail.com",
+        password:"$2a$10$QeMtiYyGqa3WYSYjGA2k0.OT0aOVhdjsj1aPwK0P/31HvsQEj5S1a",
+        userType:"association",
+        role:[{"$oid":"6338756521c86af46390b516"}],
+        badge:"explorateur",
+        createdAt:"29 mars 2023",
+        updatedAt:"",
+    },
+]

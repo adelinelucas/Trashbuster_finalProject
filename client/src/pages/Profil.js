@@ -39,7 +39,7 @@ const Profil = () => {
         <>
         
             <section className="w-full flex justify-center">
-                <h1 className="text-center md:text-left text-greenV2 text-2xl font-bold py-4">Mes actions & participations</h1>
+                <h1 className="text-center md:text-left text-greenV2 text-4xl font-bold py-4">Mes actions & participations</h1>
             </section>
             {messageUser && 
                 <section className="w-full flex justify-center">

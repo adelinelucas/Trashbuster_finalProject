@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {FaWindowClose} from 'react-icons/fa'
 import { useGlobalContext } from '../app/context';
 import FileBase from 'react-file-base64';
 
 const AddComment = ({idPost}) => {
-    const {closeCommentModal, commentModalOpen, post, addAComment, actualisationTrashCollected} = useGlobalContext();
+    const {closeCommentModal, commentModalOpen, post, addAComment, actualisationTrashCollectedByPost, comments, quantityCollectedByPost} = useGlobalContext();
 
     const commentData = {userId:'', postId:post._id, userId:post.userId,title:'', content:'', trash_picture:'', trash_quantity_collected:'' }
 
@@ -22,8 +22,8 @@ const AddComment = ({idPost}) => {
         e.preventDefault();
         addAComment(formCommentData)
         closeCommentModal()
-        actualisationTrashCollected(post._id)
     }
+
     return (
         <section className="absolute w-full flex flex-col justify-center items-center bg-popUp z-10 top-[15%] h-min-screen py-12">
             <div id="add comment" className="w-10/12  lg:w-3/5 btnNavBarShadow flex flex-col items-center my-3 bg-lightGrey p-5">
