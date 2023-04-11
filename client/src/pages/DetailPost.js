@@ -29,7 +29,7 @@ const DetailPost = () => {
     
     const getPicture = async()=>{
         try{
-            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${id}`);
+            const response = await fetch(`https://trashbuster-finalproject.onrender.com/cleaning-operation/picture/${id}`);
             const data = await response.json();
             setPicture(data.picture.trash_picture)
             // setComments(post.postComments)

@@ -5,7 +5,7 @@ import axios from 'axios';
 // axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
 // middleware : creation d'une instance axios pour envoyer le bearer token au back qui pourra alors confirmer l'autorisation d'accès du user
-const API = axios.create({ baseURL: 'https://trashbuster-finalproject.onrender.com/'});
+const API = axios.create({ baseURL: 'https://trashbuster-finalproject.onrender.com'});
 
 API.interceptors.request.use( (req)=> {
     if(sessionStorage.getItem('profil')){
@@ -14,7 +14,7 @@ API.interceptors.request.use( (req)=> {
     return req;
 })
 // 
-const url = `https://trashbuster-finalproject.onrender.com/`;
+const url = `https://trashbuster-finalproject.onrender.com`;
 
 // initialisation du context
 const AppContext = React.createContext();
