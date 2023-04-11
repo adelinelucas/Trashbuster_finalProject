@@ -4,14 +4,14 @@ import moment from 'moment';
 import 'moment/locale/fr'
 moment.locale('fr');
 
-const url = `http://localhost:5000/cleaning-operation/post/`
+const url = `https://trashbuster-finalproject.onrender.com/post/`
 
 const Comment = ({comment}) => {
     const [picture, setPicture] = useState(null);
 
     const getPicture = async()=>{
         try{
-            const response = await fetch(`http://localhost:5000/cleaning-operation/picture/${comment._id}`);
+            const response = await fetch(`https://trashbuster-finalproject.onrender.com/cleaning-operation/picture/${comment._id}`);
             const data = await response.json();
             setPicture(data.picture.trash_picture)
         }catch(error){

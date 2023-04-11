@@ -13,7 +13,7 @@ import 'moment/locale/fr';
 moment.locale('fr');
 //
 
-const url = `http://localhost:5000/cleaning-operation/post/`
+const url = `https://trashbuster-finalproject.onrender.com/post/`
 const DetailPost = () => {
     const {id} = useParams();
     const {loading,openCommentModal,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated, longitude, latitude, total_trash_collected, quantityCollectedByPost } = useGlobalContext();

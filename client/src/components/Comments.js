@@ -4,7 +4,7 @@ import 'moment/locale/fr'
 import Comment from './Comment';
 moment.locale('fr');
 
-const url = `http://localhost:5000/cleaning-operation/post/`
+const url = `https://trashbuster-finalproject.onrender.com/post/`
 const Comments = ({comments}) => {
     const [loading, setLoading]= useState(true);
     const [editing, setEditing]= useState(false);
