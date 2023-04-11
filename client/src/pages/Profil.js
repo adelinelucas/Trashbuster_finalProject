@@ -33,7 +33,7 @@ const Profil = () => {
         // fetchPostsByUser(authData.userId)
         getUserInfo();
         getUserBadge()
-    }, [])
+    }, [getUserInfo,getUserBadge ])
 
     return (
         <>
