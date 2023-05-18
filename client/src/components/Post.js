@@ -26,7 +26,7 @@ const Post = ({post, action}) => {
     const getPicture = async()=>{
         try{
             const response = await fetch(`https://trashbuster-finalproject.onrender.com/cleaning-operation/picture/${post._id}`);
-            const data = await response.json();
+            const data = await response?.json();
             setPicture(data.picture.trash_picture)
         }catch(error){
             console.log(error)
@@ -65,7 +65,9 @@ const Post = ({post, action}) => {
                 }
 
                 <div className='my-4'>
+                    {post?.fakePost ? <Link to={`/detail_actionv2/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Voir le détail de l'action</Link>:
                     <Link to={`/detail_action/${post._id}`} className="border rounded-full p-2 mr-2 my-4 bg-greenApple text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4">Voir le détail de l'action</Link>
+                    }
                 </div>
                 {action == 'edit' ? 
                     <div className="flex justify-end">

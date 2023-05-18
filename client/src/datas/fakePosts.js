@@ -11,6 +11,7 @@ const fakePosts = [
         trash_quantity_collected :12,
         createdAt: "2023-03-29T13:32:13.098+00:00",
         updatedAt: "2023-03-29T13:32:13.098+00:00",
+        fakePost : true
     },
     {
         _id: '64243f9c907873df3d39b4b7',
@@ -24,5 +25,8 @@ const fakePosts = [
         trash_quantity_collected :12,
         createdAt: "2023-03-29T13:32:13.098+00:00",
         updatedAt: "2023-03-29T13:32:13.098+00:00",
+        fakePost : true
     }
 ]
+
+export default fakePosts;

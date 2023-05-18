@@ -11,3 +11,5 @@ const fakeComments = [
         updatedAt: "2023-03-29T13:51:00.348+00:00"
     }
 ]
+
+export default fakeComments;

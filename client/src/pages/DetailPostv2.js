@@ -1,42 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import Comments from '../components/Comments';
-import Loading from '../components/Loading';
 import { useParams, useLocation } from 'react-router-dom';
-import AddComment from '../components/AddComment';
-import { useGlobalContext } from '../app/context';
 import {MapContainer, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import moment from 'moment';
 import 'moment/locale/fr';
-
+import fakePosts from '../datas/fakePosts';
+import fakeComments from '../datas/fakeComments';
+import fakePicture from '../datas/fakePicture';
 //
 moment.locale('fr');
 //
 
-const url = `https://trashbuster-finalproject.onrender.com/post/`
-const DetailPost = () => {
-    const {id} = useParams();
-    const {loading,openCommentModal,fetchPost, comments, commentModalOpen, post, isEditing, userAuthenticated, longitude, latitude, total_trash_collected, quantityCollectedByPost } = useGlobalContext();
-    const location = useLocation();
-    const [picture, setPicture] = useState(null);
-    const [progressValue, setProgressValue] = useState(0)
-    const handleComment =() =>{
-        openCommentModal(commentModalOpen);
-    }
 
-    const center = [latitude, longitude]
-    const url = `https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=${process.env.REACT_APP_API_KEY}`
-    
-    const getPicture = async()=>{
-        try{
-            const response = await fetch(`https://trashbuster-finalproject.onrender.com/cleaning-operation/picture/${id}`);
-            const data = await response?.json();
-            setPicture(data.picture.trash_picture)
-            // setComments(post.postComments)
-        }catch(error){
-            console.log(error)
+const DetailPostv2 = () => {
+    const {id} = useParams();
+    const posts = fakePosts;
+    let post;
+    let comments=[];
+    let picture;
+    let total_trash_collected = 0;
+    for (const [key, value] of Object.entries(posts)) {
+        if(value._id === id) {
+            post = posts[key];
+            total_trash_collected += Number(posts[key].trash_quantity_collected)
         }
     }
+    for (const [key, value] of Object.entries(fakeComments)) {
+        if(value.postId === post._id){
+            comments.push(fakeComments[key])
+            total_trash_collected += Number(fakeComments[key].trash_quantity_collected)
+        } 
+    }
+    for (const [key, value] of Object.entries(fakePicture)) {
+        if(value.postId === post._id) picture= fakePicture[key].trash_picture
+    }
+    const [longitude, setLongitude]= useState(null); 
+    const [latitude, setLatitude]= useState(null); 
+
+    const getMap = (data) =>{
+        var requestOptions = {
+            method: 'GET',
+          };
+        //   https://api.geoapify.com/v1/geocode/search?text=142%20rue%20Henri%20Barbusse%2C%2093300%20Aubervilliers&lang=fr&limit=1&type=street&format=json&apiKey=YOUR_API_KEY
+        let postalCode = data.postalCode;
+        let city = data.city;
+        let street = data.street.replace(' ', '%20');
+        let locationURL = `https://api.geoapify.com/v1/geocode/search?text=${street}%2C%20${postalCode}%20${city}&lang=fr&limit=1&type=street&format=json&apiKey=${process.env.REACT_APP_API_KEY}`;
+        fetch(locationURL, requestOptions)
+            .then(response => response.json())
+            .then(result => {  
+                setLatitude(result.results[0].lat);
+                setLongitude(result.results[0].lon);
+            })
+            .catch(error => console.log('error', error));
+    }
+    getMap(post)
+
+    const [progressValue, setProgressValue] = useState(0)
+    const center = [latitude, longitude]
+    const url = `https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=${process.env.REACT_APP_API_KEY}`
 
     const updateProgressValue = () =>{
         if(post.trash_quantity_total){
@@ -44,10 +67,6 @@ const DetailPost = () => {
             setProgressValue(Math.ceil(parseInt(result)))
         }
     }
-    useEffect( ()=>{
-        getPicture();
-        fetchPost(id);
-    },[]);
 
     useEffect( ()=>{
         updateProgressValue()
@@ -56,14 +75,6 @@ const DetailPost = () => {
     // useEffect( ()=>{
     //     fetchPostsByUser(authData.userId)
     // }, [])
-
-    if(loading){
-        return (
-            <section className="w-full flex justify-center min-h-screen">
-                <Loading/>
-            </section>
-        )
-    }
     
     return (
         <section className="w-full flex flex-col justify-center items-center">
@@ -100,10 +111,6 @@ const DetailPost = () => {
                             <h4>Progression de l'objectif :</h4>
                             <progress id="progressBar" max={post.trash_quantity_total} value={total_trash_collected}>{progressValue}%</progress>
                         </div>
-                        {userAuthenticated && 
-                        <div className="flex justify-end">
-                            <button className="border rounded-full p-2 mr-2 my-4 bg-greenV2 text-white cursor-pointer btnInscription shadow-lg border-white border-r-4 border-b-4" onClick={handleComment}>Commenter l'action</button>
-                        </div>}
                         <div className='flex justify-end'>
                             <p className="py-2 text-sm italic text-end">{moment(post.createdAt).fromNow()}</p>
                          </div>
@@ -125,10 +132,9 @@ const DetailPost = () => {
                 </div>
             
             </article>
-            {comments.length > 0 ? <Comments comments={comments} /> : ''}
-            {commentModalOpen=== true && <AddComment idPost={post._id}/>}
+            {comments && comments.length > 0 ? <Comments comments={comments} /> : ''}
         </section>
     );
 };
 
-export default DetailPost;
+export default DetailPostv2;
