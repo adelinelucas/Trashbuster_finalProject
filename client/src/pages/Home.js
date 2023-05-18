@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {FaRecycle, FaLocationArrow, FaBalanceScale} from 'react-icons/fa';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { useGlobalContext } from '../app/context';
 
 const Home = () => {
+    const { fetchPosts} = useGlobalContext();
+    useEffect( ()=>{
+        fetchPosts();
+    },[]);
     return (
         <>
             <div className="shadow-md w-full h-1" id="separator"></div>
