@@ -34,8 +34,8 @@ const PostsList = () => {
                             <NavLink to={'/liste_des_actions_v2'}>Voir les actions
                         </NavLink>
                         </button>
-                        <button className="m-2 p-2 bg-brightYellow text-white cursor-pointer btnNavBar btnNavBarShadow" type='button' onClick={()=>setChargeDatas(!chargeData)} >Recharger les données
-                        </button>
+                        {/* <button className="m-2 p-2 bg-brightYellow text-white cursor-pointer btnNavBar btnNavBarShadow" type='button' onClick={()=>setChargeDatas(!chargeData)} >Recharger les données
+                        </button> */}
                     </aside>
                 }
                 
